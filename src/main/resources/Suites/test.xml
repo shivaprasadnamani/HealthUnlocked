@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Suite" parallel="false">
+  <test name="Test">
+    <classes>
+      <class name="com.hu.tests.join.JoinTest" />
+      <class name="com.hu.tests.login.LoginTest" />
+      <class name="com.hu.tests.signup.SignUpTest"/>
+    </classes>
+  </test> 
+</suite> 
