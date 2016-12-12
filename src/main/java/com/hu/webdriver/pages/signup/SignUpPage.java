@@ -71,6 +71,11 @@ public class SignUpPage extends BasePage {
 	@FindBy(id="register-password-input")
 	WebElement password;
 	/**
+	 * WebElement for find communities
+	 */
+	@FindBy(xpath="//h3[text()='Popular communities']")
+	WebElement popularCommunities;
+	/**
 	 * Method for click on sign up
 	 */
 	public void clickOnSignUp() {
@@ -154,5 +159,14 @@ public class SignUpPage extends BasePage {
 	 */
 	public void setPassword(String value){
 		password.sendKeys(value);
+	}
+	/**
+	 * Method to verify find communities
+	 * @return boolean
+	 */
+	public boolean verifyPopularCommunities(){
+		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("//h3[text()='Popular communities']"));
+	return popularCommunities.isDisplayed();
+		
 	}
 }

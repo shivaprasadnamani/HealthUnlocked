@@ -77,8 +77,11 @@ public class SignUpTest extends BaseTest {
 		// Set email id
 		signUpPage.setEmailId("shivaprasadnamani2016@gmail.com");
 		// Set password
-		signUpPage.setPassword("shivapasad9");
+		signUpPage.setPassword("shivaprasad9");
 		// Click on click on sign up with email
 		signUpPage.clickOnSignUpWithEmail();
+		// Verify find communities
+		Assert.assertTrue(signUpPage.verifyPopularCommunities());
 	}
+	
 }
