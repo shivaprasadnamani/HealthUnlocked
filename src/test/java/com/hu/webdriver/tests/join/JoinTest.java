@@ -54,7 +54,7 @@ public class JoinTest extends BaseTest {
 		// Click on submit
 		loginPage.clickOnSubmit();
 		// Get join page
-		joinPage.getJoinPage();
+		joinPage.navigateToJoinPage();
 		// Click on follow button
 		joinPage.clickOnFollowButton();
 		// Verify community icon
@@ -81,7 +81,7 @@ public class JoinTest extends BaseTest {
 		//
 		loginPage.clickOnSubmit();
 		//
-		joinPage.getJoinPage();
+		joinPage.navigateToJoinPage();
 		
 		//
 		String communityText = joinPage.getCommunityTitle();
@@ -107,26 +107,26 @@ public class JoinTest extends BaseTest {
 	 * JoinTest-T1127:Finish registration process
 	 */
 	@Test(description = "JoinTest-T1127:Finish registration process")
-	public void verifyFollowAlert(){
-		//
+	public void finishRegistrationProcess(){
+		//Click on login
 		loginPage.clickOnLogin();
-		//
+		// Set user name
 		loginPage.setUserName("shivaprasadnamani2016@gmail.com");
-		//
+		// Set password
 		loginPage.setPassWord("shivaprasad9");
-		//
+		// Click on submit
 		loginPage.clickOnSubmit();
-		//
-		joinPage.getJoinPage();
-		//
+		// Navigate to join page
+		joinPage.navigateToJoinPage();
+		// Click on follow button
 		joinPage.clickOnFollowButton();
-		//
+		// click on finish button
 		joinPage.clickOnFinishButton();
-		//
+		// Store User Name in to string
 		String userName = joinPage.getUserName();
-		//
+		// Verify whether news feed alert header is displating or not
 		Assert.assertTrue(joinPage.verifyNewsfeedAlertHeader(userName));
 	}
-	
 
+	
 }

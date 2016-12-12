@@ -69,7 +69,7 @@ public class JoinPage extends BasePage {
 	/**
 	 * Method to get join page
 	 */
-	public void getJoinPage() {
+	public void navigateToJoinPage() {
 		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//div[@class='userHomeNav-username']"));
 		driver.get("https://healthunlocked.com/join");
 	}
