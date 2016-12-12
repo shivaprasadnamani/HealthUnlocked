@@ -40,7 +40,32 @@ public class JoinPage extends BasePage {
 	 */
 	@FindBy(xpath = "(//div[@class='clearfix communityBox-flat'])[1]")
 	WebElement communityIcon;
-
+	/**
+	 * WebElement for close button
+	 */
+	@FindBy(css=".close")
+	WebElement closeButton;
+	/**
+	 * WebElement for community title
+	 */
+	@FindBy(xpath = "(//div[@class='box-title'])[1]")
+	WebElement communityTitle;
+	/**
+	 * WebElement for alert header
+	 */
+	//@FindBy(xpath = "//h1[@class='center']")
+	//WebElement alertHeader;
+	/**
+	 * 
+	 */
+	 @FindBy(css = ".center")
+	 WebElement joinPagealertHeader;
+	
+	 @FindBy(xpath = "//button[text()='Finish']")
+	 WebElement finishButton;
+	 
+	 @FindBy(css = ".userHomeNav-username")
+	 WebElement profileName;
 	/**
 	 * Method to get join page
 	 */
@@ -53,7 +78,7 @@ public class JoinPage extends BasePage {
 	 * Method to click on follow button
 	 */
 	public void clickOnFollowButton() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("(//button[text()='Follow'])[1]"));
+		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("(//button[text()='Follow'])[1]"));
 		followButton.click();
 	}
 
@@ -72,5 +97,46 @@ public class JoinPage extends BasePage {
 	 */
 	public void getHomePage() {
 		driver.get("https://healthunlocked.com/");
+	}
+	/**
+	 * Method for click on close button
+	 */
+	public void clickonCloseButton(){
+		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.cssSelector(".close"));
+		closeButton.click();
+	}
+	/**
+	 * Method to get community title
+	 */
+	public String getCommunityTitle(){
+		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("(//div[@class='box-title'])[1]"));
+		 String communityTitleText = communityTitle.getText();
+		 return communityTitleText;
+	}
+	/**
+	 * Method to check whether followed community displayed
+	 * @param communityName
+	 * @return boolean
+	 */
+	public boolean isFollowedCommunityDisplayed(String communityName){
+		String xpathExpression = "//h6/span[text()='"+communityName+"']";
+		return isElementPresent(MAX_WEBELMENT_TIMEOUT,By.xpath(xpathExpression));
+	}
+
+	public boolean verifyNewsfeedAlertHeader(String userName){
+		String xpathExpression = "//h1[text()='Welcome, "+userName+"!']";
+		return isElementPresent(MAX_WEBELMENT_TIMEOUT, By.xpath(xpathExpression));
+	}
+	
+	
+	/**
+	 * Method to click on finish button
+	 */
+	public void clickOnFinishButton(){
+		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("//button[text()='Finish']"));
+		finishButton.click();
+	}
+	public String getUserName(){
+		return profileName.getText();
 	}
 }

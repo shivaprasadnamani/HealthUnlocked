@@ -1,5 +1,6 @@
 package com.hu.webdriver.tests.join;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -35,6 +36,7 @@ public class JoinTest extends BaseTest {
 		loginPage = new LoginPage(driver);
 		homePage = new HomePage(driver);
 		userProfilePage = new UserProfilePage(driver);
+		driver.get("https://healthunlocked.com/");
 
 	}
 
@@ -64,5 +66,67 @@ public class JoinTest extends BaseTest {
 		// Click on Logout
 		userProfilePage.clickOnLogout();
 	}
+	
+	/**
+	 *  Join Page-T1125: Un follow a community I just followed on join page
+	 */
+	@Test(description = " Join Page-T1125:Unfollow a community I just followed on join page")
+	public void verifyFollowCommunity(){	
+		//
+		loginPage.clickOnLogin();
+		//
+		loginPage.setUserName("shivaprasadnamani2016@gmail.com");
+		//
+		loginPage.setPassWord("shivaprasad9");
+		//
+		loginPage.clickOnSubmit();
+		//
+		joinPage.getJoinPage();
+		
+		//
+		String communityText = joinPage.getCommunityTitle();
+		
+		//
+		joinPage.clickOnFollowButton();
+		
+		Assert.assertTrue(joinPage.isFollowedCommunityDisplayed(communityText));
+		
+		//
+		joinPage.clickonCloseButton();
+		
+		//
+		Assert.assertFalse(joinPage.isFollowedCommunityDisplayed(communityText));
+		//
+		joinPage.getHomePage();
+		//
+		userProfilePage.clickOnUserProfile();
+		//
+		userProfilePage.clickOnLogout();
+	}
+	/**
+	 * JoinTest-T1127:Finish registration process
+	 */
+	@Test(description = "JoinTest-T1127:Finish registration process")
+	public void verifyFollowAlert(){
+		//
+		loginPage.clickOnLogin();
+		//
+		loginPage.setUserName("shivaprasadnamani2016@gmail.com");
+		//
+		loginPage.setPassWord("shivaprasad9");
+		//
+		loginPage.clickOnSubmit();
+		//
+		joinPage.getJoinPage();
+		//
+		joinPage.clickOnFollowButton();
+		//
+		joinPage.clickOnFinishButton();
+		//
+		String userName = joinPage.getUserName();
+		//
+		Assert.assertTrue(joinPage.verifyNewsfeedAlertHeader(userName));
+	}
+	
 
 }
