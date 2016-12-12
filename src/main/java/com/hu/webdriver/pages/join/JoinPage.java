@@ -26,12 +26,6 @@ public class JoinPage extends BasePage {
 	}
 
 	/**
-	 * WebElement for join page header
-	 */
-	@FindBy(xpath = "header-title")
-	WebElement joinPageHeader;
-
-	/**
 	 * WebElement for follow button
 	 */
 	@FindBy(xpath = "(//button[text()='Follow'])[1]")
