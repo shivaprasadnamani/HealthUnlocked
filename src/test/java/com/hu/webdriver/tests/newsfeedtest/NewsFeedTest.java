@@ -9,14 +9,16 @@ import com.hu.webdriver.pages.userprofilepage.UserProfilePage;
 import com.hu.webdriver.tests.BaseTest;
 
 /**
- * 
+ *
  * @author SHIVA
  *
  */
 public class NewsFeedTest extends BaseTest {
-
-	NewsFeedPage newsfeedpage;
+	/**
+	 * Instance variables
+	 */
 	LoginPage loginpage;
+	NewsFeedPage newsfeedpage;
 	UserProfilePage userprofilepage;
 
 	@BeforeMethod
@@ -26,19 +28,18 @@ public class NewsFeedTest extends BaseTest {
 		userprofilepage = new UserProfilePage(driver);
 
 		loginpage.clickOnLogin();
-		loginpage.setUserName("shivaprasadnamani2016@gmail.com");
-		loginpage.setPassWord("shivaprasad9");
+		loginpage.setUserName(propertyUtil.getProperty("userName"));
+		loginpage.setPassWord(propertyUtil.getProperty("password"));
 		loginpage.clickOnSubmit();
-
 	}
 
 	/**
 	 * News feed Page-T1135:Delete user
 	 */
-	@Test(description = "Newsfeed Page-T1135:Delete user")
+	@Test(description = "Newsfeed Page-T1135:Delete user.")
 	public void deleteUser() {
 		// Click on User Profile
-		userprofilepage.clickOnUserProfile();
+		newsfeedpage.clickOnUserProfile();
 		// Click on Account Settings
 		newsfeedpage.clickOnAccountSettings();
 		// Click on show Account Delete Button
