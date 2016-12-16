@@ -75,7 +75,7 @@ public class NewsFeedPage extends BasePage {
 	WebElement userProfile;
 
 	/**
-	 * WebElement for user profile.
+	 * WebElement for user profile for valid Credentials.
 	 */
 	@FindBy(xpath = "//span[text()='shivaprasad123']")
 	WebElement userProfileForValidCredentials;
@@ -161,11 +161,14 @@ public class NewsFeedPage extends BasePage {
 	}
 
 	/**
-	 * Method to navigate to News feed page.
+	 * Method to verify news feed alert header.
+	 *
+	 * @param userName
+	 * @return boolean
 	 */
-	public void navigateToNewsfeedPage() {
-		driver.navigate().to("https://healthunlocked.com");
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//a[text()='News Feed']"));
+	public boolean isNewsfeedAlertHeader(String userName) {
+		final String xpathExpression = "//h1[text()='Welcome, " + userName + "!']";
+		return isElementPresent(MAX_WEBELMENT_TIMEOUT, By.xpath(xpathExpression));
 	}
 
 	/**
@@ -173,19 +176,16 @@ public class NewsFeedPage extends BasePage {
 	 *
 	 * @return boolean.
 	 */
-	public boolean newsfeeddisplay() {
+	public boolean isNewsfeedDisplay() {
 		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.linkText("News Feed"));
 		return newsfeed.isDisplayed();
 	}
 
 	/**
-	 * Method to verify news feed alert header.
-	 *
-	 * @param userName
-	 * @return boolean
+	 * Method to navigate to News feed page.
 	 */
-	public boolean verifyNewsfeedAlertHeader(String userName) {
-		final String xpathExpression = "//h1[text()='Welcome, " + userName + "!']";
-		return isElementPresent(MAX_WEBELMENT_TIMEOUT, By.xpath(xpathExpression));
+	public void navigateToNewsfeedPage() {
+		driver.navigate().to("https://healthunlocked.com");
+		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//a[text()='News Feed']"));
 	}
 }

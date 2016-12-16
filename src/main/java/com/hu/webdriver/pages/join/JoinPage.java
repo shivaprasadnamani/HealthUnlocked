@@ -27,7 +27,7 @@ public class JoinPage extends BasePage {
 	/**
 	 * WebElement for Community search.
 	 */
-	@FindBy(id="directory-search-input")
+	@FindBy(id = "directory-search-input")
 	WebElement communitySearch;
 
 	/**
@@ -49,19 +49,14 @@ public class JoinPage extends BasePage {
 	WebElement followButton;
 
 	/**
-	 * WebElement for Join page alert header.
-	 */
-	@FindBy(css = ".center")
-	WebElement joinPagealertHeader;
-
-	/**
-	 * WebElement for find communities.
+	 * WebElement for Popular communities.
 	 */
 	@FindBy(xpath = "//h3[text()='Popular communities']")
 	WebElement popularCommunities;
 
 	/**
 	 * Constructor for JoinPage.
+	 *
 	 * @param driver
 	 */
 	public JoinPage(WebDriver driver) {
@@ -95,12 +90,22 @@ public class JoinPage extends BasePage {
 
 	/**
 	 * Method to get community title.
+	 *
 	 * @return String
 	 */
 	public String getCommunityTitle() {
 		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("(//div[@class='box-title'])[1]"));
 		final String communityTitleText = communityTitle.getText();
 		return communityTitleText;
+	}
+
+	/**
+	 * Method to verify community icon.
+	 *
+	 * @return boolean
+	 */
+	public boolean isCommunityIcon() {
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("(//div[@class='clearfix communityBox-flat'])[1]"));
 	}
 
 	/**
@@ -111,31 +116,7 @@ public class JoinPage extends BasePage {
 	 */
 	public boolean isFollowedCommunityDisplayed(String communityName) {
 		final String xpathExpression = "//h6/span[text()='" + communityName + "']";
-		return isElementPresent(MIN_WEBELMENT_TIMEOUT, By.xpath(xpathExpression));
-	}
-
-	/**
-	 * Method to get join page.
-	 */
-	public void navigateToJoinPage() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//div[@class='userHomeNav-username']"));
-		driver.get("https://healthunlocked.com/join");
-	}
-
-	public void searcCommunity(){
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.id("directory-search-input"));
-		communitySearch.click();
-		communitySearch.sendKeys("Running");
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("(//button[text()='Follow'])[1]"));
-	}
-
-	/**
-	 * Method to verify community icon.
-	 * @return boolean
-	 */
-	public boolean verifyCommunityIcon() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("(//div[@class='clearfix communityBox-flat'])[1]"));
-		return communityIcon.isDisplayed();
+		return isElementPresent(MAX_WEBELMENT_TIMEOUT, By.xpath(xpathExpression));
 	}
 
 	/**
@@ -143,7 +124,25 @@ public class JoinPage extends BasePage {
 	 *
 	 * @return boolean
 	 */
-	public boolean verifyPopularCommunities() {
+	public boolean isPopularCommunities() {
 		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Find communities']"));
+	}
+
+	/**
+	 * Method to navigate Join page.
+	 */
+	public void navigateToJoinPage() {
+		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//div[@class='userHomeNav-username']"));
+		driver.get("https://healthunlocked.com/join");
+	}
+
+	/**
+	 * Method to search Community.
+	 */
+	public void searcCommunity() {
+		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.id("directory-search-input"));
+		communitySearch.click();
+		communitySearch.sendKeys("Running");
+		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("(//button[text()='Follow'])[1]"));
 	}
 }

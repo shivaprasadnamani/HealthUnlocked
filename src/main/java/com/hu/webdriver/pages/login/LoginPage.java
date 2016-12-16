@@ -15,16 +15,16 @@ import com.hu.webdriver.pages.BasePage;
  */
 public class LoginPage extends BasePage {
 	/**
-	 * WebElement for Alert Message.
-	 */
-	@FindBy(xpath = "//*[contains(text(),'It looks like that email')]")
-	WebElement credentialsAlertMessage;
-
-	/**
 	 * WebElement for Forgot Password.
 	 */
 	@FindBy(xpath = "//a[text()='Forgot your password?']")
 	WebElement forgotPassword;
+
+	/**
+	 * WebElement for credentials Alert Message.
+	 */
+	@FindBy(xpath = "//*[contains(text(),'It looks like that email')]")
+	WebElement invalidLoginCredentialsBannerMessage;
 
 	/**
 	 * WebElement for Login.
@@ -35,7 +35,7 @@ public class LoginPage extends BasePage {
 	/**
 	 * WebElement for login model close button.
 	 */
-	@FindBy(xpath = "(//button[@type='button'])[1]")
+	@FindBy(css = ".modal-close")
 	WebElement loginModelCloseButton;
 
 	/**
@@ -53,7 +53,7 @@ public class LoginPage extends BasePage {
 	/**
 	 * WebElement for Submit Button.
 	 */
-	@FindBy(xpath = "//button[@id='login-submit-button']")
+	@FindBy(id = "login-submit-button")
 	WebElement submit;
 
 	/**
@@ -92,7 +92,7 @@ public class LoginPage extends BasePage {
 	 * Method to click on login model close button.
 	 */
 	public void clickOnLoginModelCloseButtton() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("(//button[@type='button'])[1]"));
+		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.cssSelector(".modal-close"));
 		loginModelCloseButton.click();
 	}
 
@@ -104,12 +104,31 @@ public class LoginPage extends BasePage {
 	}
 
 	/**
+	 * Method to verify the Alert Message is Displaying or not.
+	 *
+	 * @return boolean
+	 */
+	public boolean isCredentialsAlertMessage() {
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT,
+				By.xpath("//*[contains(text(),'It looks like that email')]"));
+	}
+
+	/**
 	 * Method to check whether is Email Text Field Visible.
 	 *
 	 * @return boolean
 	 */
 	public boolean isEmailTextFieldVisible() {
 		return isElementPresent(MIN_WEBELMENT_TIMEOUT, By.id("login-email-input"));
+	}
+
+	/**
+	 * Method to verify Model is Present or not.
+	 *
+	 * @return boolean
+	 */
+	public boolean isModelIsPresent() {
+		return isElementPresent(modelHeader);
 	}
 
 	/**
@@ -128,24 +147,5 @@ public class LoginPage extends BasePage {
 	 */
 	public void setUserName(String value) {
 		userName.sendKeys(value);
-	}
-
-	/**
-	 * Method to verify the Alert Message is Displaying or not.
-	 *
-	 * @return boolean
-	 */
-	public boolean verifyCredentialsAlertMessage() {
-		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT,
-				By.xpath("//*[contains(text(),'It looks like that email')]"));
-	}
-
-	/**
-	 * Method to verify Model is Present or not.
-	 *
-	 * @return boolean
-	 */
-	public boolean verifyModelIsPresent() {
-		return isElementPresent(modelHeader);
 	}
 }

@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.hu.webdriver.pages.BasePage;
 
@@ -25,7 +23,7 @@ public class HomePage extends BasePage {
 	/**
 	 * WebElement for about us page header.
 	 */
-	@FindBy(xpath = "//h3[text()='What is HealthUnlocked?']")
+	@FindBy(css = ".selected")
 	WebElement aboutusPageHeader;
 
 	/**
@@ -85,7 +83,7 @@ public class HomePage extends BasePage {
 	/**
 	 * WebElement for search text.
 	 */
-	@FindBy(xpath = "//input[@class='search-text']")
+	@FindBy(css = ".search-text")
 	WebElement searchText;
 
 	/**
@@ -115,13 +113,6 @@ public class HomePage extends BasePage {
 	}
 
 	/**
-	 * Method to click on home page.
-	 */
-	public void clickOnHomePage() {
-		driver.get("https://healthunlocked.com");
-	}
-
-	/**
 	 * Method to click on jobs.
 	 */
 	public void clickOnJobs() {
@@ -143,10 +134,58 @@ public class HomePage extends BasePage {
 	}
 
 	/**
-	 * Method for get home page.
+	 * Method to verify about us page.
+	 *
+	 * @return boolean
+	 */
+	public boolean isAboutUsPage() {
+		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.cssSelector(".selected"));
+		return aboutusPageHeader.isDisplayed();
+	}
+
+	/**
+	 * Method to verify community page.
+	 *
+	 * @return boolean
+	 */
+	public boolean isCommunityPage() {
+		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Find communities']"));
+		return communitiesPageHeader.isDisplayed();
+	}
+
+	/**
+	 * Method to verify home page.
+	 *
+	 * @return boolean
+	 */
+	public boolean isHomePage() {
+		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//img[@class='logo']"));
+		return healthUnlockedImage.isDisplayed();
+	}
+
+	/**
+	 * Method to verify jobs page.
+	 *
+	 * @return boolean
+	 */
+	public boolean isJObsPage() {
+		return jobsPageHeader.isDisplayed();
+	}
+
+	/**
+	 * Method to verify news page.
+	 *
+	 * @return boolean
+	 */
+	public boolean isNewsPage() {
+		return newsPageHeader.isDisplayed();
+	}
+
+	/**
+	 * Method for navigate to Home page.
 	 */
 	public void navigateToHomePage() {
-		driver.get("https://healthunlocked.com/");
+		driver.navigate().to("https://healthunlocked.com/");
 	}
 
 	/**
@@ -159,68 +198,9 @@ public class HomePage extends BasePage {
 	}
 
 	/**
-	 * Method to verify about us page.
-	 *
-	 * @return boolean
-	 */
-	public boolean verifyAboutUsPage() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h3[text()='What is HealthUnlocked?']"));
-		return aboutusPageHeader.isDisplayed();
-	}
-
-	/**
-	 * Method to verify community page.
-	 *
-	 * @return boolean
-	 */
-	public boolean verifyCommunityPage() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Find communities']"));
-		return communitiesPageHeader.isDisplayed();
-	}
-
-	/**
-	 * Method to verify home page.
-	 *
-	 * @return boolean
-	 */
-	public boolean verifyHomePage() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//img[@class='logo']"));
-		return healthUnlockedImage.isDisplayed();
-	}
-
-	/**
-	 * Method to verify jobs page.
-	 *
-	 * @return boolean
-	 */
-	public boolean verifyJObsPage() {
-		return jobsPageHeader.isDisplayed();
-	}
-
-	/**
-	 * Method to verify news page.
-	 *
-	 * @return boolean
-	 */
-	public boolean verifyNewsPage() {
-		return newsPageHeader.isDisplayed();
-	}
-
-	/**
-	 * Method to wait until Invisible of banner.
-	 *
-	 * @return boolean
-	 */
-	public boolean waitUntilInvisibleOfBanner() {
-		final WebDriverWait wait = new WebDriverWait(driver, DEFAULT_WEBELMENT_TIMEOUT);
-		return wait.until(ExpectedConditions
-				.invisibilityOfElementLocated(By.xpath("//*[contains(text(),'account has been deleted')]")));
-	}
-
-	/**
 	 * Method to wait until Visibility of Sign up.
 	 */
-	public void waitUntilvisibilityOfSignUP() {
+	public void waitUntilVisibilityOfSignUP() {
 		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.cssSelector(".btn-min-blue"));
 	}
 }

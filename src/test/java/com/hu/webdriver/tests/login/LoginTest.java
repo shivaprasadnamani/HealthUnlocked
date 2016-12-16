@@ -19,59 +19,29 @@ import com.hu.webdriver.tests.BaseTest;
  */
 public class LoginTest extends BaseTest {
 	/**
-	 * Instance variables
+	 * Instance variables for Forgot password page.
 	 */
 	ForgotPassword forgotPassword;
+	/**
+	 * Instance variable for User Home page.
+	 */
 	HomePage homePage;
+	/**
+	 * Instance variable for Join page.
+	 */
 	JoinPage joinPage;
+	/**
+	 * Instance variable for Login page.
+	 */
 	LoginPage loginPage;
+	/**
+	 * Instance variable for News feed page.
+	 */
 	NewsFeedPage newsFeedPage;
+	/**
+	 * Instance variable for User profile page.
+	 */
 	UserProfilePage userProfilePage;
-
-	/**
-	 * Login Page-T108: Enter email in forgot password page And Login.
-	 * Page-T1011: Access forgot your password page from log in.
-	 */
-	@Test(description = "Login Page-T108: Enter email in forgot password page And Login Page-T1011: Access forgot your password page from log in.")
-	public void enteringEmailinForgotPasswordPage() {
-		// Click on login link
-		loginPage.clickOnLogin();
-		// Click on forgot password link
-		loginPage.clickOnForgotPassword();
-		// Verifying the reset page header should display
-		Assert.assertTrue(forgotPassword.verifyResetPageHeader(), "Page header is not displaying.");
-		// Set reset email
-		forgotPassword.setResetEmail(propertyUtil.getProperty("userName"));
-		// click on submit button
-		forgotPassword.clickOnSubmitButton();
-		// Verifying the alert should present
-		Assert.assertTrue(forgotPassword.verifyAlert(), "Alert is not presenting.");
-		// Verify whether Banner is displaying or not.
-		Assert.assertTrue(forgotPassword.waitUntilInvisibleofBannerMessage(), "Banner is still existing.");
-		// Click on Health unlocked
-		forgotPassword.navigateToHomePage();
-	}
-
-	/**
-	 * Login Page-T1019:log out and redirect to index page.
-	 */
-	@Test(description = "Login Page-T1019:log out and redirect to index page.")
-	public void logout() {
-		// Click on login link
-		loginPage.clickOnLogin();
-		// Set user name
-		loginPage.setUserName(propertyUtil.getProperty("userName"));
-		// Set password
-		loginPage.setPassWord(propertyUtil.getProperty("password"));
-		// Click on submit
-		loginPage.clickOnSubmit();
-		// Click on user profile
-		newsFeedPage.clickOnUserProfile();
-		// Click on logout
-		newsFeedPage.clickOnLogout();
-		// Verifying home page
-		Assert.assertTrue(homePage.verifyHomePage(), "Not redirected to home page.");
-	}
 
 	@BeforeMethod
 	public void setUp() {
@@ -84,6 +54,34 @@ public class LoginTest extends BaseTest {
 	}
 
 	/**
+	 * Login Page-T108: Enter email in forgot password page And Login.
+	 * Page-T1011: Access forgot your password page from log in.
+	 */
+	@Test(description = "Login Page-T108: Enter email in forgot password page And Login Page-T1011: Access forgot your password page from log in.")
+	public void verifyEnteringEmailinForgotPasswordPage() {
+		// Click on login link
+		loginPage.clickOnLogin();
+		// Click on forgot password link
+		loginPage.clickOnForgotPassword();
+		// Verifying the reset page header should display
+		Assert.assertTrue(forgotPassword.isForgotPasswordHeaderDisplayed(), "Page header is not displaying.");
+		// Set reset email
+		forgotPassword.setResetEmail(propertyUtil.getProperty("userName"));
+		// click on submit button
+		forgotPassword.clickOnSubmitButton();
+		// Verifying the alert should present
+		Assert.assertTrue(forgotPassword.isResetPasswordAlertMessage(), "Alert is not presenting.");
+		// Navigate to home page
+		homePage.navigateToHomePage();
+		// Verify whether Banner is displaying or not.
+		Assert.assertTrue(forgotPassword.waitUntilInvisibleofForgotPasswordPageBanner(), "Banner is still existing.");
+		//
+
+		// Verify whether Home page is navigating or not.
+		Assert.assertTrue(homePage.isHomePage(), "Not redirected to home page.");
+	}
+
+	/**
 	 * Home Page-T1001:Display log in modal.
 	 */
 	@Test(description = "Home Page-T1001:Display log in modal.")
@@ -91,24 +89,25 @@ public class LoginTest extends BaseTest {
 		// Click on about us
 		homePage.clickOnAboutUs();
 		// Verify about us page
-		homePage.verifyAboutUsPage();
+		homePage.isAboutUsPage();
 		// Click on news
 		homePage.clickOnNews();
 		// Verify new page
-		homePage.verifyNewsPage();
+		homePage.isNewsPage();
 		// Click on jobs
 		homePage.clickOnJobs();
 		// Verify jobs page
-		homePage.verifyJObsPage();
+		homePage.isJObsPage();
 		// Click on Home Page
-		homePage.clickOnHomePage();
+		homePage.navigateToHomePage();
 		// Click on communities
 		homePage.clickOnCommunities();
 		// Verify communities
-		homePage.verifyCommunityPage();
-		// Click on home page
-		homePage.clickOnHomePage();
-		// Click on about us
+		homePage.isCommunityPage();
+		// Navigate to home page
+		homePage.navigateToHomePage();
+		// Verifying whether navigating home page or not.
+		Assert.assertTrue(homePage.isHomePage(), "Not redirected to home page.");
 	}
 
 	/**
@@ -128,13 +127,36 @@ public class LoginTest extends BaseTest {
 		// click on submit button.
 		loginPage.clickOnSubmit();
 		// Verify the news feed should appear
-		Assert.assertTrue(newsFeedPage.newsfeeddisplay(), "Newsfeed is not appearing.");
+		Assert.assertTrue(newsFeedPage.isNewsfeedDisplay(), "Newsfeed is not appearing.");
 		// Verify the login modal should disappear.
 		Assert.assertFalse(loginPage.isEmailTextFieldVisible(), "Email texfield existed.");
 		// Click on user profile
 		newsFeedPage.clickOnUserProfile();
 		// Click on logout
 		newsFeedPage.clickOnLogout();
+		// Verifying whether navigating home page or not.
+		Assert.assertTrue(homePage.isHomePage(), "Not redirected to home page.");
+	}
+
+	/**
+	 * Login Page-T1019:log out and redirect to index page.
+	 */
+	@Test(description = "Login Page-T1019:log out and redirect to index page.")
+	public void verifyLogout() {
+		// Click on login link
+		loginPage.clickOnLogin();
+		// Set user name
+		loginPage.setUserName(propertyUtil.getProperty("userName"));
+		// Set password
+		loginPage.setPassWord(propertyUtil.getProperty("password"));
+		// Click on submit
+		loginPage.clickOnSubmit();
+		// Click on user profile
+		newsFeedPage.clickOnUserProfile();
+		// Click on logout
+		newsFeedPage.clickOnLogout();
+		// Verifying whether navigating home page or not.
+		Assert.assertTrue(homePage.isHomePage(), "Not redirected to home page.");
 	}
 
 	/**
@@ -143,7 +165,7 @@ public class LoginTest extends BaseTest {
 	 * @throws InterruptedException
 	 */
 	@Test(description = "Login Page-T1003: Wrong credentials.")
-	public void wrongCredential() {
+	public void verifyWrongCredential() {
 		// Click on login link
 		loginPage.clickOnLogin();
 		// Set user name
@@ -153,9 +175,9 @@ public class LoginTest extends BaseTest {
 		// Click on submit
 		loginPage.clickOnSubmit();
 		// Verifying the alert message should appear
-		Assert.assertTrue(loginPage.verifyCredentialsAlertMessage(), "Credential alert message is not displaying.");
+		Assert.assertTrue(loginPage.isCredentialsAlertMessage(), "Credential alert message is not displaying.");
 		// Verifying the model should present
-		Assert.assertTrue(loginPage.verifyModelIsPresent(), "Model doesn't exist.");
+		Assert.assertTrue(loginPage.isModelIsPresent(), "Model doesn't exist.");
 		// Click on Login model close button
 		loginPage.clickOnLoginModelCloseButtton();
 	}

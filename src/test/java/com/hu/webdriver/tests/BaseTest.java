@@ -15,7 +15,9 @@ public class BaseTest {
 	 * Instance variable for driver.
 	 */
 	protected WebDriver driver;
-
+	/**
+	 *  Instance variable for PropertyUtil
+	 */
 	protected PropertyUtil propertyUtil;
 
 	/**
@@ -23,7 +25,7 @@ public class BaseTest {
 	 */
 	@AfterClass
 	public void closeBrowser() {
-		driver.quit();
+		//driver.quit();
 	}
 
 	/**

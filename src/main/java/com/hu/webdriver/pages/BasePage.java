@@ -11,15 +11,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class BasePage {
 	/**
-	 * Instance Variable for thirty seconds
+	 * Instance Variable for Default web element timeout
 	 */
 	protected final static int DEFAULT_WEBELMENT_TIMEOUT = 30;
+
 	/**
-	 * Instance Variable for ten seconds
+	 * Instance Variable for Max web element timeout.
 	 */
-	protected final static int MAX_WEBELMENT_TIMEOUT = 20;
+	protected final static int MAX_WEBELMENT_TIMEOUT = 15;
+
 	/**
-	 * Instance variable for minimum web element time out.
+	 * Instance variable for Minimum web element timeout.
 	 */
 	protected final static int MIN_WEBELMENT_TIMEOUT = 5;
 
@@ -62,7 +64,6 @@ public class BasePage {
 	 * @param element
 	 * @return boolean
 	 */
-
 	public boolean isElementPresent(int timeUnits, WebElement element) {
 		boolean isDisplayed = false;
 		try {
@@ -89,6 +90,17 @@ public class BasePage {
 			isDisplayed = false;
 		}
 		return isDisplayed;
+	}
+
+	/**
+	 * Method to wait until invisible of Banner.
+	 *
+	 * @param by
+	 * @return boolean
+	 */
+	public boolean waitUntilInvisibleOfBanner(By by) {
+		final WebDriverWait wait = new WebDriverWait(driver, MAX_WEBELMENT_TIMEOUT);
+		return wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
 	}
 
 	/**

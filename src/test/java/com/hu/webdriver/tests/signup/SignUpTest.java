@@ -17,19 +17,31 @@ import com.hu.webdriver.tests.BaseTest;
  */
 public class SignUpTest extends BaseTest {
 	/**
-	 * Instance variables
+	 * Instance variables for Forgot password page.
 	 */
 	ForgotPassword forgotPasswordPage;
+	/**
+	 * Instance variables for Home page.
+	 */
 	HomePage homePage;
+	/**
+	 * Instance variables for Join page.
+	 */
 	JoinPage joinPage;
+	/**
+	 * Instance variables for News feed page.
+	 */
 	NewsFeedPage newsFeedPage;
+	/**
+	 * Instance variables for Sign up page.
+	 */
 	SignUpPage signUpPage;
 
 	/**
 	 * Login Page-T1104:Access terms of use page from sign up page.
 	 */
 	@Test(description = "Signup Page-T1104:Access terms of use page from sign up page.")
-	public void accessTermsOfUsePageFromSignUpPage() {
+	public void verifyAccessTermsOfUsePageFromSignUpPage() {
 		// Click on sign up
 		signUpPage.clickOnSignUp();
 		// Click on terms of use
@@ -37,7 +49,7 @@ public class SignUpTest extends BaseTest {
 		// Get window handle
 		signUpPage.swithToChildWindow();
 		// Verify whether terms of use page should appear
-		Assert.assertTrue(signUpPage.getTermsPageHeader(), "Header not exists.");
+		Assert.assertTrue(signUpPage.isTermsOfUsageHeaderDisplayed(), "Header not exists.");
 		// Close window
 		closeWindow();
 		// Switch to Main window
@@ -47,7 +59,7 @@ public class SignUpTest extends BaseTest {
 	}
 
 	@BeforeMethod
-	public void setup() {
+	public void verifySetup() {
 		signUpPage = new SignUpPage(driver);
 		forgotPasswordPage = new ForgotPassword(driver);
 		newsFeedPage = new NewsFeedPage(driver);
@@ -59,7 +71,7 @@ public class SignUpTest extends BaseTest {
 	 * Sign up Page-T1109:Email address or user name already registered.
 	 */
 	@Test(description = "Signup Page-T1109:Email address or username already registered.")
-	public void signupWithInvalidCredentials() {
+	public void verifySignupWithInvalidCredentials() {
 		// Click on sign up
 		signUpPage.clickOnSignUp();
 		// Set user name
@@ -69,7 +81,7 @@ public class SignUpTest extends BaseTest {
 		// Click on Sign up
 		signUpPage.clickOnSignUpWithEmail();
 		// verify whether email id message is displaying or not
-		Assert.assertTrue(signUpPage.verifyEmailIdMessage(), "Message not displying.");
+		Assert.assertTrue(signUpPage.isInvaildEmailErrorMessageDisplayed(), "Message not displying.");
 		// Click on Sign up close model
 		signUpPage.clickOnSignUpCloseModel();
 	}
@@ -79,7 +91,7 @@ public class SignUpTest extends BaseTest {
 	 * using email.
 	 */
 	@Test(description = "Sign up Page-T1115:Add valid email, user name and password to sign up using email.")
-	public void signUpWithValidCredentials() {
+	public void verifySignUpWithValidCredentials() {
 		// Click on sign up
 		signUpPage.clickOnSignUp();
 		// Set user name
@@ -91,7 +103,7 @@ public class SignUpTest extends BaseTest {
 		// Click on click on sign up with email
 		signUpPage.clickOnSignUpWithEmail();
 		// Verify find communities
-		Assert.assertTrue(joinPage.verifyPopularCommunities(), "Popular community not displaying.");
+		Assert.assertTrue(joinPage.isPopularCommunities(), "Popular community not displaying.");
 		// Navigate to Home page
 		newsFeedPage.navigateToNewsfeedPage();
 		// Click on user profile
@@ -107,8 +119,8 @@ public class SignUpTest extends BaseTest {
 		// Click on account delete button
 		newsFeedPage.clickOnAccountDeleteButton();
 		// Wait until visibility of Sign up.
-		homePage.waitUntilvisibilityOfSignUP();
+		homePage.waitUntilVisibilityOfSignUP();
 		// Verifying whether banner is invisible or not
-		Assert.assertTrue(homePage.waitUntilInvisibleOfBanner(), "Banner still exist.");
+		Assert.assertTrue(signUpPage.waitUntilInvisibleOfBannerOfAccount(), "Banner still exist.");
 	}
 }

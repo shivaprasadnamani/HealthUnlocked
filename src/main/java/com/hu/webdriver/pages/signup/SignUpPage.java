@@ -32,7 +32,13 @@ public class SignUpPage extends BasePage {
 	 * WebElement for email id message.
 	 */
 	@FindBy(xpath = "//li[text()='Email address is not available.']")
-	WebElement emailIdMessage;
+	WebElement invalidEmailErrorMessage;
+
+	/**
+	 * WebElement for user name message.
+	 */
+	@FindBy(xpath = "//li[text()='Username is not available.']")
+	WebElement invalidUserNameErrorMessage;
 
 	/**
 	 * WebElement for password.
@@ -61,7 +67,7 @@ public class SignUpPage extends BasePage {
 	/**
 	 * WebElement for terms page header.
 	 */
-	@FindBy(xpath = "//h3[text()='1. About us']")
+	@FindBy(xpath = "//h1[text()='Terms of use']")
 	WebElement termsPageHeader;
 
 	/**
@@ -69,12 +75,6 @@ public class SignUpPage extends BasePage {
 	 */
 	@FindBy(id = "register-username-input")
 	WebElement userName;
-
-	/**
-	 * WebElement for user name message.
-	 */
-	@FindBy(xpath = "//li[text()='Username is not available.']")
-	WebElement userNameMessage;
 
 	/**
 	 * Constructor
@@ -117,15 +117,38 @@ public class SignUpPage extends BasePage {
 	}
 
 	/**
-	 * Method to verify terms of use page.
+	 * Method to verify email id message displaying or not.
+	 *
+	 * @return boolean
 	 */
-	public boolean getTermsPageHeader() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h3[text()='1. About us']"));
+	public boolean isInvaildEmailErrorMessageDisplayed() {
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, invalidEmailErrorMessage);
+	}
+
+	/**
+	 * Method for Sign up user name visible or not.
+	 *
+	 * @return boolean
+	 */
+	public boolean isSignUpUserNameVisibe() {
+		return isElementPresent(userName);
+	}
+
+	/**
+	 * Method to verify terms of use page header Displaying or not.
+	 */
+	public boolean isTermsOfUsageHeaderDisplayed() {
+		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Terms of use']"));
 		return termsPageHeader.isDisplayed();
 	}
 
-	public boolean isSignUpUserNameVisibe() {
-		return isElementPresent(userName);
+	/**
+	 * Method to verifying whether user name message present or not.
+	 *
+	 * @return boolean
+	 */
+	public boolean isUserNameMessage() {
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, invalidUserNameErrorMessage);
 	}
 
 	/**
@@ -172,20 +195,11 @@ public class SignUpPage extends BasePage {
 	}
 
 	/**
-	 * Method to verify email id message.
+	 * Method to wait until Invisible of banner of Account.
 	 *
 	 * @return boolean
 	 */
-	public boolean verifyEmailIdMessage() {
-		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, emailIdMessage);
-	}
-
-	/**
-	 * Method to verify user name message
-	 *
-	 * @return boolean
-	 */
-	public boolean verifyUserNameMessage() {
-		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, userNameMessage);
+	public boolean waitUntilInvisibleOfBannerOfAccount() {
+		return waitUntilInvisibleOfBanner(By.xpath("//*[contains(text(),'account has been deleted')]"));
 	}
 }

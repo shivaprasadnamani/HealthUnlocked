@@ -18,42 +18,25 @@ import com.hu.webdriver.tests.BaseTest;
  */
 public class JoinTest extends BaseTest {
 	/**
-	 * Instance variables
+	 * Instance variable for Home page.
 	 */
 	HomePage homePage;
-	JoinPage joinPage;
-	LoginPage loginPage;
-	NewsFeedPage newsFeedPage;
-	UserProfilePage userProfilePage;
-
 	/**
-	 * Join Page-T123:Follow a community on join page.
+	 * Instance variable for Join page.
 	 */
-	@Test(description = "Join Page-T123:Follow a community on join page.")
-	public void followCommunityInJoinPage() {
-		// Click on login
-		loginPage.clickOnLogin();
-		// Set user name
-		loginPage.setUserName(propertyUtil.getProperty("userName"));
-		// Set Password
-		loginPage.setPassWord(propertyUtil.getProperty("password"));
-		// Click on submit
-		loginPage.clickOnSubmit();
-		// Navigate to join page
-		joinPage.navigateToJoinPage();
-		// Search for Community
-		joinPage.searcCommunity();
-		// Click on follow button
-		joinPage.clickOnFollowButton();
-		// Verify community icon
-		joinPage.verifyCommunityIcon();
-		// Navigate to home page
-		homePage.navigateToHomePage();
-		// Click on user profile
-		newsFeedPage.clickOnUserProfile();
-		// Click on Logout
-		newsFeedPage.clickOnLogout();
-	}
+	JoinPage joinPage;
+	/**
+	 * Instance variable for Login page.
+	 */
+	LoginPage loginPage;
+	/**
+	 * Instance variable for News feed page.
+	 */
+	NewsFeedPage newsFeedPage;
+	/**
+	 * Instance variable for User profile page.
+	 */
+	UserProfilePage userProfilePage;
 
 	@BeforeMethod
 	public void setup() {
@@ -91,6 +74,8 @@ public class JoinTest extends BaseTest {
 		newsFeedPage.clickOnUserProfile();
 		// Click on Logout
 		newsFeedPage.clickOnLogout();
+		// Verify whether Home page is navigating or not.
+		Assert.assertTrue(homePage.isHomePage(), "Not redirected to home page.");
 	}
 
 	/**
@@ -126,5 +111,38 @@ public class JoinTest extends BaseTest {
 		newsFeedPage.clickOnUserProfile();
 		// Click on Logout
 		newsFeedPage.clickOnLogout();
+		// Verify whether Home page is navigating or not.
+		Assert.assertTrue(homePage.isHomePage(), "Not redirected to home page.");
+	}
+
+	/**
+	 * Join Page-T123:Follow a community on join page.
+	 */
+	@Test(description = "Join Page-T123:Follow a community on join page.")
+	public void verifyFollowCommunityInJoinPage() {
+		// Click on login
+		loginPage.clickOnLogin();
+		// Set user name
+		loginPage.setUserName(propertyUtil.getProperty("userName"));
+		// Set Password
+		loginPage.setPassWord(propertyUtil.getProperty("password"));
+		// Click on submit
+		loginPage.clickOnSubmit();
+		// Navigate to join page
+		joinPage.navigateToJoinPage();
+		// Search for Community
+		joinPage.searcCommunity();
+		// Click on follow button
+		joinPage.clickOnFollowButton();
+		// Verify community icon
+		joinPage.isCommunityIcon();
+		// Navigate to home page
+		homePage.navigateToHomePage();
+		// Click on user profile
+		newsFeedPage.clickOnUserProfile();
+		// Click on Logout
+		newsFeedPage.clickOnLogout();
+		// Verifying whether navigating to Home page or not.
+		Assert.assertTrue(homePage.isHomePage(), "Not redirected to home page.");
 	}
 }
