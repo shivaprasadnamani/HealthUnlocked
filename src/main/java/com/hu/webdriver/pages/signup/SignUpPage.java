@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.hu.webdriver.pages.BasePage;
+import com.hu.webdriver.util.TestLogger;
 
 /**
  *
@@ -16,6 +17,12 @@ import com.hu.webdriver.pages.BasePage;
  *
  */
 public class SignUpPage extends BasePage {
+	
+	/**
+	 * Test Logger.
+	 */
+	TestLogger logger = TestLogger.getLogger(SignUpPage.class);
+	
 	/**
 	 * WebElement for close sign up model.
 	 */
@@ -75,6 +82,11 @@ public class SignUpPage extends BasePage {
 	 */
 	@FindBy(id = "register-username-input")
 	WebElement userName;
+	
+	/**
+	 * By element for sign up button.
+	 */
+	By signupButton = By.cssSelector(".btn-min-blue");
 
 	/**
 	 * Constructor
@@ -90,8 +102,9 @@ public class SignUpPage extends BasePage {
 	 * Method for click on sign up.
 	 */
 	public void clickOnSignUp() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.cssSelector(".btn-min-blue"));
-		signUp.click();
+		//webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.cssSelector(".btn-min-blue"));
+		//signUp.click();
+		findClickableElement(By.cssSelector(".btn-min-blue")).click();
 	}
 
 	/**
@@ -122,7 +135,9 @@ public class SignUpPage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isInvaildEmailErrorMessageDisplayed() {
-		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, invalidEmailErrorMessage);
+		boolean isElementPresent = isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, invalidEmailErrorMessage);
+		logger.logInfo("is Invalid Error Message visible: "+isElementPresent);
+		return isElementPresent;
 	}
 
 	/**

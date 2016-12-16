@@ -113,4 +113,87 @@ public class BasePage {
 		final WebDriverWait wait = new WebDriverWait(driver, timeUnits);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(by));
 	}
+	
+	/**
+	 * Method to find visible web element.
+	 * @param by the by value.
+	 * @return web element.
+	 */
+	public WebElement findVisibleElement(By by){
+		WebElement element;
+		try{
+		element = (new WebDriverWait(driver, DEFAULT_WEBELMENT_TIMEOUT).until(ExpectedConditions.visibilityOfElementLocated(by)));
+		}catch(Exception e){
+			String message = "Could not find visible element: "+by.toString();
+			throw new RuntimeException(message);
+		}
+		return element;
+	}
+	
+	/**
+	 * Method to find visible web element.
+	 * @param by the by value.
+	 * @param timeOutInSeconds time in seconds.
+	 * @return web element.
+	 */
+	public WebElement findVisibleElement(By by,int timeOutInSeconds){
+		WebElement element;
+		try{
+		element = (new WebDriverWait(driver, timeOutInSeconds).until(ExpectedConditions.visibilityOfElementLocated(by)));
+		}catch(Exception e){
+			String message = "Could not find visible element: "+by.toString();
+			throw new RuntimeException(message);
+		}
+		return element;
+	}
+	
+	/**
+	 * Method to find presence of web element.
+	 * @param by
+	 * @return web element
+	 */
+	public WebElement findPresenceElement(By by){
+		WebElement element;
+		try{
+			element = (new WebDriverWait(driver, DEFAULT_WEBELMENT_TIMEOUT).until(ExpectedConditions.presenceOfElementLocated(by)));
+		}catch(Exception e){
+			String message = "Could not find presence element: "+by.toString();
+			throw new RuntimeException(message);
+		}
+		return element;
+	}
+	
+	/**
+	 * Method to find presence of web element.
+	 * @param by
+	 * @param timeOutInSeconds
+	 * @return web element
+	 */
+	public WebElement findPresenceElement(By by,int timeOutInSeconds){
+		WebElement element;
+		try{
+			element = (new WebDriverWait(driver, timeOutInSeconds).until(ExpectedConditions.presenceOfElementLocated(by)));
+		}catch(Exception e){
+			String message = "Could not find presence element: "+by.toString();
+			throw new RuntimeException(message);
+		}
+		return element;
+	}
+	
+	/**
+	 * Method to find click-able element.
+	 * @param by
+	 * @return web element
+	 */
+	public WebElement findClickableElement(By by){
+		WebElement element;
+		try{
+			element = (new WebDriverWait(driver, DEFAULT_WEBELMENT_TIMEOUT).until(ExpectedConditions.elementToBeClickable(by)));
+		}catch(Exception e){
+			String message = "Could not find clickable element: "+by.toString();
+			throw new RuntimeException(message);
+		}
+		return element;
+	}
+	
 }

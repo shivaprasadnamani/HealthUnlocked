@@ -10,6 +10,7 @@ import com.hu.webdriver.pages.login.LoginPage;
 import com.hu.webdriver.pages.newsfeed.NewsFeedPage;
 import com.hu.webdriver.pages.userprofilepage.UserProfilePage;
 import com.hu.webdriver.tests.BaseTest;
+import com.hu.webdriver.util.TestLogger;
 
 /**
  *
@@ -17,6 +18,12 @@ import com.hu.webdriver.tests.BaseTest;
  *
  */
 public class JoinTest extends BaseTest {
+	
+	/**
+	 * Test Logger.
+	 */
+	TestLogger logger = TestLogger.getLogger(JoinTest.class);
+	
 	/**
 	 * Instance variable for Home page.
 	 */
@@ -52,30 +59,39 @@ public class JoinTest extends BaseTest {
 	 */
 	@Test(description = "JoinTest-T1127:Finish registration process.")
 	public void verifyFinishRegistrationProcess() {
-		// Click on login
+		logger.logTestStep("Click on login");
 		loginPage.clickOnLogin();
-		// Set user name
-		loginPage.setUserName(propertyUtil.getProperty("userName"));
-		// Set password
-		loginPage.setPassWord(propertyUtil.getProperty("password"));
-		// Click on submit
+		
+		logger.logTestStep("Store user name.");
+		String userName = propertyUtil.getProperty("userName");
+		logger.logTestStep("Set UserName: "+userName);
+		loginPage.setUserName(userName);
+		logger.logTestStep("Store password.");
+		String password = propertyUtil.getProperty("password");
+		logger.logTestStep("Set password: "+password);
+		loginPage.setPassWord(password);
+		logger.logTestStep("Click on submit.");
 		loginPage.clickOnSubmit();
-		// Navigate to join page
+		
+		logger.logTestStep(" Navigate to join page.");
 		joinPage.navigateToJoinPage();
-		// Search for Community
+		logger.logTestStep("Search for Community.");
 		joinPage.searcCommunity();
-		// Click on follow button
+		logger.logTestStep("Click on follow button.");
 		joinPage.clickOnFollowButton();
-		// click on finish button
+		logger.logTestStep("Click on finish button.");
 		joinPage.clickOnFinishButton();
-		// Get user name
-		newsFeedPage.getUserName();
-		// Click on User profile
+		
+		logger.logTestStep("Click on User profile.");
 		newsFeedPage.clickOnUserProfile();
-		// Click on Logout
+		logger.logTestStep("Click on Logout.");
 		newsFeedPage.clickOnLogout();
-		// Verify whether Home page is navigating or not.
-		Assert.assertTrue(homePage.isHomePage(), "Not redirected to home page.");
+		
+		logger.logTestStep("Check whether home page is displayed or not.");
+		boolean isHomePageDisplayed = homePage.isHomePage();
+		
+		logger.logTestVerificationStep("Verify Home page is displayed: "+isHomePageDisplayed);
+		Assert.assertTrue(isHomePageDisplayed, "Not redirected to home page.");
 	}
 
 	/**
