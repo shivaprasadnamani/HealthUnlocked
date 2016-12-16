@@ -9,44 +9,50 @@ import com.hu.webdriver.pages.userprofilepage.UserProfilePage;
 import com.hu.webdriver.tests.BaseTest;
 
 /**
- * 
+ *
  * @author SHIVA
  *
  */
 public class NewsFeedTest extends BaseTest {
-
-	NewsFeedPage newsfeedpage;
-	LoginPage loginpage;
-	UserProfilePage userprofilepage;
+	/**
+	 * Instance variables for Login page
+	 */
+	LoginPage loginPage;
+	/**
+	 * Instance variable for News feed page.
+	 */
+	NewsFeedPage newsfeedPage;
+	/**
+	 * Instance variable for User profile page.
+	 */
+	UserProfilePage userprofilePage;
 
 	@BeforeMethod
-	public void beforeMethodToLogin() {
-		newsfeedpage = new NewsFeedPage(driver);
-		loginpage = new LoginPage(driver);
-		userprofilepage = new UserProfilePage(driver);
-
-		loginpage.clickOnLogin();
-		loginpage.setUserName("shivaprasadnamani2016@gmail.com");
-		loginpage.setPassWord("shivaprasad9");
-		loginpage.clickOnSubmit();
-
+	public void setUp() {
+		newsfeedPage = new NewsFeedPage(driver);
+		loginPage = new LoginPage(driver);
+		userprofilePage = new UserProfilePage(driver);
+		loginPage.clickOnLogin();
+		loginPage.setUserName(propertyUtil.getProperty("userName"));
+		loginPage.setPassWord(propertyUtil.getProperty("password"));
+		loginPage.clickOnSubmit();
 	}
 
 	/**
 	 * News feed Page-T1135:Delete user
 	 */
-	@Test(description = "Newsfeed Page-T1135:Delete user")
-	public void deleteUser() {
+	@Test(description = "Newsfeed Page-T1135:Delete user.")
+	public void verifyDeleteUser() {
 		// Click on User Profile
-		userprofilepage.clickOnUserProfile();
+		newsfeedPage.clickOnUserProfile();
 		// Click on Account Settings
-		newsfeedpage.clickOnAccountSettings();
+		newsfeedPage.clickOnAccountSettings();
 		// Click on show Account Delete Button
-		newsfeedpage.clickOnShowAccountDeleteButton();
+		newsfeedPage.clickOnShowAccountDeleteButton();
 		// Click on Settings Account Delete Button
-		newsfeedpage.clickOnSettingsAccountDeleteButton();
+		newsfeedPage.clickOnSettingsAccountDeleteButton();
 		// Click on Account Delete Button
-		newsfeedpage.clickOnAccountDeleteButton();
+		newsfeedPage.clickOnAccountDeleteButton();
 	}
 
 }

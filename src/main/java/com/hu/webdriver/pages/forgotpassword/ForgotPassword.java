@@ -9,17 +9,36 @@ import org.openqa.selenium.support.PageFactory;
 import com.hu.webdriver.pages.BasePage;
 
 /**
- * 
  * @author SHIVA
- *
  */
 public class ForgotPassword extends BasePage {
 	/**
-	 * Instance variable for WebDriver
+	 * WebElement for forgot password page alert message.
 	 */
+	@FindBy(xpath = "//*[contains(text(),'shortly receive an email')]")
+	WebElement forgotPasswordPageAlertMessage;
+
+	/**
+	 * WebElement for Forgot password page header.
+	 */
+	@FindBy(xpath = "//h1[text()='Forgot your password?']")
+	WebElement forgotPasswordPageHeader;
+
+	/**
+	 * WebElement for Submit Button.
+	 */
+	@FindBy(xpath = "//input[@class='btn btn-primary']")
+	WebElement submitButton;
+
+	/**
+	 * WebElement for User email.
+	 */
+	@FindBy(id = "requestReset-email-button")
+	WebElement userEmail;
+
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param driver
 	 */
 	public ForgotPassword(WebDriver driver) {
@@ -28,73 +47,54 @@ public class ForgotPassword extends BasePage {
 	}
 
 	/**
-	 * WebElement for Request Email
-	 */
-	@FindBy(id = "requestReset-email-button")
-	WebElement requestemail;
-	/**
-	 * WebElement for Submit Button
-	 */
-	@FindBy(xpath = "//input[@class='btn btn-primary']")
-	WebElement submitButton;
-	/**
-	 * WebElement for News Feed
-	 */
-	@FindBy(linkText = "News Feed")
-	WebElement newsfeed;
-	/**
-	 * WebElement for alert message
-	 */
-	@FindBy(xpath = "//*[contains(text(),'shortly receive an email')]")
-	WebElement alertmessage;
-	/**
-	 * WebElement for reset page header
-	 */
-	@FindBy(xpath = "//h1[text()='Forgot your password?']")
-	WebElement resetPageHeader;
-
-	/**
-	 * Method to set reset email
-	 * 
-	 */
-	public void setResetEmail(String value) {
-		requestemail.sendKeys(value);
-	}
-
-	/**
-	 * Method for click on Submit Button
+	 * Method for click on Submit Button.
 	 */
 	public void clickOnSubmitButton() {
 		submitButton.click();
 	}
 
 	/**
-	 * Method to verify the news feed
-	 * 
-	 * @return boolean.
+	 * Method to verify forgot Password page header.
+	 *
+	 * @return boolean
 	 */
-	public boolean newsfeeddisplay() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.linkText("News Feed"));
-		return newsfeed.isDisplayed();
-	}
-
-	/**
-	 * Method to verify the alert
-	 * 
-	 * @return
-	 */
-	public boolean verifyAlert() {
-		return alertmessage.isDisplayed();
-	}
-
-	/**
-	 * Method to verify reset page header
-	 * 
-	 * @return
-	 */
-	public boolean verifyResetPageHeader() {
+	public boolean isForgotPasswordHeaderDisplayed() {
 		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Forgot your password?']"));
-		return isElementPresent(resetPageHeader);
+		return isElementPresent(forgotPasswordPageHeader);
 	}
 
+	/**
+	 * Method to verify reset Password alert message.
+	 *
+	 * @return boolean
+	 */
+	public boolean isResetPasswordAlertMessage() {
+		return isElementPresent(MAX_WEBELMENT_TIMEOUT, By.xpath("//*[contains(text(),'shortly receive an email')]"));
+	}
+
+	/**
+	 * Method to navigate to Home page.
+	 */
+	public void navigateToHomePage() {
+		driver.navigate().to("https://healthunlocked.com");
+		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//img[@class='logo']"));
+	}
+
+	/**
+	 * Method to set reset email.
+	 *
+	 * @param value
+	 */
+	public void setResetEmail(String value) {
+		userEmail.sendKeys(value);
+	}
+
+	/**
+	 * Method to wait until invisible of Forgot password page banner.
+	 *
+	 * @return boolean
+	 */
+	public boolean waitUntilInvisibleofForgotPasswordPageBanner() {
+		return waitUntilInvisibleOfBanner(By.xpath("//*[contains(text(),'shortly receive an email')]"));
+	}
 }
