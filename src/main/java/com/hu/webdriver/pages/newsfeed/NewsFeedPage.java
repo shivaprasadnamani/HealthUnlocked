@@ -15,28 +15,24 @@ import com.hu.webdriver.pages.BasePage;
  */
 public class NewsFeedPage extends BasePage {
 	/**
-	 * WebElement to delete my account.
+	 * By element to delete my account.
 	 */
-	@FindBy(xpath = "//button[text()='Delete my account']")
-	WebElement accountDeleteButton;
+	By accountDeleteButton = By.xpath("//button[text()='Delete my account']");
 
 	/**
-	 * WebElement for Account Settings.
+	 * By element for Account Settings.
 	 */
-	@FindBy(id = "sitebar-account-button")
-	WebElement accountSettings;
+	By accountSettings = By.id("sitebar-account-button");
 
 	/**
-	 * WebElement for got it.
+	 * By element for got it.
 	 */
-	@FindBy(xpath = "//button[text()='Got it']")
-	WebElement gotItAlert;
+	By gotItAlert = By.xpath("//button[text()='Got it']");
 
 	/**
-	 * WebElement for logout.
+	 * By element for logout.
 	 */
-	@FindBy(id = "sitebar-logout-button")
-	WebElement logout;
+	By logout = By.id("sitebar-logout-button");
 
 	/**
 	 * WebElement for News Feed.
@@ -57,28 +53,24 @@ public class NewsFeedPage extends BasePage {
 	WebElement profileName;
 
 	/**
-	 * WebElement to delete account button.
+	 * By element to delete account button.
 	 */
-	@FindBy(id = "settings-delete-account-button")
-	WebElement settingsAccountDeleteButton;
+	By settingsAccountDeleteButton = By.id("settings-delete-account-button");
 
 	/**
-	 * WebElement for i want to delete my account.
+	 * By element for i want to delete my account.
 	 */
-	@FindBy(id = "settings-show-delete-button")
-	WebElement showAccountDeleteButton;
+	By showAccountDeleteButton = By.id("settings-show-delete-button");
 
 	/**
-	 * WebElement for user profile.
+	 * By element for user profile.
 	 */
-	@FindBy(xpath = "//span[text()='shivaprasadnamani']")
-	WebElement userProfile;
+	By userProfile = By.xpath("//span[text()='shivaprasadnamani']");
 
 	/**
-	 * WebElement for user profile for valid Credentials.
+	 * By element for user profile for valid Credentials.
 	 */
-	@FindBy(xpath = "//span[text()='shivaprasad123']")
-	WebElement userProfileForValidCredentials;
+	By userProfileForValidCredentials = By.xpath("//span[text()='shivaprasad123']");
 
 	/**
 	 * Constructor
@@ -94,29 +86,28 @@ public class NewsFeedPage extends BasePage {
 	 * Method to click on Account Delete Button.
 	 */
 	public void clickOnAccountDeleteButton() {
-		accountDeleteButton.click();
+		findClickableElement(By.xpath("//button[text()='Delete my account']")).click();
 	}
 
 	/**
 	 * Method to click on Account Settings.
 	 */
 	public void clickOnAccountSettings() {
-		accountSettings.click();
+		findClickableElement(By.id("sitebar-account-button")).click();
 	}
 
 	/**
 	 * Click on Got it.
 	 */
 	public void clickOnGotit() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("//button[text()='Got it']"));
-		gotItAlert.click();
+		findClickableElement(By.xpath("//button[text()='Got it']")).click();
 	}
 
 	/**
 	 * Method to click on logout.
 	 */
 	public void clickOnLogout() {
-		logout.click();
+		findClickableElement(By.id("sitebar-logout-button")).click();
 		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("//img[@class='logo']"));
 	}
 
@@ -124,30 +115,28 @@ public class NewsFeedPage extends BasePage {
 	 * Method to click on settings Account Delete Button.
 	 */
 	public void clickOnSettingsAccountDeleteButton() {
-		settingsAccountDeleteButton.click();
+		findClickableElement(By.id("settings-delete-account-button")).click();
 	}
 
 	/**
 	 * Method to click on show Account Delete Button.
 	 */
 	public void clickOnShowAccountDeleteButton() {
-		showAccountDeleteButton.click();
+		findClickableElement(By.id("settings-show-delete-button")).click();
 	}
 
 	/**
 	 * Method to click on user profile.
 	 */
 	public void clickOnUserProfile() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("//span[text()='shivaprasadnamani']"));
-		userProfile.click();
+		findClickableElement(By.xpath("//span[text()='shivaprasadnamani']")).click();
 	}
 
 	/**
 	 * Click on user profile for valid credentials.
 	 */
 	public void clickOnUserProfileforValidCredentials() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("//span[text()='shivaprasad123']"));
-		userProfileForValidCredentials.click();
+		findClickableElement(By.xpath("//span[text()='shivaprasad123']")).click();
 	}
 
 	/**

@@ -27,8 +27,7 @@ public class ForgotPassword extends BasePage {
 	/**
 	 * WebElement for Submit Button.
 	 */
-	@FindBy(xpath = "//input[@class='btn btn-primary']")
-	WebElement submitButton;
+	By submitButton = By.xpath("//input[@class='btn btn-primary']");
 
 	/**
 	 * WebElement for User email.
@@ -50,7 +49,7 @@ public class ForgotPassword extends BasePage {
 	 * Method for click on Submit Button.
 	 */
 	public void clickOnSubmitButton() {
-		submitButton.click();
+		findClickableElement(By.xpath("//input[@class='btn btn-primary']")).click();
 	}
 
 	/**
@@ -59,8 +58,7 @@ public class ForgotPassword extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isForgotPasswordHeaderDisplayed() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Forgot your password?']"));
-		return isElementPresent(forgotPasswordPageHeader);
+		return isElementPresent(MAX_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Forgot your password?']"));
 	}
 
 	/**
@@ -70,14 +68,6 @@ public class ForgotPassword extends BasePage {
 	 */
 	public boolean isResetPasswordAlertMessage() {
 		return isElementPresent(MAX_WEBELMENT_TIMEOUT, By.xpath("//*[contains(text(),'shortly receive an email')]"));
-	}
-
-	/**
-	 * Method to navigate to Home page.
-	 */
-	public void navigateToHomePage() {
-		driver.navigate().to("https://healthunlocked.com");
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//img[@class='logo']"));
 	}
 
 	/**

@@ -15,8 +15,7 @@ public class JoinPage extends BasePage {
 	/**
 	 * WebElement for close button.
 	 */
-	@FindBy(css = ".close")
-	WebElement closeButton;
+	By closeButton = By.cssSelector(".close");
 
 	/**
 	 * WebElement for community icon.
@@ -33,20 +32,17 @@ public class JoinPage extends BasePage {
 	/**
 	 * WebElement for community title.
 	 */
-	@FindBy(xpath = "(//div[@class='box-title'])[1]")
-	WebElement communityTitle;
+	By communityTitle = By.xpath("(//div[@class='box-title'])[1]");
 
 	/**
 	 * WebElement for Finish button.
 	 */
-	@FindBy(xpath = "//button[text()='Finish']")
-	WebElement finishButton;
+	By finishButton = By.xpath("//button[text()='Finish']");
 
 	/**
 	 * WebElement for follow button.
 	 */
-	@FindBy(xpath = "(//button[text()='Follow'])[1]")
-	WebElement followButton;
+	By followButton = By.xpath("(//button[text()='Follow'])[1]");
 
 	/**
 	 * WebElement for Popular communities.
@@ -68,24 +64,21 @@ public class JoinPage extends BasePage {
 	 * Method for click on close button.
 	 */
 	public void clickonCloseButton() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.cssSelector(".close"));
-		closeButton.click();
+		findClickableElement(By.cssSelector(".close")).click();
 	}
 
 	/**
 	 * Method to click on finish button.
 	 */
 	public void clickOnFinishButton() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("//button[text()='Finish']"));
-		finishButton.click();
+		findClickableElement(By.xpath("//button[text()='Finish']")).click();
 	}
 
 	/**
 	 * Method to click on follow button.
 	 */
 	public void clickOnFollowButton() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("(//button[text()='Follow'])[1]"));
-		followButton.click();
+		findClickableElement(By.xpath("(//button[text()='Follow'])[1]")).click();
 	}
 
 	/**
@@ -94,9 +87,7 @@ public class JoinPage extends BasePage {
 	 * @return String
 	 */
 	public String getCommunityTitle() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("(//div[@class='box-title'])[1]"));
-		final String communityTitleText = communityTitle.getText();
-		return communityTitleText;
+		return getText(By.xpath("(//div[@class='box-title'])[1]"), MAX_WEBELMENT_TIMEOUT);
 	}
 
 	/**

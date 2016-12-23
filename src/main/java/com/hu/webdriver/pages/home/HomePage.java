@@ -15,10 +15,9 @@ import com.hu.webdriver.pages.BasePage;
  */
 public class HomePage extends BasePage {
 	/**
-	 * Web Element for about us.
+	 * By element for about us.
 	 */
-	@FindBy(xpath = "//a[text()='About us']")
-	WebElement aboutUs;
+	By aboutUs = By.xpath("//a[text()='About us']");
 
 	/**
 	 * WebElement for about us page header.
@@ -27,10 +26,9 @@ public class HomePage extends BasePage {
 	WebElement aboutusPageHeader;
 
 	/**
-	 * Web element for communities.
+	 * By element for communities.
 	 */
-	@FindBy(xpath = "//a[text()='Communities']")
-	WebElement communities;
+	By communities = By.xpath("//a[text()='Communities']");
 
 	/**
 	 * WebElement for communities page header.
@@ -51,10 +49,9 @@ public class HomePage extends BasePage {
 	WebElement homePage;
 
 	/**
-	 * WebElement for jobs.
+	 * By element for jobs.
 	 */
-	@FindBy(linkText = "Jobs")
-	WebElement jobs;
+	By jobs = By.linkText("Jobs");
 
 	/**
 	 * WebElement for jobs page header.
@@ -63,10 +60,9 @@ public class HomePage extends BasePage {
 	WebElement jobsPageHeader;
 
 	/**
-	 * WebElement for news.
+	 * By element for news.
 	 */
-	@FindBy(linkText = "News")
-	WebElement news;
+	By news = By.linkText("News");
 
 	/**
 	 * WeElement for new page header.
@@ -75,10 +71,9 @@ public class HomePage extends BasePage {
 	WebElement newsPageHeader;
 
 	/**
-	 * WebElement for search button.
+	 * By element for search button.
 	 */
-	@FindBy(css = ".btn-search")
-	WebElement searchButton;
+	By searchButton = By.cssSelector(".btn-search");
 
 	/**
 	 * WebElement for search text.
@@ -100,37 +95,35 @@ public class HomePage extends BasePage {
 	 * Method to click on about us.
 	 */
 	public void clickOnAboutUs() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//a[text()='About us']"));
-		aboutUs.click();
+		findClickableElement(By.xpath("//a[text()='About us']")).click();
 	}
 
 	/**
 	 * Method to click on Communities.
 	 */
 	public void clickOnCommunities() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//a[text()='Communities']"));
-		communities.click();
+		findClickableElement(By.xpath("//a[text()='Communities']")).click();
 	}
 
 	/**
 	 * Method to click on jobs.
 	 */
 	public void clickOnJobs() {
-		jobs.click();
+		findClickableElement(By.linkText("Jobs")).click();
 	}
 
 	/**
 	 * Method to click on jobs.
 	 */
 	public void clickOnNews() {
-		news.click();
+		findClickableElement(By.linkText("News")).click();
 	}
 
 	/**
 	 * Method to click on search button.
 	 */
 	public void clickOnSearchButton() {
-		searchButton.click();
+		findClickableElement(By.cssSelector(".btn-search")).click();
 	}
 
 	/**
@@ -139,8 +132,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isAboutUsPage() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.cssSelector(".selected"));
-		return aboutusPageHeader.isDisplayed();
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, By.cssSelector(".selected"));
 	}
 
 	/**
@@ -149,8 +141,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isCommunityPage() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Find communities']"));
-		return communitiesPageHeader.isDisplayed();
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Find communities']"));
 	}
 
 	/**
@@ -159,8 +150,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isHomePage() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//img[@class='logo']"));
-		return healthUnlockedImage.isDisplayed();
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//img[@class='logo']"));
 	}
 
 	/**
@@ -169,7 +159,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isJObsPage() {
-		return jobsPageHeader.isDisplayed();
+		return isElementPresent(By.xpath("//h3[text()='Jobs']"));
 	}
 
 	/**
@@ -178,7 +168,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isNewsPage() {
-		return newsPageHeader.isDisplayed();
+		return isElementPresent(By.xpath("//h3[text()='Media enquiries']"));
 	}
 
 	/**

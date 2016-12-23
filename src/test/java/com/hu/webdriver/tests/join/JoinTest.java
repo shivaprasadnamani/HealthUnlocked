@@ -18,20 +18,20 @@ import com.hu.webdriver.util.TestLogger;
  *
  */
 public class JoinTest extends BaseTest {
-	
-	/**
-	 * Test Logger.
-	 */
-	TestLogger logger = TestLogger.getLogger(JoinTest.class);
-	
+
 	/**
 	 * Instance variable for Home page.
 	 */
 	HomePage homePage;
+
 	/**
 	 * Instance variable for Join page.
 	 */
 	JoinPage joinPage;
+	/**
+	 * Test Logger.
+	 */
+	TestLogger logger = TestLogger.getLogger(JoinTest.class);
 	/**
 	 * Instance variable for Login page.
 	 */
@@ -61,18 +61,18 @@ public class JoinTest extends BaseTest {
 	public void verifyFinishRegistrationProcess() {
 		logger.logTestStep("Click on login");
 		loginPage.clickOnLogin();
-		
+
 		logger.logTestStep("Store user name.");
-		String userName = propertyUtil.getProperty("userName");
+		final String userName = propertyUtil.getProperty("userName");
 		logger.logTestStep("Set UserName: "+userName);
 		loginPage.setUserName(userName);
 		logger.logTestStep("Store password.");
-		String password = propertyUtil.getProperty("password");
+		final String password = propertyUtil.getProperty("password");
 		logger.logTestStep("Set password: "+password);
 		loginPage.setPassWord(password);
 		logger.logTestStep("Click on submit.");
 		loginPage.clickOnSubmit();
-		
+
 		logger.logTestStep(" Navigate to join page.");
 		joinPage.navigateToJoinPage();
 		logger.logTestStep("Search for Community.");
@@ -81,15 +81,14 @@ public class JoinTest extends BaseTest {
 		joinPage.clickOnFollowButton();
 		logger.logTestStep("Click on finish button.");
 		joinPage.clickOnFinishButton();
-		
+
 		logger.logTestStep("Click on User profile.");
 		newsFeedPage.clickOnUserProfile();
 		logger.logTestStep("Click on Logout.");
 		newsFeedPage.clickOnLogout();
-		
+
 		logger.logTestStep("Check whether home page is displayed or not.");
-		boolean isHomePageDisplayed = homePage.isHomePage();
-		
+		final boolean isHomePageDisplayed = homePage.isHomePage();
 		logger.logTestVerificationStep("Verify Home page is displayed: "+isHomePageDisplayed);
 		Assert.assertTrue(isHomePageDisplayed, "Not redirected to home page.");
 	}
@@ -99,36 +98,52 @@ public class JoinTest extends BaseTest {
 	 */
 	@Test(description = " Join Page-T1125:Unfollow a community I just followed on join page.")
 	public void verifyFollowCommunity() {
-		// Click on login
+		logger.logTestStep("Click on login.");
 		loginPage.clickOnLogin();
-		// Set User name
-		loginPage.setUserName(propertyUtil.getProperty("userName"));
-		// Set Password
-		loginPage.setPassWord(propertyUtil.getProperty("password"));
-		// Click on Submit
+		logger.logTestStep("Store User name.");
+		final String userName = propertyUtil.getProperty("userName");
+		logger.logTestStep("Set User name." +userName);
+		loginPage.setUserName(userName);
+		logger.logTestStep("Store Password.");
+		final String password = propertyUtil.getProperty("password");
+		logger.logTestStep("Set password."+password);
+		loginPage.setPassWord(password);
+		logger.logTestStep("Click on Submit.");
 		loginPage.clickOnSubmit();
-		// Navigate to Join page
+
+		logger.logTestStep("Navigate to Join page.");
 		joinPage.navigateToJoinPage();
-		// Search for Community
+		logger.logTestStep("Search for Community.");
 		joinPage.searcCommunity();
-		// Get Community text
+		logger.logTestStep("Get Community text.");
 		final String communityText = joinPage.getCommunityTitle();
-		// Click on Follow button
+		logger.logTestStep("Click on Follow button.");
 		joinPage.clickOnFollowButton();
-		// Verifying whether followed community displayed or not
-		Assert.assertTrue(joinPage.isFollowedCommunityDisplayed(communityText), "Followed community not displaying.");
-		// Click on close button
+
+		logger.logTestStep("Check whether followed community displayed or not.");
+		boolean isFollowedCommunityDisplayed = joinPage.isFollowedCommunityDisplayed(communityText);
+		logger.logTestVerificationStep("Verifying whether followed community displayed or not."+isFollowedCommunityDisplayed);
+		Assert.assertTrue(isFollowedCommunityDisplayed, "Followed community not displaying.");
+
+		logger.logTestStep("Click on close button.");
 		joinPage.clickonCloseButton();
-		// Verifying whether followed community displayed or not
-		Assert.assertFalse(joinPage.isFollowedCommunityDisplayed(communityText), "Followed community displaying.");
-		// Navigate to Home page
+
+		logger.logTestStep("Verifying whether followed community displayed or not.");
+		isFollowedCommunityDisplayed = joinPage.isFollowedCommunityDisplayed(communityText);
+		logger.logTestVerificationStep("Verifying whether followed community displayed or not."+isFollowedCommunityDisplayed);
+		Assert.assertFalse(isFollowedCommunityDisplayed, "Followed community displaying.");
+
+		logger.logTestStep("Navigate to Home page");
 		homePage.navigateToHomePage();
-		// Click on User profile
+		logger.logTestStep("Click on User profile");
 		newsFeedPage.clickOnUserProfile();
-		// Click on Logout
+		logger.logTestStep("Click on Logout");
 		newsFeedPage.clickOnLogout();
-		// Verify whether Home page is navigating or not.
-		Assert.assertTrue(homePage.isHomePage(), "Not redirected to home page.");
+
+		logger.logTestStep("Check whether Home page displaying or not.");
+		final boolean isHomePageDisplayed = homePage.isHomePage();
+		logger.logTestVerificationStep("Verify whether Home page is navigating or not."+isHomePageDisplayed);
+		Assert.assertTrue(isHomePageDisplayed, "Not redirected to home page.");
 	}
 
 	/**
@@ -136,29 +151,41 @@ public class JoinTest extends BaseTest {
 	 */
 	@Test(description = "Join Page-T123:Follow a community on join page.")
 	public void verifyFollowCommunityInJoinPage() {
-		// Click on login
+		logger.logTestStep("Click on login.");
 		loginPage.clickOnLogin();
-		// Set user name
-		loginPage.setUserName(propertyUtil.getProperty("userName"));
-		// Set Password
-		loginPage.setPassWord(propertyUtil.getProperty("password"));
-		// Click on submit
+		logger.logTestStep("Store User name.");
+		final String userName = propertyUtil.getProperty("userName");
+		logger.logTestStep("Set user name"+userName);
+		loginPage.setUserName(userName);
+		logger.logTestStep("Store Password.");
+		final String password = propertyUtil.getProperty("password");
+		logger.logTestStep("Set Password"+password);
+		loginPage.setPassWord(password);
+		logger.logTestStep("Click on submit.");
 		loginPage.clickOnSubmit();
-		// Navigate to join page
+
+		logger.logTestStep("Navigate to join page.");
 		joinPage.navigateToJoinPage();
-		// Search for Community
+		logger.logTestStep("Search for Community.");
 		joinPage.searcCommunity();
-		// Click on follow button
+		logger.logTestStep("Click on follow button.");
 		joinPage.clickOnFollowButton();
-		// Verify community icon
-		joinPage.isCommunityIcon();
-		// Navigate to home page
+
+		logger.logTestStep("Check Community is Displayed.");
+		final boolean isCommunityIconDisplaying = joinPage.isCommunityIcon();
+		logger.logTestVerificationStep("Verify community icon" +isCommunityIconDisplaying);
+		Assert.assertTrue(isCommunityIconDisplaying,"Community is not Displayed.");
+
+		logger.logTestStep("Navigate to home page.");
 		homePage.navigateToHomePage();
-		// Click on user profile
+		logger.logTestStep("Click on user profile.");
 		newsFeedPage.clickOnUserProfile();
-		// Click on Logout
+		logger.logTestStep("Click on Logout.");
 		newsFeedPage.clickOnLogout();
-		// Verifying whether navigating to Home page or not.
-		Assert.assertTrue(homePage.isHomePage(), "Not redirected to home page.");
+
+		logger.logTestStep("Verifying Home page is Displayed.");
+		final boolean isHomePageDisplaying = homePage.isHomePage();
+		logger.logTestVerificationStep("Verifying whether navigating to Home page or not."+isHomePageDisplaying);
+		Assert.assertTrue(isHomePageDisplaying, "Not redirected to Home page.");
 	}
 }

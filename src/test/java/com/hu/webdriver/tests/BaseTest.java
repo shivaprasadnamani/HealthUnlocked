@@ -2,8 +2,10 @@ package com.hu.webdriver.tests;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 
 import com.hu.webdriver.util.PropertyUtil;
 
@@ -15,17 +17,18 @@ public class BaseTest {
 	 * Instance variable for driver.
 	 */
 	protected WebDriver driver;
+
 	/**
-	 *  Instance variable for PropertyUtil
+	 *  Instance variable for PropertyUtil.
 	 */
 	protected PropertyUtil propertyUtil;
 
 	/**
-	 * After class for closing browser.
+	 * After Test for close browser.
 	 */
-	@AfterClass
+	@AfterTest
 	public void closeBrowser() {
-		//driver.quit();
+		driver.quit();
 	}
 
 	/**
@@ -36,13 +39,24 @@ public class BaseTest {
 	}
 
 	/**
-	 * Before class for starting browser.
+	 * Before Test for starting browser.
 	 */
-	@BeforeClass
+	@BeforeTest
 	public void startBrowser() {
 		propertyUtil = new PropertyUtil();
-		System.setProperty("webdriver.chrome.driver", "src/main/resources/binaries/chromedriver.exe");
-		driver = new ChromeDriver();
+		final String browser = propertyUtil.getProperty("browser");
+		if(browser.equals("Chrome")){
+			System.setProperty("webdriver.chrome.driver", "src/main/resources/binaries/chromedriver.exe");
+			driver = new ChromeDriver();
+		}
+		if(browser.equals("Firefox")){
+			System.setProperty("webdriver.firefox.marionette","src/main/resources/binaries/geckodriver.exe");
+			driver = new FirefoxDriver();
+		}
+		if(browser.equals("IE")){
+			System.setProperty("webdriver.ie.driver", "src/main/resources/binaries/IEDriverServer.exe");
+			driver = new InternetExplorerDriver();
+		}
 		driver.get(propertyUtil.getProperty("url"));
 		driver.manage().window().maximize();
 	}

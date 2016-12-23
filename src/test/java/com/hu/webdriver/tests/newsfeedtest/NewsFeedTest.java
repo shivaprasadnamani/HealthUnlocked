@@ -7,6 +7,7 @@ import com.hu.webdriver.pages.login.LoginPage;
 import com.hu.webdriver.pages.newsfeed.NewsFeedPage;
 import com.hu.webdriver.pages.userprofilepage.UserProfilePage;
 import com.hu.webdriver.tests.BaseTest;
+import com.hu.webdriver.util.TestLogger;
 
 /**
  *
@@ -14,6 +15,10 @@ import com.hu.webdriver.tests.BaseTest;
  *
  */
 public class NewsFeedTest extends BaseTest {
+	/**
+	 * Test logger
+	 **/
+	TestLogger logger = TestLogger.getLogger(NewsFeedTest.class);
 	/**
 	 * Instance variables for Login page
 	 */
@@ -32,10 +37,6 @@ public class NewsFeedTest extends BaseTest {
 		newsfeedPage = new NewsFeedPage(driver);
 		loginPage = new LoginPage(driver);
 		userprofilePage = new UserProfilePage(driver);
-		loginPage.clickOnLogin();
-		loginPage.setUserName(propertyUtil.getProperty("userName"));
-		loginPage.setPassWord(propertyUtil.getProperty("password"));
-		loginPage.clickOnSubmit();
 	}
 
 	/**
@@ -43,16 +44,28 @@ public class NewsFeedTest extends BaseTest {
 	 */
 	@Test(description = "Newsfeed Page-T1135:Delete user.")
 	public void verifyDeleteUser() {
-		// Click on User Profile
+		logger.logTestStep("Click on Login.");
+		loginPage.clickOnLogin();
+		logger.logTestStep("Store User name.");
+		final String userName = propertyUtil.getProperty("userName");
+		logger.logTestStep("Set User name."+userName);
+		loginPage.setUserName(userName);
+		logger.logTestStep("Store Password.");
+		final String password = propertyUtil.getProperty("password");
+		logger.logTestStep("Set Password."+password);
+		loginPage.setPassWord(password);
+		logger.logTestStep("Click on Submit.");
+		loginPage.clickOnSubmit();
+
+		logger.logTestStep("Click on User Profile");
 		newsfeedPage.clickOnUserProfile();
-		// Click on Account Settings
+		logger.logTestStep("Click on Account Settings");
 		newsfeedPage.clickOnAccountSettings();
-		// Click on show Account Delete Button
+		logger.logTestStep("Click on show Account Delete Button.");
 		newsfeedPage.clickOnShowAccountDeleteButton();
-		// Click on Settings Account Delete Button
+		logger.logTestStep("Click on Settings Account Delete Button.");
 		newsfeedPage.clickOnSettingsAccountDeleteButton();
-		// Click on Account Delete Button
+		logger.logTestStep("Click on Account Delete Button.");
 		newsfeedPage.clickOnAccountDeleteButton();
 	}
-
 }

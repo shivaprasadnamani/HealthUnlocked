@@ -17,17 +17,11 @@ import com.hu.webdriver.util.TestLogger;
  *
  */
 public class SignUpPage extends BasePage {
-	
-	/**
-	 * Test Logger.
-	 */
-	TestLogger logger = TestLogger.getLogger(SignUpPage.class);
-	
+
 	/**
 	 * WebElement for close sign up model.
 	 */
-	@FindBy(css = ".icon-close")
-	WebElement closeSignUpModel;
+	By closeSignUpModel = By.cssSelector(".modal-close");
 
 	/**
 	 * WebElement for email id.
@@ -48,6 +42,11 @@ public class SignUpPage extends BasePage {
 	WebElement invalidUserNameErrorMessage;
 
 	/**
+	 * Test Logger.
+	 */
+	TestLogger logger = TestLogger.getLogger(SignUpPage.class);
+
+	/**
 	 * WebElement for password.
 	 */
 	@FindBy(id = "register-password-input")
@@ -60,16 +59,19 @@ public class SignUpPage extends BasePage {
 	WebElement signUp;
 
 	/**
-	 * WebElement for sign up with email.
+	 * By element for sign up button.
 	 */
-	@FindBy(xpath = "//input[@value='Sign up with email']")
-	WebElement signUpWithEmail;
+	By signupButton = By.cssSelector(".btn-min-blue");
 
 	/**
-	 * WebElement for terms of use.
+	 * By element for sign up with email.
 	 */
-	@FindBy(linkText = "terms of use")
-	WebElement termsOfUse;
+	By signUpWithEmail = By.xpath("//input[@value='Sign up with email']");
+
+	/**
+	 * By element for terms of use.
+	 */
+	By termsOfUse = By.linkText("terms of use");
 
 	/**
 	 * WebElement for terms page header.
@@ -82,11 +84,6 @@ public class SignUpPage extends BasePage {
 	 */
 	@FindBy(id = "register-username-input")
 	WebElement userName;
-	
-	/**
-	 * By element for sign up button.
-	 */
-	By signupButton = By.cssSelector(".btn-min-blue");
 
 	/**
 	 * Constructor
@@ -102,8 +99,6 @@ public class SignUpPage extends BasePage {
 	 * Method for click on sign up.
 	 */
 	public void clickOnSignUp() {
-		//webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.cssSelector(".btn-min-blue"));
-		//signUp.click();
 		findClickableElement(By.cssSelector(".btn-min-blue")).click();
 	}
 
@@ -111,22 +106,21 @@ public class SignUpPage extends BasePage {
 	 * Method to click on sign up model.
 	 */
 	public void clickOnSignUpCloseModel() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.cssSelector(".icon-close"));
-		closeSignUpModel.click();
+		findClickableElement(By.cssSelector(".modal-close")).click();
 	}
 
 	/**
 	 * Method to click on sign up with email.
 	 */
 	public void clickOnSignUpWithEmail() {
-		signUpWithEmail.click();
+		findClickableElement(By.xpath("//input[@value='Sign up with email']")).click();
 	}
 
 	/**
 	 * Method for click on terms of use.
 	 */
 	public void clickOnTermsOfUse() {
-		termsOfUse.click();
+		findClickableElement(By.linkText("terms of use")).click();
 	}
 
 	/**
@@ -135,8 +129,8 @@ public class SignUpPage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isInvaildEmailErrorMessageDisplayed() {
-		boolean isElementPresent = isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, invalidEmailErrorMessage);
-		logger.logInfo("is Invalid Error Message visible: "+isElementPresent);
+		final boolean isElementPresent = isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, invalidEmailErrorMessage);
+		logger.logInfo("is Invalid Error Message visible: " + isElementPresent);
 		return isElementPresent;
 	}
 
@@ -151,10 +145,11 @@ public class SignUpPage extends BasePage {
 
 	/**
 	 * Method to verify terms of use page header Displaying or not.
+	 *
+	 * @return boolean
 	 */
 	public boolean isTermsOfUsageHeaderDisplayed() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Terms of use']"));
-		return termsPageHeader.isDisplayed();
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Terms of use']"));
 	}
 
 	/**
