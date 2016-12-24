@@ -145,8 +145,7 @@ public class NewsFeedPage extends BasePage {
 	 * @return String
 	 */
 	public String getUserName() {
-		findVisibleElement(By.cssSelector(".userHomeNav-username"),MAX_WEBELMENT_TIMEOUT);
-		return profileName.getText();
+		return findVisibleElement(By.cssSelector(".userHomeNav-username"),MAX_WEBELMENT_TIMEOUT).getText();
 	}
 
 	/**
@@ -166,8 +165,7 @@ public class NewsFeedPage extends BasePage {
 	 * @return boolean.
 	 */
 	public boolean isNewsfeedDisplay() {
-		findVisibleElement(By.linkText("News Feed"), DEFAULT_WEBELMENT_TIMEOUT);
-		return newsfeed.isDisplayed();
+		return isElementPresent(MAX_WEBELMENT_TIMEOUT, newsfeed);
 	}
 
 	/**

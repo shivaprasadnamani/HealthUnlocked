@@ -7,7 +7,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
-import com.hu.webdriver.util.HUPropertyUtil;
 import com.hu.webdriver.util.PropertyUtil;
 
 /**
@@ -18,11 +17,6 @@ public class BaseTest {
 	 * Instance variable for driver.
 	 */
 	protected WebDriver driver;
-
-	/**
-	 * Instance variable for HUPropertyUtil.
-	 */
-	protected HUPropertyUtil huPropertyUtil;
 
 	/**
 	 *  Instance variable for PropertyUtil.

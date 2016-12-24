@@ -89,27 +89,27 @@ public class ProfilePageTest extends BaseTest {
 		logger.logTestStep("Store condition.");
 		final String conditions = propertyUtil.getProperty("conditions");
 		logger.logTestStep("Set my Conditions." + conditions);
-		profilePage.setMyConditions(conditions);
-		profilePage.setMyConditions("" + Keys.ENTER);
+		editProfilePage.setMyConditions(conditions);
+		editProfilePage.setMyConditions("" + Keys.ENTER);
 		logger.logTestStep("Click on Save changes.");
-		profilePage.clickOnSaveChanges();
+		editProfilePage.clickOnSaveChanges();
 
 		logger.logTestStep("Check whether Thyrotoxicosis displayed.");
-		boolean isMethotrexateDisplayed = profilePage.isThyrotoxicosisDisplayed();
-		logger.logTestVerificationStep("Verify whether Thyrotoxicosis is displyed or not." + isMethotrexateDisplayed);
-		Assert.assertTrue(isMethotrexateDisplayed, "Thyrotoxicosis is not Displayed.");
+		boolean isThyrotoxicosisDisplayed = profilePage.isThyrotoxicosisDisplayed();
+		logger.logTestVerificationStep("Verify whether Thyrotoxicosis is displyed or not." + isThyrotoxicosisDisplayed);
+		Assert.assertTrue(isThyrotoxicosisDisplayed, "Thyrotoxicosis is not Displayed.");
 
 		logger.logTestStep("Click on Edit profile.");
 		profilePage.clickOnEditProfile();
 		logger.logTestStep("Click on Close health interest.");
-		profilePage.clickOnCloseHealthInterest();
+		editProfilePage.clickOnCloseHealthInterest();
 		logger.logTestStep("Click on Save changes.");
-		profilePage.clickOnSaveChanges();
+		editProfilePage.clickOnSaveChanges();
 
 		logger.logTestStep("Check whether Methotrexate displayed.");
-		isMethotrexateDisplayed = profilePage.isThyrotoxicosisDisplayed();
-		logger.logTestVerificationStep("Verify whether Thyrotoxicosis is displyed or not." + isMethotrexateDisplayed);
-		Assert.assertFalse(isMethotrexateDisplayed, "Thyrotoxicosis is still Displayed.");
+		isThyrotoxicosisDisplayed = profilePage.isThyrotoxicosisDisplayed();
+		logger.logTestVerificationStep("Verify whether Thyrotoxicosis is displyed or not." +isThyrotoxicosisDisplayed);
+		Assert.assertFalse(isThyrotoxicosisDisplayed, "Thyrotoxicosis is still Displayed.");
 	}
 
 	/**
@@ -126,10 +126,10 @@ public class ProfilePageTest extends BaseTest {
 		logger.logTestStep("Store Symptom.");
 		final String symptom = propertyUtil.getProperty("symptom");
 		logger.logTestStep("Set Symptoms." + symptom);
-		profilePage.setMySymptoms(symptom);
-		profilePage.setMySymptoms("" + Keys.ENTER);
+		editProfilePage.setMySymptoms(symptom);
+		editProfilePage.setMySymptoms("" + Keys.ENTER);
 		logger.logTestStep("Click on Save changes.");
-		profilePage.clickOnSaveChanges();
+		editProfilePage.clickOnSaveChanges();
 
 		logger.logTestStep("Check whether bruise is displayed.");
 		boolean bruiseIsDisplayed = profilePage.isBruiseDisplayed();
@@ -139,9 +139,9 @@ public class ProfilePageTest extends BaseTest {
 		logger.logTestStep("Click on Edit profile.");
 		profilePage.clickOnEditProfile();
 		logger.logTestStep("Click on Close health interest.");
-		profilePage.clickOnCloseHealthInterest();
+		editProfilePage.clickOnCloseHealthInterest();
 		logger.logTestStep("Click on Save changes.");
-		profilePage.clickOnSaveChanges();
+		editProfilePage.clickOnSaveChanges();
 
 		logger.logTestStep("Check whether bruise is displayed.");
 		bruiseIsDisplayed = profilePage.isBruiseDisplayed();
@@ -164,10 +164,10 @@ public class ProfilePageTest extends BaseTest {
 		logger.logTestStep("Store Methotrexate.");
 		final String treatment = propertyUtil.getProperty("treatment");
 		logger.logTestStep("Set my Treatments." + treatment);
-		profilePage.setmyTreatments(treatment);
-		profilePage.setmyTreatments("" + Keys.ENTER);
+		editProfilePage.setmyTreatments(treatment);
+		editProfilePage.setmyTreatments("" + Keys.ENTER);
 		logger.logTestStep("Click on Save changes.");
-		profilePage.clickOnSaveChanges();
+		editProfilePage.clickOnSaveChanges();
 
 		logger.logTestStep("Check whether Methotrexate displayed.");
 		boolean isMethotrexateDisplayed = profilePage.isMethotrexateDisplayed();
@@ -177,9 +177,9 @@ public class ProfilePageTest extends BaseTest {
 		logger.logTestStep("Click on Edit profile.");
 		profilePage.clickOnEditProfile();
 		logger.logTestStep("Click on Close health interest.");
-		profilePage.clickOnCloseHealthInterest();
+		editProfilePage.clickOnCloseHealthInterest();
 		logger.logTestStep("Click on Save changes.");
-		profilePage.clickOnSaveChanges();
+		editProfilePage.clickOnSaveChanges();
 
 		logger.logTestStep("Check whether Methotrexate displayed.");
 		isMethotrexateDisplayed = profilePage.isMethotrexateDisplayed();
@@ -201,9 +201,9 @@ public class ProfilePageTest extends BaseTest {
 		logger.logTestStep("Store Bio.");
 		final String bio = propertyUtil.getProperty("bio");
 		logger.logTestStep("Set Bio." + bio);
-		profilePage.setBio(bio);
+		editProfilePage.setBio(bio);
 		logger.logTestStep("Click on Save changes.");
-		profilePage.clickOnSaveChanges();
+		editProfilePage.clickOnSaveChanges();
 
 		logger.logTestStep("Check is Bio displayed.");
 		final boolean isBioDisplayed = profilePage.isBioDisplayed();
@@ -225,9 +225,9 @@ public class ProfilePageTest extends BaseTest {
 		logger.logTestStep("Store Gender.");
 		final String gender = propertyUtil.getProperty("gender");
 		logger.logTestStep("Set Gender." + gender);
-		profilePage.setGender(gender);
+		editProfilePage.setGender(gender);
 		logger.logTestStep("Click on Save Changes.");
-		profilePage.clickOnSaveChanges();
+		editProfilePage.clickOnSaveChanges();
 
 		logger.logTestStep("Check is Gender displayed.");
 		final boolean isGenderDisplayed = profilePage.isGenderDisplayed(gender);
@@ -256,16 +256,17 @@ public class ProfilePageTest extends BaseTest {
 		logger.logTestStep("Set Month." + month);
 		editProfilePage.setMonth(month);
 		logger.logTestStep("Store Year.");
-		final String year = "1996";
+		final String year = propertyUtil.getProperty("year");
 		logger.logTestStep("Set Year." + year);
 		editProfilePage.setYear(year);
 		logger.logTestStep("Click on Save changes.");
-		profilePage.clickOnSaveChanges();
+		editProfilePage.clickOnSaveChanges();
 
 		logger.logTestStep("Store birth Month.");
-		final int birthMonth = 8;
+		final String birthMonth = propertyUtil.getProperty("birthMonth");
+		final int birthMonthInt = Integer.parseInt(birthMonth);
 		logger.logTestStep("Check whether age is displayed.");
-		final boolean isAgeDisplayed = profilePage.isAgeDisplayed(birthMonth, year);
+		final boolean isAgeDisplayed = profilePage.isAgeDisplayed(birthMonthInt, year);
 		logger.logTestVerificationStep("Verify whether age is displayed." + isAgeDisplayed);
 		Assert.assertTrue(isAgeDisplayed);
 	}

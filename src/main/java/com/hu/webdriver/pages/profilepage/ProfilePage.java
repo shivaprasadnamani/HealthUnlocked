@@ -85,14 +85,6 @@ public class ProfilePage extends BasePage {
 	}
 
 	/**
-	 * Method to click on close Health Interest.
-	 */
-	public void clickOnCloseHealthInterest() {
-		findVisibleElement(By.xpath("//button[text()='×']"), MAX_WEBELMENT_TIMEOUT).click();
-		sleep(1);
-	}
-
-	/**
 	 * Method to Click on edit profile.
 	 */
 	public void clickOnEditProfile() {
@@ -111,15 +103,6 @@ public class ProfilePage extends BasePage {
 	 */
 	public void clickOnProfileEditButton() {
 		findClickableElement(profileEditButton).click();
-	}
-
-	/**
-	 * Method to click on Save changes.
-	 */
-	public void clickOnSaveChanges() {
-		findVisibleElement(By.xpath("//input[@value='Save changes']")).click();
-		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
-		sleep(1);
 	}
 
 	/**
@@ -151,7 +134,7 @@ public class ProfilePage extends BasePage {
 	 */
 	public boolean isBruiseDisplayed() {
 		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
-		return isElementPresent(MIN_WEBELMENT_TIMEOUT, bruise);
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, bruise);
 	}
 
 	/**
@@ -198,55 +181,7 @@ public class ProfilePage extends BasePage {
 	 */
 	public boolean isThyrotoxicosisDisplayed() {
 		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
+		sleep(1);
 		return isElementPresent(MIN_WEBELMENT_TIMEOUT, thyrotoxicosis);
-	}
-
-	/**
-	 * Method to set Bio.
-	 *
-	 * @param value
-	 */
-	public void setBio(String value) {
-		findVisibleElement(By.xpath("//textarea[@name = 'limitedTextArea']"), MAX_WEBELMENT_TIMEOUT).sendKeys(value);
-	}
-
-	/**
-	 * Method to set Gender.
-	 *
-	 * @param gender
-	 */
-	public void setGender(String gender) {
-		sleep(1);
-		findVisibleElement(By.xpath("//input[@label='" + gender + "']"), MAX_WEBELMENT_TIMEOUT).click();
-	}
-
-	/**
-	 * Method to set my conditions.
-	 *
-	 * @param value
-	 */
-	public void setMyConditions(String value) {
-		sleep(1);
-		findVisibleElement(By.xpath("(//input[@type='text'])[3]")).sendKeys(value);
-	}
-
-	/**
-	 * Method to set Symptoms.
-	 *
-	 * @param value
-	 */
-	public void setMySymptoms(String value) {
-		sleep(1);
-		findVisibleElement(By.xpath("(//input[@type='text'])[2]")).sendKeys(value);
-	}
-
-	/**
-	 * Method to Set my treatments.
-	 *
-	 * @param value
-	 */
-	public void setmyTreatments(String value) {
-		sleep(1);
-		findVisibleElement(By.xpath("(//input[@type='text'])[4]")).sendKeys(value);
 	}
 }
