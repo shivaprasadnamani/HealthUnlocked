@@ -15,10 +15,9 @@ import com.hu.webdriver.pages.BasePage;
  */
 public class LoginPage extends BasePage {
 	/**
-	 * WebElement for Forgot Password.
+	 * By element for Forgot Password.
 	 */
-	@FindBy(xpath = "//a[text()='Forgot your password?']")
-	WebElement forgotPassword;
+	By forgotPassword = By.xpath("//a[text()='Forgot your password?']");
 
 	/**
 	 * WebElement for credentials Alert Message.
@@ -27,16 +26,14 @@ public class LoginPage extends BasePage {
 	WebElement invalidLoginCredentialsBannerMessage;
 
 	/**
-	 * WebElement for Login.
+	 * By element for Login.
 	 */
-	@FindBy(xpath = "//a[text()='Log in']")
-	WebElement login;
+	By login = By.xpath("//a[text()='Log in']");
 
 	/**
-	 * WebElement for login model close button.
+	 *By element for login model close button.
 	 */
-	@FindBy(css = ".modal-close")
-	WebElement loginModelCloseButton;
+	By loginModelCloseButton = By.cssSelector(".modal-close");
 
 	/**
 	 * WebElement for model header.
@@ -51,10 +48,9 @@ public class LoginPage extends BasePage {
 	WebElement password;
 
 	/**
-	 * WebElement for Submit Button.
+	 * By element for Submit Button.
 	 */
-	@FindBy(id = "login-submit-button")
-	WebElement submit;
+	By submit = By.id("login-submit-button");
 
 	/**
 	 * WebElement for User Name.
@@ -76,31 +72,28 @@ public class LoginPage extends BasePage {
 	 * Method to click on Forgot Password.
 	 */
 	public void clickOnForgotPassword() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//a[text()='Forgot your password?']"));
-		forgotPassword.click();
+		findClickableElement(forgotPassword).click();
 	}
 
 	/**
 	 * Method to click on Login.
 	 */
 	public void clickOnLogin() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("//a[text()='Log in']"));
-		login.click();
+		findClickableElement(login).click();
 	}
 
 	/**
 	 * Method to click on login model close button.
 	 */
 	public void clickOnLoginModelCloseButtton() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.cssSelector(".modal-close"));
-		loginModelCloseButton.click();
+		findClickableElement(loginModelCloseButton).click();
 	}
 
 	/**
 	 * Method to click on Submit Button.
 	 */
 	public void clickOnSubmit() {
-		submit.click();
+		findClickableElement(submit).click();
 	}
 
 	/**
@@ -110,7 +103,7 @@ public class LoginPage extends BasePage {
 	 */
 	public boolean isCredentialsAlertMessage() {
 		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT,
-				By.xpath("//*[contains(text(),'It looks like that email')]"));
+				invalidLoginCredentialsBannerMessage);
 	}
 
 	/**
@@ -119,7 +112,7 @@ public class LoginPage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isEmailTextFieldVisible() {
-		return isElementPresent(MIN_WEBELMENT_TIMEOUT, By.id("login-email-input"));
+		return isElementPresent(MIN_WEBELMENT_TIMEOUT, userName);
 	}
 
 	/**

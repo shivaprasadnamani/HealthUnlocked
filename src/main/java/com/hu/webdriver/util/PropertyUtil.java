@@ -3,7 +3,7 @@ package com.hu.webdriver.util;
 import java.util.Properties;
 
 /**
- * This class is used to read all property files.
+ * This class is used to read default property file.
  * @author SHIVA
  *
  */
@@ -20,6 +20,7 @@ public class PropertyUtil {
 	public PropertyUtil(){
 		try {
 			properties.load(this.getClass().getClassLoader().getResourceAsStream("default.properties"));
+			properties.load(this.getClass().getClassLoader().getResourceAsStream("hu.properties"));
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
@@ -33,5 +34,4 @@ public class PropertyUtil {
 	public String getProperty(String key){
 		return properties.getProperty(key);
 	}
-
 }

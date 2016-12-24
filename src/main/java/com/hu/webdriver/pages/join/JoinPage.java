@@ -13,10 +13,9 @@ import com.hu.webdriver.pages.BasePage;
  */
 public class JoinPage extends BasePage {
 	/**
-	 * WebElement for close button.
+	 * By Element for close button.
 	 */
-	@FindBy(css = ".close")
-	WebElement closeButton;
+	By closeButton = By.cssSelector(".close");
 
 	/**
 	 * WebElement for community icon.
@@ -31,22 +30,19 @@ public class JoinPage extends BasePage {
 	WebElement communitySearch;
 
 	/**
-	 * WebElement for community title.
+	 * By element for community title.
 	 */
-	@FindBy(xpath = "(//div[@class='box-title'])[1]")
-	WebElement communityTitle;
+	By communityTitle = By.xpath("(//div[@class='box-title'])[1]");
 
 	/**
-	 * WebElement for Finish button.
+	 * By element for Finish button.
 	 */
-	@FindBy(xpath = "//button[text()='Finish']")
-	WebElement finishButton;
+	By finishButton = By.xpath("//button[text()='Finish']");
 
 	/**
-	 * WebElement for follow button.
+	 * By element for follow button.
 	 */
-	@FindBy(xpath = "(//button[text()='Follow'])[1]")
-	WebElement followButton;
+	By followButton = By.xpath("(//button[text()='Follow'])[1]");
 
 	/**
 	 * WebElement for Popular communities.
@@ -68,24 +64,21 @@ public class JoinPage extends BasePage {
 	 * Method for click on close button.
 	 */
 	public void clickonCloseButton() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.cssSelector(".close"));
-		closeButton.click();
+		findClickableElement(closeButton).click();
 	}
 
 	/**
 	 * Method to click on finish button.
 	 */
 	public void clickOnFinishButton() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("//button[text()='Finish']"));
-		finishButton.click();
+		findClickableElement(finishButton).click();
 	}
 
 	/**
 	 * Method to click on follow button.
 	 */
 	public void clickOnFollowButton() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("(//button[text()='Follow'])[1]"));
-		followButton.click();
+		findClickableElement(followButton).click();
 	}
 
 	/**
@@ -94,9 +87,7 @@ public class JoinPage extends BasePage {
 	 * @return String
 	 */
 	public String getCommunityTitle() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("(//div[@class='box-title'])[1]"));
-		final String communityTitleText = communityTitle.getText();
-		return communityTitleText;
+		return getText(By.xpath("(//div[@class='box-title'])[1]"), MAX_WEBELMENT_TIMEOUT);
 	}
 
 	/**
@@ -105,7 +96,7 @@ public class JoinPage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isCommunityIcon() {
-		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("(//div[@class='clearfix communityBox-flat'])[1]"));
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, communityIcon);
 	}
 
 	/**
@@ -132,7 +123,7 @@ public class JoinPage extends BasePage {
 	 * Method to navigate Join page.
 	 */
 	public void navigateToJoinPage() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//div[@class='userHomeNav-username']"));
+		findVisibleElement(By.xpath("//div[@class='userHomeNav-username']"), DEFAULT_WEBELMENT_TIMEOUT);
 		driver.get("https://healthunlocked.com/join");
 	}
 
@@ -140,9 +131,9 @@ public class JoinPage extends BasePage {
 	 * Method to search Community.
 	 */
 	public void searcCommunity() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.id("directory-search-input"));
+		findVisibleElement(By.id("directory-search-input"), MAX_WEBELMENT_TIMEOUT);
 		communitySearch.click();
 		communitySearch.sendKeys("Running");
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("(//button[text()='Follow'])[1]"));
+		findVisibleElement(By.xpath("(//button[text()='Follow'])[1]"), MAX_WEBELMENT_TIMEOUT);
 	}
 }

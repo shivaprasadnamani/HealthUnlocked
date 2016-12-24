@@ -15,22 +15,15 @@ import com.hu.webdriver.pages.BasePage;
  */
 public class HomePage extends BasePage {
 	/**
-	 * Web Element for about us.
-	 */
-	@FindBy(xpath = "//a[text()='About us']")
-	WebElement aboutUs;
-
-	/**
 	 * WebElement for about us page header.
 	 */
 	@FindBy(css = ".selected")
 	WebElement aboutusPageHeader;
 
 	/**
-	 * Web element for communities.
+	 * By element for communities.
 	 */
-	@FindBy(xpath = "//a[text()='Communities']")
-	WebElement communities;
+	By communities = By.xpath("//a[text()='Communities']");
 
 	/**
 	 * WebElement for communities page header.
@@ -51,10 +44,9 @@ public class HomePage extends BasePage {
 	WebElement homePage;
 
 	/**
-	 * WebElement for jobs.
+	 * By element for jobs.
 	 */
-	@FindBy(linkText = "Jobs")
-	WebElement jobs;
+	By jobs = By.linkText("Jobs");
 
 	/**
 	 * WebElement for jobs page header.
@@ -63,10 +55,9 @@ public class HomePage extends BasePage {
 	WebElement jobsPageHeader;
 
 	/**
-	 * WebElement for news.
+	 * By element for news.
 	 */
-	@FindBy(linkText = "News")
-	WebElement news;
+	By news = By.linkText("News");
 
 	/**
 	 * WeElement for new page header.
@@ -75,10 +66,9 @@ public class HomePage extends BasePage {
 	WebElement newsPageHeader;
 
 	/**
-	 * WebElement for search button.
+	 * By element for search button.
 	 */
-	@FindBy(css = ".btn-search")
-	WebElement searchButton;
+	By searchButton = By.cssSelector(".btn-search");
 
 	/**
 	 * WebElement for search text.
@@ -100,37 +90,35 @@ public class HomePage extends BasePage {
 	 * Method to click on about us.
 	 */
 	public void clickOnAboutUs() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//a[text()='About us']"));
-		aboutUs.click();
+		findClickableElement(By.xpath("//a[text()='About us']")).click();
 	}
 
 	/**
 	 * Method to click on Communities.
 	 */
 	public void clickOnCommunities() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//a[text()='Communities']"));
-		communities.click();
+		findClickableElement(communities).click();
 	}
 
 	/**
 	 * Method to click on jobs.
 	 */
 	public void clickOnJobs() {
-		jobs.click();
+		findClickableElement(jobs).click();
 	}
 
 	/**
-	 * Method to click on jobs.
+	 * Method to click on news.
 	 */
 	public void clickOnNews() {
-		news.click();
+		findClickableElement(news).click();
 	}
 
 	/**
 	 * Method to click on search button.
 	 */
 	public void clickOnSearchButton() {
-		searchButton.click();
+		findClickableElement(searchButton).click();
 	}
 
 	/**
@@ -139,8 +127,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isAboutUsPage() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.cssSelector(".selected"));
-		return aboutusPageHeader.isDisplayed();
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, aboutusPageHeader);
 	}
 
 	/**
@@ -149,8 +136,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isCommunityPage() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Find communities']"));
-		return communitiesPageHeader.isDisplayed();
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, communitiesPageHeader);
 	}
 
 	/**
@@ -159,8 +145,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isHomePage() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//img[@class='logo']"));
-		return healthUnlockedImage.isDisplayed();
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, healthUnlockedImage);
 	}
 
 	/**
@@ -169,7 +154,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isJObsPage() {
-		return jobsPageHeader.isDisplayed();
+		return isElementPresent(jobsPageHeader);
 	}
 
 	/**
@@ -178,7 +163,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isNewsPage() {
-		return newsPageHeader.isDisplayed();
+		return isElementPresent(newsPageHeader);
 	}
 
 	/**
@@ -201,6 +186,6 @@ public class HomePage extends BasePage {
 	 * Method to wait until Visibility of Sign up.
 	 */
 	public void waitUntilVisibilityOfSignUP() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.cssSelector(".btn-min-blue"));
+		findVisibleElement(By.cssSelector(".btn-min-blue"));
 	}
 }

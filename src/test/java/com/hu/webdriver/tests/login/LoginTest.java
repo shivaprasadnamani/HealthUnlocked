@@ -11,6 +11,7 @@ import com.hu.webdriver.pages.login.LoginPage;
 import com.hu.webdriver.pages.newsfeed.NewsFeedPage;
 import com.hu.webdriver.pages.userprofilepage.UserProfilePage;
 import com.hu.webdriver.tests.BaseTest;
+import com.hu.webdriver.util.TestLogger;
 
 /**
  *
@@ -30,6 +31,10 @@ public class LoginTest extends BaseTest {
 	 * Instance variable for Join page.
 	 */
 	JoinPage joinPage;
+	/**
+	 * Test Logger.
+	 */
+	TestLogger logger = TestLogger.getLogger(LoginTest.class);
 	/**
 	 * Instance variable for Login page.
 	 */
@@ -59,26 +64,42 @@ public class LoginTest extends BaseTest {
 	 */
 	@Test(description = "Login Page-T108: Enter email in forgot password page And Login Page-T1011: Access forgot your password page from log in.")
 	public void verifyEnteringEmailinForgotPasswordPage() {
-		// Click on login link
+		logger.logTestStep("Click on login link");
 		loginPage.clickOnLogin();
-		// Click on forgot password link
+		logger.logTestStep("Click on forgot password link");
 		loginPage.clickOnForgotPassword();
-		// Verifying the reset page header should display
-		Assert.assertTrue(forgotPassword.isForgotPasswordHeaderDisplayed(), "Page header is not displaying.");
-		// Set reset email
-		forgotPassword.setResetEmail(propertyUtil.getProperty("userName"));
-		// click on submit button
-		forgotPassword.clickOnSubmitButton();
-		// Verifying the alert should present
-		Assert.assertTrue(forgotPassword.isResetPasswordAlertMessage(), "Alert is not presenting.");
-		// Navigate to home page
-		homePage.navigateToHomePage();
-		// Verify whether Banner is displaying or not.
-		Assert.assertTrue(forgotPassword.waitUntilInvisibleofForgotPasswordPageBanner(), "Banner is still existing.");
-		//
 
-		// Verify whether Home page is navigating or not.
-		Assert.assertTrue(homePage.isHomePage(), "Not redirected to home page.");
+		logger.logTestStep("Check whether forgot password header displayed.");
+		final boolean isForgotPasswordHeaderDisplayed = forgotPassword.isForgotPasswordHeaderDisplayed();
+		logger.logTestVerificationStep(
+				"Verifying the reset page header should displayed." + isForgotPasswordHeaderDisplayed);
+		Assert.assertTrue(isForgotPasswordHeaderDisplayed, "Page header is not displayed.");
+
+		logger.logTestStep("Store user name.");
+		final String userName = propertyUtil.getProperty("userName");
+		logger.logTestStep("Set reset email" + userName);
+		forgotPassword.setResetEmail(userName);
+		logger.logTestStep("click on submit button.");
+		forgotPassword.clickOnSubmitButton();
+
+		logger.logTestStep("Check Reset password alert message.");
+		final boolean isResetPasswordAlertMessage = forgotPassword.isResetPasswordAlertMessage();
+		logger.logTestVerificationStep("Verifying the alert should present." + isResetPasswordAlertMessage);
+		Assert.assertTrue(isResetPasswordAlertMessage, "Alert is not presenting.");
+
+		logger.logTestStep("Navigate to home page.");
+		homePage.navigateToHomePage();
+		logger.logTestStep("Check wait until invisible of forgot password page banner.");
+		final boolean waitUntilInvisibleofForgotPasswordPageBanner = forgotPassword
+				.waitUntilInvisibleofForgotPasswordPageBanner();
+		logger.logTestVerificationStep(
+				"Verify whether Banner is displaying or not." + waitUntilInvisibleofForgotPasswordPageBanner);
+		Assert.assertTrue(waitUntilInvisibleofForgotPasswordPageBanner, "Banner is still existing.");
+
+		logger.logTestStep("check home page is displayed.");
+		final boolean isHomePageDisplayed = homePage.isHomePage();
+		logger.logTestVerificationStep("Verify whether Home page is navigating or not." + isHomePageDisplayed);
+		Assert.assertTrue(isHomePageDisplayed, "Not redirected to home page.");
 	}
 
 	/**
@@ -86,28 +107,31 @@ public class LoginTest extends BaseTest {
 	 */
 	@Test(description = "Home Page-T1001:Display log in modal.")
 	public void verifyHomePage() {
-		// Click on about us
+		logger.logTestStep("Click on about us.");
 		homePage.clickOnAboutUs();
-		// Verify about us page
+		logger.logTestStep("Verify about us page.");
 		homePage.isAboutUsPage();
-		// Click on news
+		logger.logTestStep("Click on news.");
 		homePage.clickOnNews();
-		// Verify new page
+		logger.logTestStep("Verify new page.");
 		homePage.isNewsPage();
-		// Click on jobs
+		logger.logTearDownStep("Click on jobs.");
 		homePage.clickOnJobs();
-		// Verify jobs page
+		logger.logTestStep("Verify jobs page.");
 		homePage.isJObsPage();
-		// Click on Home Page
+		logger.logTestStep("Click on Home Page.");
 		homePage.navigateToHomePage();
-		// Click on communities
+		logger.logTestStep("Click on communities.");
 		homePage.clickOnCommunities();
-		// Verify communities
+		logger.logTestStep("Verify communities.");
 		homePage.isCommunityPage();
-		// Navigate to home page
+		logger.logTestStep("Navigate to home page.");
 		homePage.navigateToHomePage();
-		// Verifying whether navigating home page or not.
-		Assert.assertTrue(homePage.isHomePage(), "Not redirected to home page.");
+
+		logger.logTestStep("Check Home page displayed.");
+		final boolean isHomePageDisplayed = homePage.isHomePage();
+		logger.logTestVerificationStep("Verifying whether navigating home page or not." + isHomePageDisplayed);
+		Assert.assertTrue(isHomePageDisplayed, "Not redirected to home page.");
 	}
 
 	/**
@@ -116,26 +140,45 @@ public class LoginTest extends BaseTest {
 	 */
 	@Test(description = "Login Page-T102:  Test case to verify Login using email address via modal And Login page-T1004: Login using email address via Log in page.")
 	public void verifyLoginUsingEmailAddressViaModel() {
-		// Click on login link.
+		logger.logTestStep("Click on login link.");
 		loginPage.clickOnLogin();
-		// Verify Login page appeared.
-		Assert.assertTrue(loginPage.isEmailTextFieldVisible(), "Email texfield doesn't existed.");
-		// Set User name.
-		loginPage.setUserName(propertyUtil.getProperty("userName"));
-		// Set Password.
-		loginPage.setPassWord(propertyUtil.getProperty("password"));
-		// click on submit button.
+
+		logger.logTestStep("Check Email text field visible.");
+		boolean isEmailTextFieldVisible = loginPage.isEmailTextFieldVisible();
+		logger.logTestVerificationStep("Verify Login page appeared." + isEmailTextFieldVisible);
+		Assert.assertTrue(isEmailTextFieldVisible, "Email texfield doesn't existed.");
+
+		logger.logTestStep("Store user name.");
+		final String userName = propertyUtil.getProperty("userName");
+		logger.logTestStep("Set User name." + userName);
+		loginPage.setUserName(userName);
+
+		logger.logTestStep("Store password.");
+		final String password = propertyUtil.getProperty("password");
+		logger.logTestStep("Set Password." + password);
+		loginPage.setPassWord(password);
+		logger.logTestStep("click on submit button.");
 		loginPage.clickOnSubmit();
-		// Verify the news feed should appear
-		Assert.assertTrue(newsFeedPage.isNewsfeedDisplay(), "Newsfeed is not appearing.");
-		// Verify the login modal should disappear.
-		Assert.assertFalse(loginPage.isEmailTextFieldVisible(), "Email texfield existed.");
-		// Click on user profile
+
+		logger.logTestStep("Check newsfeed displayed.");
+		final boolean isNewsfeedDisplay = newsFeedPage.isNewsfeedDisplay();
+		logger.logTestVerificationStep("Verify the news feed should appear." + isNewsfeedDisplay);
+		Assert.assertTrue(isNewsfeedDisplay, "Newsfeed is not appearing.");
+
+		logger.logTestStep("Check Email text field visible.");
+		isEmailTextFieldVisible = loginPage.isEmailTextFieldVisible();
+		logger.logTestVerificationStep("Verify the login modal should disappear." + isEmailTextFieldVisible);
+		Assert.assertFalse(isEmailTextFieldVisible, "Email texfield existed.");
+
+		logger.logTestStep("Click on user profile.");
 		newsFeedPage.clickOnUserProfile();
-		// Click on logout
+		logger.logTestStep("Click on logout.");
 		newsFeedPage.clickOnLogout();
-		// Verifying whether navigating home page or not.
-		Assert.assertTrue(homePage.isHomePage(), "Not redirected to home page.");
+
+		logger.logTestStep("Check Home page displayed.");
+		final boolean isHomePageDisplayed = homePage.isHomePage();
+		logger.logTestVerificationStep("Verifying whether navigating home page or not." + isHomePageDisplayed);
+		Assert.assertTrue(isHomePageDisplayed, "Not redirected to home page.");
 	}
 
 	/**
@@ -143,20 +186,27 @@ public class LoginTest extends BaseTest {
 	 */
 	@Test(description = "Login Page-T1019:log out and redirect to index page.")
 	public void verifyLogout() {
-		// Click on login link
+		logger.logTestStep("Click on login link.");
 		loginPage.clickOnLogin();
-		// Set user name
-		loginPage.setUserName(propertyUtil.getProperty("userName"));
-		// Set password
-		loginPage.setPassWord(propertyUtil.getProperty("password"));
-		// Click on submit
+		logger.logTestStep("Store User name.");
+		final String userName = propertyUtil.getProperty("userName");
+		logger.logTestStep("Set user name." + userName);
+		loginPage.setUserName(userName);
+		logger.logTestStep("Store Password.");
+		final String password = propertyUtil.getProperty("password");
+		logger.logTestStep("Set password." + password);
+		loginPage.setPassWord(password);
+		logger.logTestStep("Click on submit.");
 		loginPage.clickOnSubmit();
-		// Click on user profile
+
+		logger.logTestStep("Click on user profile.");
 		newsFeedPage.clickOnUserProfile();
-		// Click on logout
+		logger.logTestStep("Click on logout.");
 		newsFeedPage.clickOnLogout();
-		// Verifying whether navigating home page or not.
-		Assert.assertTrue(homePage.isHomePage(), "Not redirected to home page.");
+		logger.logTestStep("Check Home page displayed.");
+		final boolean isHomePageDisplayed = homePage.isHomePage();
+		logger.logTestVerificationStep("Verifying whether navigating home page or not." + isHomePageDisplayed);
+		Assert.assertTrue(isHomePageDisplayed, "Not redirected to home page.");
 	}
 
 	/**
@@ -166,19 +216,29 @@ public class LoginTest extends BaseTest {
 	 */
 	@Test(description = "Login Page-T1003: Wrong credentials.")
 	public void verifyWrongCredential() {
-		// Click on login link
+		logger.logTestStep("Click on login link.");
 		loginPage.clickOnLogin();
-		// Set user name
-		loginPage.setUserName(propertyUtil.getProperty("userName"));
-		// Set password
-		loginPage.setPassWord(propertyUtil.getProperty("wrongPassword"));
-		// Click on submit
+		logger.logTestStep("Store userName.");
+		final String userName = propertyUtil.getProperty("userName");
+		logger.logTestStep("Set user name." + userName);
+		loginPage.setUserName(userName);
+		logger.logTestStep("Store Password.");
+		final String password = propertyUtil.getProperty("wrongPassword");
+		logger.logTestStep("Set password." + password);
+		loginPage.setPassWord(password);
+		logger.logTestStep("Click on submit.");
 		loginPage.clickOnSubmit();
-		// Verifying the alert message should appear
-		Assert.assertTrue(loginPage.isCredentialsAlertMessage(), "Credential alert message is not displaying.");
-		// Verifying the model should present
-		Assert.assertTrue(loginPage.isModelIsPresent(), "Model doesn't exist.");
-		// Click on Login model close button
+
+		logger.logTestStep("Check is Credentials alert message displayed.");
+		final boolean isCredentialsAlertMessage = loginPage.isCredentialsAlertMessage();
+		logger.logTestVerificationStep("Verifying the alert message should appear." + isCredentialsAlertMessage);
+		Assert.assertTrue(isCredentialsAlertMessage, "Credential alert message is not displaying.");
+
+		logger.logTestStep("Check is Model is present or not.");
+		final boolean isModelIsPresent = loginPage.isModelIsPresent();
+		logger.logTestVerificationStep("Verifying the model should present."+isModelIsPresent);
+		Assert.assertTrue(isModelIsPresent, "Model doesn't exist.");
+		logger.logTestStep("Click on Login model close button.");
 		loginPage.clickOnLoginModelCloseButtton();
 	}
 }
