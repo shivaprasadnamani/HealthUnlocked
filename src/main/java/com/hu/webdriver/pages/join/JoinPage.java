@@ -13,7 +13,7 @@ import com.hu.webdriver.pages.BasePage;
  */
 public class JoinPage extends BasePage {
 	/**
-	 * WebElement for close button.
+	 * By Element for close button.
 	 */
 	By closeButton = By.cssSelector(".close");
 
@@ -30,17 +30,17 @@ public class JoinPage extends BasePage {
 	WebElement communitySearch;
 
 	/**
-	 * WebElement for community title.
+	 * By element for community title.
 	 */
 	By communityTitle = By.xpath("(//div[@class='box-title'])[1]");
 
 	/**
-	 * WebElement for Finish button.
+	 * By element for Finish button.
 	 */
 	By finishButton = By.xpath("//button[text()='Finish']");
 
 	/**
-	 * WebElement for follow button.
+	 * By element for follow button.
 	 */
 	By followButton = By.xpath("(//button[text()='Follow'])[1]");
 
@@ -64,21 +64,21 @@ public class JoinPage extends BasePage {
 	 * Method for click on close button.
 	 */
 	public void clickonCloseButton() {
-		findClickableElement(By.cssSelector(".close")).click();
+		findClickableElement(closeButton).click();
 	}
 
 	/**
 	 * Method to click on finish button.
 	 */
 	public void clickOnFinishButton() {
-		findClickableElement(By.xpath("//button[text()='Finish']")).click();
+		findClickableElement(finishButton).click();
 	}
 
 	/**
 	 * Method to click on follow button.
 	 */
 	public void clickOnFollowButton() {
-		findClickableElement(By.xpath("(//button[text()='Follow'])[1]")).click();
+		findClickableElement(followButton).click();
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class JoinPage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isCommunityIcon() {
-		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("(//div[@class='clearfix communityBox-flat'])[1]"));
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, communityIcon);
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class JoinPage extends BasePage {
 	 * Method to navigate Join page.
 	 */
 	public void navigateToJoinPage() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//div[@class='userHomeNav-username']"));
+		findVisibleElement(By.xpath("//div[@class='userHomeNav-username']"), DEFAULT_WEBELMENT_TIMEOUT);
 		driver.get("https://healthunlocked.com/join");
 	}
 
@@ -131,9 +131,9 @@ public class JoinPage extends BasePage {
 	 * Method to search Community.
 	 */
 	public void searcCommunity() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.id("directory-search-input"));
+		findVisibleElement(By.id("directory-search-input"), MAX_WEBELMENT_TIMEOUT);
 		communitySearch.click();
 		communitySearch.sendKeys("Running");
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("(//button[text()='Follow'])[1]"));
+		findVisibleElement(By.xpath("(//button[text()='Follow'])[1]"), MAX_WEBELMENT_TIMEOUT);
 	}
 }

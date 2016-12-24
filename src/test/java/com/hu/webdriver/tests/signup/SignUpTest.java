@@ -12,7 +12,6 @@ import com.hu.webdriver.pages.signup.SignUpPage;
 import com.hu.webdriver.tests.BaseTest;
 import com.hu.webdriver.util.TestLogger;
 
-
 /**
  * @author SHIVA
  */
@@ -56,7 +55,8 @@ public class SignUpTest extends BaseTest {
 
 		logger.logTestStep("Check is Terms of usage header displayed.");
 		final boolean isTermsOfUsageHeaderDisplayed = signUpPage.isTermsOfUsageHeaderDisplayed();
-		logger.logTestVerificationStep("Verify whether terms of use page should appear."+isTermsOfUsageHeaderDisplayed);
+		logger.logTestVerificationStep(
+				"Verify whether terms of use page should appear." + isTermsOfUsageHeaderDisplayed);
 		Assert.assertTrue(isTermsOfUsageHeaderDisplayed, "Header not exists.");
 
 		logger.logTestStep("Close window.");
@@ -84,19 +84,20 @@ public class SignUpTest extends BaseTest {
 		logger.logTestStep("Click on sign up.");
 		signUpPage.clickOnSignUp();
 		logger.logTestStep("Store User name.");
-		final String userName = "shivaprasadnamani";
-		logger.logTestStep("Set user name."+userName);
-		signUpPage.setUserName(userName);
+		final String invalidUserName = propertyUtil.getProperty("invalidUserName");
+		logger.logTestStep("Set user name." + invalidUserName);
+		signUpPage.setUserName(invalidUserName);
 		logger.logTestStep("Store Emailid.");
 		final String emailId = propertyUtil.getProperty("userName");
-		logger.logTestStep("Set email id."+emailId);
+		logger.logTestStep("Set email id." + emailId);
 		signUpPage.setEmailId(emailId);
 		logger.logTestStep("Click on Sign up.");
 		signUpPage.clickOnSignUpWithEmail();
 
 		logger.logTestStep("Check is invalid Email errror message displayed.");
 		final boolean isInvaildEmailErrorMessageDisplayed = signUpPage.isInvaildEmailErrorMessageDisplayed();
-		logger.logTestVerificationStep("verify whether email id message is displaying or not."+isInvaildEmailErrorMessageDisplayed);
+		logger.logTestVerificationStep(
+				"verify whether email id message is displaying or not." + isInvaildEmailErrorMessageDisplayed);
 		Assert.assertTrue(isInvaildEmailErrorMessageDisplayed, "Message not displying.");
 
 		logger.logTestStep("Click on Sign up close model.");
@@ -112,23 +113,23 @@ public class SignUpTest extends BaseTest {
 		logger.logTestStep("Click on sign up.");
 		signUpPage.clickOnSignUp();
 		logger.logTestStep("Store User name.");
-		final String userName = "shivaprasad123";
-		logger.logTestStep("Set user name."+userName);
-		signUpPage.setUserName(userName);
+		final String validUserName = propertyUtil.getProperty("validUserName");
+		logger.logTestStep("Set user name." + validUserName);
+		signUpPage.setUserName(validUserName);
 		logger.logTestStep("Store Emailid.");
-		final String emailId = "shivaprasad.apricot@gmail.com";
-		logger.logTestStep("Set email id."+emailId);
+		final String emailId = propertyUtil.getProperty("emailId");
+		logger.logTestStep("Set email id." + emailId);
 		signUpPage.setEmailId(emailId);
 		logger.logTestStep("Store Password.");
-		final String password = "shivaprasad9";
-		logger.logTestStep("Set password."+password);
+		final String password = propertyUtil.getProperty("password");
+		logger.logTestStep("Set password." + password);
 		signUpPage.setPassword(password);
 		logger.logTestStep("Click on click on sign up with email.");
 		signUpPage.clickOnSignUpWithEmail();
 
 		logger.logTestStep("Check is popular communities displayed.");
 		final boolean isPopularCommunities = joinPage.isPopularCommunities();
-		logger.logTestVerificationStep("Verify find communities."+isPopularCommunities);
+		logger.logTestVerificationStep("Verify find communities." + isPopularCommunities);
 		Assert.assertTrue(isPopularCommunities, "Popular community not displaying.");
 
 		logger.logTestStep("Navigate to Home page.");
@@ -150,7 +151,7 @@ public class SignUpTest extends BaseTest {
 
 		logger.logTestStep("Check whether wait until Invisible of banner of account.");
 		final boolean waitUntilInvisibleOfBannerOfAccount = signUpPage.waitUntilInvisibleOfBannerOfAccount();
-		logger.logTestStep("Verifying whether banner is invisible or not."+waitUntilInvisibleOfBannerOfAccount);
+		logger.logTestStep("Verifying whether banner is invisible or not." + waitUntilInvisibleOfBannerOfAccount);
 		Assert.assertTrue(waitUntilInvisibleOfBannerOfAccount, "Banner still exist.");
 	}
 }

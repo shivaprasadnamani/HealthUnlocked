@@ -26,7 +26,7 @@ public class LoginPage extends BasePage {
 	WebElement invalidLoginCredentialsBannerMessage;
 
 	/**
-	 * by element for Login.
+	 * By element for Login.
 	 */
 	By login = By.xpath("//a[text()='Log in']");
 
@@ -72,28 +72,28 @@ public class LoginPage extends BasePage {
 	 * Method to click on Forgot Password.
 	 */
 	public void clickOnForgotPassword() {
-		findClickableElement(By.xpath("//a[text()='Forgot your password?']")).click();
+		findClickableElement(forgotPassword).click();
 	}
 
 	/**
 	 * Method to click on Login.
 	 */
 	public void clickOnLogin() {
-		findClickableElement(By.xpath("//a[text()='Log in']")).click();
+		findClickableElement(login).click();
 	}
 
 	/**
 	 * Method to click on login model close button.
 	 */
 	public void clickOnLoginModelCloseButtton() {
-		findClickableElement(By.cssSelector(".modal-close")).click();
+		findClickableElement(loginModelCloseButton).click();
 	}
 
 	/**
 	 * Method to click on Submit Button.
 	 */
 	public void clickOnSubmit() {
-		findClickableElement(By.id("login-submit-button")).click();
+		findClickableElement(submit).click();
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class LoginPage extends BasePage {
 	 */
 	public boolean isCredentialsAlertMessage() {
 		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT,
-				By.xpath("//*[contains(text(),'It looks like that email')]"));
+				invalidLoginCredentialsBannerMessage);
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class LoginPage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isEmailTextFieldVisible() {
-		return isElementPresent(MIN_WEBELMENT_TIMEOUT, By.id("login-email-input"));
+		return isElementPresent(MIN_WEBELMENT_TIMEOUT, userName);
 	}
 
 	/**

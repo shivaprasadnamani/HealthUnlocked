@@ -19,7 +19,7 @@ import com.hu.webdriver.util.TestLogger;
 public class SignUpPage extends BasePage {
 
 	/**
-	 * WebElement for close sign up model.
+	 * By element for close sign up model.
 	 */
 	By closeSignUpModel = By.cssSelector(".modal-close");
 
@@ -99,28 +99,28 @@ public class SignUpPage extends BasePage {
 	 * Method for click on sign up.
 	 */
 	public void clickOnSignUp() {
-		findClickableElement(By.cssSelector(".btn-min-blue")).click();
+		findClickableElement(signupButton).click();
 	}
 
 	/**
 	 * Method to click on sign up model.
 	 */
 	public void clickOnSignUpCloseModel() {
-		findClickableElement(By.cssSelector(".modal-close")).click();
+		findClickableElement(closeSignUpModel).click();
 	}
 
 	/**
 	 * Method to click on sign up with email.
 	 */
 	public void clickOnSignUpWithEmail() {
-		findClickableElement(By.xpath("//input[@value='Sign up with email']")).click();
+		findClickableElement(signUpWithEmail).click();
 	}
 
 	/**
 	 * Method for click on terms of use.
 	 */
 	public void clickOnTermsOfUse() {
-		findClickableElement(By.linkText("terms of use")).click();
+		findClickableElement(termsOfUse).click();
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class SignUpPage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isTermsOfUsageHeaderDisplayed() {
-		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Terms of use']"));
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, termsPageHeader);
 	}
 
 	/**

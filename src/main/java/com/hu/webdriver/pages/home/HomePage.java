@@ -15,11 +15,6 @@ import com.hu.webdriver.pages.BasePage;
  */
 public class HomePage extends BasePage {
 	/**
-	 * By element for about us.
-	 */
-	By aboutUs = By.xpath("//a[text()='About us']");
-
-	/**
 	 * WebElement for about us page header.
 	 */
 	@FindBy(css = ".selected")
@@ -102,28 +97,28 @@ public class HomePage extends BasePage {
 	 * Method to click on Communities.
 	 */
 	public void clickOnCommunities() {
-		findClickableElement(By.xpath("//a[text()='Communities']")).click();
+		findClickableElement(communities).click();
 	}
 
 	/**
 	 * Method to click on jobs.
 	 */
 	public void clickOnJobs() {
-		findClickableElement(By.linkText("Jobs")).click();
+		findClickableElement(jobs).click();
 	}
 
 	/**
-	 * Method to click on jobs.
+	 * Method to click on news.
 	 */
 	public void clickOnNews() {
-		findClickableElement(By.linkText("News")).click();
+		findClickableElement(news).click();
 	}
 
 	/**
 	 * Method to click on search button.
 	 */
 	public void clickOnSearchButton() {
-		findClickableElement(By.cssSelector(".btn-search")).click();
+		findClickableElement(searchButton).click();
 	}
 
 	/**
@@ -132,7 +127,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isAboutUsPage() {
-		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, By.cssSelector(".selected"));
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, aboutusPageHeader);
 	}
 
 	/**
@@ -141,7 +136,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isCommunityPage() {
-		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Find communities']"));
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, communitiesPageHeader);
 	}
 
 	/**
@@ -150,7 +145,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isHomePage() {
-		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//img[@class='logo']"));
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, healthUnlockedImage);
 	}
 
 	/**
@@ -159,7 +154,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isJObsPage() {
-		return isElementPresent(By.xpath("//h3[text()='Jobs']"));
+		return isElementPresent(jobsPageHeader);
 	}
 
 	/**
@@ -168,7 +163,7 @@ public class HomePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isNewsPage() {
-		return isElementPresent(By.xpath("//h3[text()='Media enquiries']"));
+		return isElementPresent(newsPageHeader);
 	}
 
 	/**
@@ -191,6 +186,6 @@ public class HomePage extends BasePage {
 	 * Method to wait until Visibility of Sign up.
 	 */
 	public void waitUntilVisibilityOfSignUP() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.cssSelector(".btn-min-blue"));
+		findVisibleElement(By.cssSelector(".btn-min-blue"));
 	}
 }

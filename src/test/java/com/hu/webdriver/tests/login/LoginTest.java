@@ -72,7 +72,7 @@ public class LoginTest extends BaseTest {
 		logger.logTestStep("Check whether forgot password header displayed.");
 		final boolean isForgotPasswordHeaderDisplayed = forgotPassword.isForgotPasswordHeaderDisplayed();
 		logger.logTestVerificationStep(
-				"Verifying the reset page header should display" + isForgotPasswordHeaderDisplayed);
+				"Verifying the reset page header should displayed." + isForgotPasswordHeaderDisplayed);
 		Assert.assertTrue(isForgotPasswordHeaderDisplayed, "Page header is not displayed.");
 
 		logger.logTestStep("Store user name.");

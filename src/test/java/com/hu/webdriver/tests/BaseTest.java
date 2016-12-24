@@ -7,6 +7,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
+import com.hu.webdriver.util.HUPropertyUtil;
 import com.hu.webdriver.util.PropertyUtil;
 
 /**
@@ -17,6 +18,11 @@ public class BaseTest {
 	 * Instance variable for driver.
 	 */
 	protected WebDriver driver;
+
+	/**
+	 * Instance variable for HUPropertyUtil.
+	 */
+	protected HUPropertyUtil huPropertyUtil;
 
 	/**
 	 *  Instance variable for PropertyUtil.
@@ -46,15 +52,15 @@ public class BaseTest {
 		propertyUtil = new PropertyUtil();
 		final String browser = propertyUtil.getProperty("browser");
 		if(browser.equals("Chrome")){
-			System.setProperty("webdriver.chrome.driver", "src/main/resources/binaries/chromedriver.exe");
+			System.setProperty(propertyUtil.getProperty("chromeDriver"), propertyUtil.getProperty("chromeDriverPath"));
 			driver = new ChromeDriver();
 		}
 		if(browser.equals("Firefox")){
-			System.setProperty("webdriver.firefox.marionette","src/main/resources/binaries/geckodriver.exe");
+			System.setProperty(propertyUtil.getProperty("firefoxDrievr"),propertyUtil.getProperty("firefoxDriverPath"));
 			driver = new FirefoxDriver();
 		}
 		if(browser.equals("IE")){
-			System.setProperty("webdriver.ie.driver", "src/main/resources/binaries/IEDriverServer.exe");
+			System.setProperty(propertyUtil.getProperty("ieDriver"), propertyUtil.getProperty("ieDriverPath"));
 			driver = new InternetExplorerDriver();
 		}
 		driver.get(propertyUtil.getProperty("url"));

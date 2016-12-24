@@ -27,7 +27,7 @@ public class ForgotPassword extends BasePage {
 	/**
 	 * WebElement for Submit Button.
 	 */
-	By submitButton = By.xpath("//input[@class='btn btn-primary']");
+	By submitButton = By.cssSelector(".btn-primary");
 
 	/**
 	 * WebElement for User email.
@@ -49,7 +49,7 @@ public class ForgotPassword extends BasePage {
 	 * Method for click on Submit Button.
 	 */
 	public void clickOnSubmitButton() {
-		findClickableElement(By.xpath("//input[@class='btn btn-primary']")).click();
+		findClickableElement(submitButton).click();
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class ForgotPassword extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isForgotPasswordHeaderDisplayed() {
-		return isElementPresent(MAX_WEBELMENT_TIMEOUT, By.xpath("//h1[text()='Forgot your password?']"));
+		return isElementPresent(MAX_WEBELMENT_TIMEOUT, forgotPasswordPageHeader);
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class ForgotPassword extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isResetPasswordAlertMessage() {
-		return isElementPresent(MAX_WEBELMENT_TIMEOUT, By.xpath("//*[contains(text(),'shortly receive an email')]"));
+		return isElementPresent(MAX_WEBELMENT_TIMEOUT, forgotPasswordPageAlertMessage);
 	}
 
 	/**

@@ -17,33 +17,15 @@ import com.hu.webdriver.pages.BasePage;
  */
 public class ProfilePage extends BasePage {
 	/**
-	 * Web element for Bio text area.
-	 */
-	@FindBy(xpath = "//textarea[@name = 'limitedTextArea']")
-	WebElement bioTextArea;
-
-	/**
 	 * Web element for Bruise.
 	 */
 	@FindBy(xpath = "//a[text()='Bruise']")
 	WebElement bruise;
 
 	/**
-	 * Web element for close Health interest.
-	 */
-	@FindBy(xpath = "//button[text()='×']")
-	WebElement closeHealthInterest;
-
-	/**
 	 * By element for Community follow button;
 	 */
 	By communityFollowButton = By.id("community-follow-button");
-
-	/**
-	 * Web element for Day.
-	 */
-	@FindBy(css = ".form-control-day")
-	WebElement day;
 
 	/**
 	 * Web element for Edit profile.
@@ -52,33 +34,10 @@ public class ProfilePage extends BasePage {
 	WebElement editProfile;
 
 	/**
-	 * By element for Make Private.
-	 */
-	By makePrivate = By.xpath("(//input[@type='checkbox'])[1]");
-
-	/**
 	 * Web element for Methotrexate.
 	 */
 	@FindBy(xpath = "//a[text()='Methotrexate']")
 	WebElement methotrexate;
-
-	/**
-	 * Web element for Month.
-	 */
-	@FindBy(css = ".form-control-month")
-	WebElement month;
-
-	/**
-	 * Web element for Symptoms search.
-	 */
-	@FindBy(xpath = "(//input[@type='text'])[2]")
-	WebElement mySymptoms;
-
-	/**
-	 * Web element for my Treatments.
-	 */
-	@FindBy(xpath = "(//input[@type='text'])[4]")
-	WebElement myTreatments;
 
 	/**
 	 * By element for Profile.
@@ -91,22 +50,10 @@ public class ProfilePage extends BasePage {
 	By profileEditButton = By.id("profile-edit-button");
 
 	/**
-	 * Web element for Save changes.
-	 */
-	@FindBy(xpath = "//input[@value='Save changes']")
-	WebElement saveChanges;
-
-	/**
 	 * Web element for Thyrotoxicosis.
 	 */
 	@FindBy(xpath = "//a[text()='Thyrotoxicosis']")
 	WebElement thyrotoxicosis;
-
-	/**
-	 * Web element for Year.
-	 */
-	@FindBy(css = ".form-control-year")
-	WebElement year;
 
 	/**
 	 * Constructor.
@@ -125,11 +72,12 @@ public class ProfilePage extends BasePage {
 	 * @param year
 	 * @return int
 	 */
-	private int ageCalc(int month, int year) {
+	private int ageCalc(int month, String year) {
 		final Calendar c = Calendar.getInstance();
 		final int currentYear = c.get(Calendar.YEAR);
 		final int currentMonth = c.get(Calendar.MONTH);
-		int age = currentYear - year;
+		final int birthYear = Integer.parseInt(year);
+		int age = currentYear - birthYear;
 		if (currentMonth < month) {
 			age = age - 1;
 		}
@@ -162,7 +110,7 @@ public class ProfilePage extends BasePage {
 	 * Method to click on Profile edit button.
 	 */
 	public void clickOnProfileEditButton() {
-		findClickableElement(By.id("profile-edit-button")).click();
+		findClickableElement(profileEditButton).click();
 	}
 
 	/**
@@ -171,6 +119,7 @@ public class ProfilePage extends BasePage {
 	public void clickOnSaveChanges() {
 		findVisibleElement(By.xpath("//input[@value='Save changes']")).click();
 		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
+		sleep(1);
 	}
 
 	/**
@@ -180,7 +129,7 @@ public class ProfilePage extends BasePage {
 	 * @param year
 	 * @return boolean
 	 */
-	public boolean isAgeDisplayed(int month, int year) {
+	public boolean isAgeDisplayed(int month, String year) {
 		final int age = ageCalc(month, year);
 		return isElementPresent(MAX_WEBELMENT_TIMEOUT, By.xpath("//td[text()='" + age + "']"));
 	}
@@ -191,7 +140,7 @@ public class ProfilePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isBioDisplayed() {
-		return isElementPresent(MAX_WEBELMENT_TIMEOUT,
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT,
 				By.xpath("//*[contains(text(),'Hello world! I am a test user for https://healthunlocked.com')]"));
 	}
 
@@ -202,7 +151,7 @@ public class ProfilePage extends BasePage {
 	 */
 	public boolean isBruiseDisplayed() {
 		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
-		return isElementPresent(MIN_WEBELMENT_TIMEOUT, By.xpath("//a[text()='Bruise']"));
+		return isElementPresent(MIN_WEBELMENT_TIMEOUT, bruise);
 	}
 
 	/**
@@ -239,7 +188,7 @@ public class ProfilePage extends BasePage {
 	public boolean isMethotrexateDisplayed() {
 		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
 		sleep(1);
-		return isElementPresent(MIN_WEBELMENT_TIMEOUT, By.xpath("//a[text()='Methotrexate']"));
+		return isElementPresent(MAX_WEBELMENT_TIMEOUT, methotrexate);
 	}
 
 	/**
@@ -249,7 +198,7 @@ public class ProfilePage extends BasePage {
 	 */
 	public boolean isThyrotoxicosisDisplayed() {
 		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
-		return isElementPresent(MIN_WEBELMENT_TIMEOUT, By.xpath("//a[text()='Thyrotoxicosis']"));
+		return isElementPresent(MIN_WEBELMENT_TIMEOUT, thyrotoxicosis);
 	}
 
 	/**
@@ -262,16 +211,6 @@ public class ProfilePage extends BasePage {
 	}
 
 	/**
-	 * Method to set Day.
-	 *
-	 * @param value
-	 */
-	public void setDay(String value) {
-		findVisibleElement(By.cssSelector(".form-control-day"));
-		selectDropdown(day, -1, value, null);
-	}
-
-	/**
 	 * Method to set Gender.
 	 *
 	 * @param gender
@@ -279,16 +218,6 @@ public class ProfilePage extends BasePage {
 	public void setGender(String gender) {
 		sleep(1);
 		findVisibleElement(By.xpath("//input[@label='" + gender + "']"), MAX_WEBELMENT_TIMEOUT).click();
-	}
-
-	/**
-	 * Method to set Month.
-	 *
-	 * @param value
-	 */
-	public void setMonth(String value) {
-		findVisibleElement(By.cssSelector(".form-control-month"));
-		selectDropdown(month, -1, null, value);
 	}
 
 	/**
@@ -319,15 +248,5 @@ public class ProfilePage extends BasePage {
 	public void setmyTreatments(String value) {
 		sleep(1);
 		findVisibleElement(By.xpath("(//input[@type='text'])[4]")).sendKeys(value);
-	}
-
-	/**
-	 * Method to set Year.
-	 *
-	 * @param value
-	 */
-	public void setYear(String value) {
-		findVisibleElement(By.cssSelector(".form-control-year"));
-		selectDropdown(year, -1, value, null);
 	}
 }

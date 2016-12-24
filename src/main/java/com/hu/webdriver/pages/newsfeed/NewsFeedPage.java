@@ -86,57 +86,57 @@ public class NewsFeedPage extends BasePage {
 	 * Method to click on Account Delete Button.
 	 */
 	public void clickOnAccountDeleteButton() {
-		findClickableElement(By.xpath("//button[text()='Delete my account']")).click();
+		findClickableElement(accountDeleteButton).click();
 	}
 
 	/**
 	 * Method to click on Account Settings.
 	 */
 	public void clickOnAccountSettings() {
-		findClickableElement(By.id("sitebar-account-button")).click();
+		findClickableElement(accountSettings).click();
 	}
 
 	/**
 	 * Click on Got it.
 	 */
 	public void clickOnGotit() {
-		findClickableElement(By.xpath("//button[text()='Got it']")).click();
+		findClickableElement(gotItAlert).click();
 	}
 
 	/**
 	 * Method to click on logout.
 	 */
 	public void clickOnLogout() {
-		findClickableElement(By.id("sitebar-logout-button")).click();
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.xpath("//img[@class='logo']"));
+		findClickableElement(logout).click();
+		findVisibleElement(By.xpath("//img[@class='logo']"), MAX_WEBELMENT_TIMEOUT);
 	}
 
 	/**
 	 * Method to click on settings Account Delete Button.
 	 */
 	public void clickOnSettingsAccountDeleteButton() {
-		findClickableElement(By.id("settings-delete-account-button")).click();
+		findClickableElement(settingsAccountDeleteButton).click();
 	}
 
 	/**
 	 * Method to click on show Account Delete Button.
 	 */
 	public void clickOnShowAccountDeleteButton() {
-		findClickableElement(By.id("settings-show-delete-button")).click();
+		findClickableElement(showAccountDeleteButton).click();
 	}
 
 	/**
 	 * Method to click on user profile.
 	 */
 	public void clickOnUserProfile() {
-		findClickableElement(By.xpath("//span[text()='shivaprasadnamani']")).click();
+		findClickableElement(userProfile).click();
 	}
 
 	/**
 	 * Click on user profile for valid credentials.
 	 */
 	public void clickOnUserProfileforValidCredentials() {
-		findClickableElement(By.xpath("//span[text()='shivaprasad123']")).click();
+		findClickableElement(userProfileForValidCredentials).click();
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class NewsFeedPage extends BasePage {
 	 * @return String
 	 */
 	public String getUserName() {
-		webDriverWait(MAX_WEBELMENT_TIMEOUT, By.cssSelector(".userHomeNav-username"));
+		findVisibleElement(By.cssSelector(".userHomeNav-username"),MAX_WEBELMENT_TIMEOUT);
 		return profileName.getText();
 	}
 
@@ -166,7 +166,7 @@ public class NewsFeedPage extends BasePage {
 	 * @return boolean.
 	 */
 	public boolean isNewsfeedDisplay() {
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.linkText("News Feed"));
+		findVisibleElement(By.linkText("News Feed"), DEFAULT_WEBELMENT_TIMEOUT);
 		return newsfeed.isDisplayed();
 	}
 
@@ -175,6 +175,6 @@ public class NewsFeedPage extends BasePage {
 	 */
 	public void navigateToNewsfeedPage() {
 		driver.navigate().to("https://healthunlocked.com");
-		webDriverWait(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//a[text()='News Feed']"));
+		findVisibleElement(By.xpath("//a[text()='News Feed']"),DEFAULT_WEBELMENT_TIMEOUT);
 	}
 }

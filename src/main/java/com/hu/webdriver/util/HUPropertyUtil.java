@@ -3,11 +3,12 @@ package com.hu.webdriver.util;
 import java.util.Properties;
 
 /**
- * This class is used to read default property file.
+ * This class is used to read hu property file.
  * @author SHIVA
  *
  */
-public class PropertyUtil {
+public class HUPropertyUtil {
+
 
 	/**
 	 * Instance variable for properties.
@@ -17,9 +18,8 @@ public class PropertyUtil {
 	/**
 	 * Constructor.
 	 */
-	public PropertyUtil(){
+	public HUPropertyUtil(){
 		try {
-			properties.load(this.getClass().getClassLoader().getResourceAsStream("default.properties"));
 			properties.load(this.getClass().getClassLoader().getResourceAsStream("hu.properties"));
 		} catch (final Exception e) {
 			e.printStackTrace();
@@ -35,3 +35,4 @@ public class PropertyUtil {
 		return properties.getProperty(key);
 	}
 }
+
