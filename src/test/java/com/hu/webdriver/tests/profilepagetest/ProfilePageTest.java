@@ -91,6 +91,7 @@ public class ProfilePageTest extends BaseTest {
 		logger.logTestStep("Set my Conditions." + conditions);
 		editProfilePage.setMyConditions(conditions);
 		editProfilePage.setMyConditions("" + Keys.ENTER);
+		editProfilePage.sleep(1);
 		logger.logTestStep("Click on Save changes.");
 		editProfilePage.clickOnSaveChanges();
 
@@ -166,6 +167,7 @@ public class ProfilePageTest extends BaseTest {
 		logger.logTestStep("Set my Treatments." + treatment);
 		editProfilePage.setmyTreatments(treatment);
 		editProfilePage.setmyTreatments("" + Keys.ENTER);
+		//editProfilePage.sleep(1);
 		logger.logTestStep("Click on Save changes.");
 		editProfilePage.clickOnSaveChanges();
 

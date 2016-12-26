@@ -89,6 +89,7 @@ public class ProfilePage extends BasePage {
 	 */
 	public void clickOnEditProfile() {
 		findClickableElement(By.id("profile-edit-button")).click();
+		sleep(1);
 	}
 
 	/**
@@ -133,8 +134,10 @@ public class ProfilePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isBruiseDisplayed() {
+		driver.navigate().refresh();
 		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
-		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, bruise);
+		sleep(1);
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("//a[text()='Bruise']"));
 	}
 
 	/**
@@ -169,9 +172,10 @@ public class ProfilePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isMethotrexateDisplayed() {
+		driver.navigate().refresh();
 		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
 		sleep(1);
-		return isElementPresent(MAX_WEBELMENT_TIMEOUT, methotrexate);
+		return isElementPresent(MAX_WEBELMENT_TIMEOUT, By.xpath("//a[text()='Methotrexate']"));
 	}
 
 	/**
@@ -180,8 +184,9 @@ public class ProfilePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isThyrotoxicosisDisplayed() {
+		driver.navigate().refresh();
 		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
 		sleep(1);
-		return isElementPresent(MIN_WEBELMENT_TIMEOUT, thyrotoxicosis);
+		return isElementPresent(MAX_WEBELMENT_TIMEOUT, By.xpath("//a[text()='Thyrotoxicosis']"));
 	}
 }

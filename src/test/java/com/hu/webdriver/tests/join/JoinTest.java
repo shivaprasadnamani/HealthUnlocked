@@ -79,6 +79,8 @@ public class JoinTest extends BaseTest {
 		joinPage.searcCommunity();
 		logger.logTestStep("Click on follow button.");
 		joinPage.clickOnFollowButton();
+		joinPage.sleep(1);
+		//driver.findElement(By.cssSelector(".btn-block")).click();
 		logger.logTestStep("Click on finish button.");
 		joinPage.clickOnFinishButton();
 

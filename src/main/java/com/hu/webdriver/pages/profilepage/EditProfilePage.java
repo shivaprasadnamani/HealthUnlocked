@@ -81,6 +81,8 @@ public class EditProfilePage extends BasePage {
 	 * Method to click on close Health Interest.
 	 */
 	public void clickOnCloseHealthInterest() {
+		driver.navigate().refresh();
+		sleep(1);
 		findVisibleElement(By.xpath("//button[text()='×']"), MAX_WEBELMENT_TIMEOUT).click();
 		sleep(1);
 	}
@@ -89,10 +91,9 @@ public class EditProfilePage extends BasePage {
 	 * Method to click on Save changes.
 	 */
 	public void clickOnSaveChanges() {
-		sleep(2);
+		sleep(1);
 		findVisibleElement(By.xpath("//input[@value='Save changes']")).click();
 		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
-		sleep(1);
 	}
 
 	/**
@@ -142,6 +143,7 @@ public class EditProfilePage extends BasePage {
 	public void setMyConditions(String value) {
 		sleep(1);
 		findVisibleElement(By.xpath("(//input[@type='text'])[3]")).sendKeys(value);
+		sleep(1);
 	}
 
 	/**
@@ -152,6 +154,7 @@ public class EditProfilePage extends BasePage {
 	public void setMySymptoms(String value) {
 		sleep(1);
 		findVisibleElement(By.xpath("(//input[@type='text'])[2]")).sendKeys(value);
+		sleep(1);
 	}
 
 	/**
@@ -162,6 +165,7 @@ public class EditProfilePage extends BasePage {
 	public void setmyTreatments(String value) {
 		sleep(1);
 		findVisibleElement(By.xpath("(//input[@type='text'])[4]")).sendKeys(value);
+		sleep(1);
 	}
 
 	/**
