@@ -1,11 +1,15 @@
 package com.hu.webdriver.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.hu.webdriver.util.PropertyUtil;
 
 /**
  * @author SHIVA
@@ -30,6 +34,12 @@ public class BasePage {
 	 * Instance variable for WebDriver
 	 */
 	protected WebDriver driver;
+
+	/**
+	 *  Instance variable for PropertyUtil.
+	 */
+	protected PropertyUtil propertyUtil;
+
 
 	/**
 	 * Constructor.
@@ -125,6 +135,24 @@ public class BasePage {
 		try {
 			element = (new WebDriverWait(driver, timeOutInSeconds)
 					.until(ExpectedConditions.visibilityOfElementLocated(by)));
+		} catch (final Exception e) {
+			final String message = "Could not find visible element: " + by.toString();
+			throw new RuntimeException(message);
+		}
+		return element;
+	}
+
+	/**
+	 * Method to find visible web element.
+	 *
+	 * @param by.
+	 * @return web element.
+	 */
+	public List<WebElement> findVisibleElements(By by) {
+		List<WebElement> element;
+		try {
+			element = (new WebDriverWait(driver, DEFAULT_WEBELMENT_TIMEOUT)
+					.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by)));
 		} catch (final Exception e) {
 			final String message = "Could not find visible element: " + by.toString();
 			throw new RuntimeException(message);

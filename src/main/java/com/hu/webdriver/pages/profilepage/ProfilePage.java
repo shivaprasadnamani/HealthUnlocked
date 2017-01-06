@@ -34,6 +34,11 @@ public class ProfilePage extends BasePage {
 	WebElement editProfile;
 
 	/**
+	 * By element for message.
+	 */
+	By message = By.xpath("(//a[text()='Message'])[1]");
+
+	/**
 	 * Web element for Methotrexate.
 	 */
 	@FindBy(xpath = "//a[text()='Methotrexate']")
@@ -92,6 +97,13 @@ public class ProfilePage extends BasePage {
 	}
 
 	/**
+	 * Method to click on Message.
+	 */
+	public void clickOnMessage(){
+		findClickableElement(By.xpath("(//a[text()='Message'])[1]")).click();
+	}
+
+	/**
 	 * Method to click on Profile.
 	 */
 	public void clickOnProfile() {
@@ -133,7 +145,6 @@ public class ProfilePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isBruiseDisplayed() {
-		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
 		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, bruise);
 	}
 
@@ -169,9 +180,7 @@ public class ProfilePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isMethotrexateDisplayed() {
-		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
-		sleep(1);
-		return isElementPresent(MAX_WEBELMENT_TIMEOUT, methotrexate);
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, methotrexate);
 	}
 
 	/**
@@ -180,8 +189,6 @@ public class ProfilePage extends BasePage {
 	 * @return boolean
 	 */
 	public boolean isThyrotoxicosisDisplayed() {
-		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
-		sleep(1);
-		return isElementPresent(MIN_WEBELMENT_TIMEOUT, thyrotoxicosis);
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, thyrotoxicosis);
 	}
 }

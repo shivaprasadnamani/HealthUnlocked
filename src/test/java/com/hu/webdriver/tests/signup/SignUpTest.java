@@ -88,9 +88,9 @@ public class SignUpTest extends BaseTest {
 		logger.logTestStep("Set user name." + invalidUserName);
 		signUpPage.setUserName(invalidUserName);
 		logger.logTestStep("Store Emailid.");
-		final String emailId = propertyUtil.getProperty("userName");
-		logger.logTestStep("Set email id." + emailId);
-		signUpPage.setEmailId(emailId);
+		final String mailId = propertyUtil.getProperty("mailId");
+		logger.logTestStep("Set email id." + mailId);
+		signUpPage.setEmailId(mailId);
 		logger.logTestStep("Click on Sign up.");
 		signUpPage.clickOnSignUpWithEmail();
 

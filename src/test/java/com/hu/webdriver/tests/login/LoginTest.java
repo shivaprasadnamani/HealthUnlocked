@@ -76,9 +76,9 @@ public class LoginTest extends BaseTest {
 		Assert.assertTrue(isForgotPasswordHeaderDisplayed, "Page header is not displayed.");
 
 		logger.logTestStep("Store user name.");
-		final String userName = propertyUtil.getProperty("userName");
-		logger.logTestStep("Set reset email" + userName);
-		forgotPassword.setResetEmail(userName);
+		final String mailId = propertyUtil.getProperty("mailId");
+		logger.logTestStep("Set reset email" + mailId);
+		forgotPassword.setResetEmail(mailId);
 		logger.logTestStep("click on submit button.");
 		forgotPassword.clickOnSubmitButton();
 
