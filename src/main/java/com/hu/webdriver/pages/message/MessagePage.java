@@ -15,47 +15,48 @@ import com.hu.webdriver.pages.BasePage;
  */
 public class MessagePage extends BasePage {
 	/**
-	 * By element for Compose.
+	 * By element for Compose button.
 	 */
 	By compose = By.cssSelector(".icon-pencil-1");
 	/**
-	 * By element for Delete message.
+	 * Web element for Delete message.
 	 */
-	By deleteMessage = By.xpath("//span[text()='Delete']");
+	@FindBy(xpath = "//span[text()='Delete']")
+	WebElement deleteMessage;
+
 	/**
-	 * By element for Mail.
+	 * Web element for Message text.
 	 */
-	By mail = By.xpath("(//input[@type='checkbox'])[11]/following::div[2]/h5//span/strong");
+	@FindBy(xpath = "(//input[@type='checkbox'])[2]/following::div[2]/h5//span/strong")
+	WebElement mail;
 	/**
-	 * Web element for Mark as read.
+	 * Web element for Mark as read button.
 	 */
 	@FindBy(xpath = "//button[text()='Mark as read']")
 	WebElement markAsRead;
 	/**
-	 * By element for Message.
+	 * By element for Message text.
 	 */
-	By messages = By.xpath("//span[text()='Messages ']");
+	By messages = By.cssSelector(".icon-mail");
 	/**
 	 * Web element for Message text box.
 	 */
 	@FindBy(css = ".message-text-box")
 	WebElement messageTextBox;
 	/**
-	 * Web element for Replay page header.
+	 * By Element for My communities.
 	 */
-	@FindBy(xpath = "(//div[contains(text(),'Welcome')])[1]")
-	WebElement replayPageHeader;
+	By myCommunities = By.xpath("//span[text()='My Communities']");
 	/**
-	 * Web element for Select message.
+	 * By element for Deselect all.
 	 */
-	@FindBy(xpath = "(//li/div/input[@type='checkbox'])[11]")
-	WebElement selectMessage;
+	By selectAll = By.xpath("//span[text()='Select all']");
 	/**
-	 * By element for Send message.
+	 * By element for Select message.
 	 */
-	By sendMessage = By.cssSelector(".btn-primary");
+	By selectMessage = By.xpath("(//li/div/input[@type='checkbox'])[2]");
 	/**
-	 * By element for Undo.
+	 * By element for Undo banner.
 	 */
 	By undo = By.xpath("//*[text()='Undo?']");
 
@@ -73,70 +74,94 @@ public class MessagePage extends BasePage {
 	 * Method to click on Compose.
 	 */
 	public void clickOnCompose() {
-		findClickableElement(By.cssSelector(".icon-pencil-1")).click();
+		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Sent!']"));
+		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Undo?']"));
+		driver.navigate().refresh();
+		findClickableElement(compose).click();
 	}
 
 	/**
 	 * Method to click on Delete message.
 	 */
 	public void clickOnDeleteMessage() {
-		findClickableElement(By.xpath("//span[text()='Delete']")).click();
-		sleep(4);
+		deleteMessage.click();
 	}
 
 	/**
 	 * Method to click on Mail.
 	 */
 	public void clickOnMail() {
-		findClickableElement(By.xpath("(//input[@type='checkbox'])[11]/following::div[2]/h5//span/strong")).click();
+		waitUntilInvisibleOfBanner(By.xpath("//*[contains(text(),'in!')]"));
+		driver.navigate().refresh();
+		findClickableElement(By.xpath("(//input[@type='checkbox'])[2]/following::div[2]/h5//span/strong")).click();
 	}
 
 	/**
 	 * Method to click on Messages.
 	 */
 	public void clickOnMessages() {
-		findClickableElement(By.xpath("//span[text()='Messages ']")).click();
+		findClickableElement(messages).click();
+	}
+
+	/**
+	 * Method to click on My community.
+	 */
+	public void clickOnMyCommunities() {
+		findClickableElement(myCommunities).click();
+	}
+
+	/**
+	 * Method to Select all messages.
+	 */
+	public void clickOnSelectAll() {
+		waitUntilInvisibleOfBanner(By.xpath("//*[contains(text(),'in!')]"));
+		sleep(4);
+		findClickableElement(selectAll).click();
 	}
 
 	/**
 	 * Method to click on Select message.
 	 */
 	public void clickOnSelectMessage() {
-		findClickableElement(By.xpath("(//input[@type='checkbox'])[11]")).click();
-	}
-
-	/**
-	 * Method to click on Send message.
-	 */
-	public void clickOnSendMessage() {
-		findClickableElement(By.cssSelector(".btn-primary")).click();
-		sleep(1);
+		waitUntilInvisibleOfBanner(By.xpath("//*[contains(text(),'in!')]"));
+		driver.navigate().refresh();
+		findClickableElement(selectMessage).click();
 	}
 
 	/**
 	 * Method to click on Undo.
 	 */
 	public void clickOnUndo() {
-		findClickableElement(By.xpath("//*[text()='Undo?']")).click();
-		sleep(3);
+		findClickableElement(undo).click();
 	}
 
 	/**
-	 * Method to Current url.
+	 * Method to Current page url.
 	 *
 	 * @return String.
 	 */
-	public String currentUrl() {
-		return driver.getCurrentUrl();
+	public String getCurrentPageUrl() {
+		return currentPageUrl();
 	}
 
 	/**
-	 * Method to verify whether Mail displayed.
+	 * Method to get Mail text.
 	 *
-	 * @return boolean.
+	 * @return String.
 	 */
-	public boolean isMailDisplayed() {
-		return isElementPresent(mail);
+	public String getMailText() {
+		return getText(mail);
+	}
+
+	/**
+	 * Method to verify whether Mail text displayed.
+	 *
+	 * @param mailText
+	 * @return boolean
+	 */
+	public boolean isMailTextDisplayed(String mailText) {
+		return isElementPresent(DEFAULT_WEBELMENT_TIMEOUT, By.xpath("(//strong[text()='" + mailText + "'])[2]"));
+
 	}
 
 	/**
@@ -145,37 +170,16 @@ public class MessagePage extends BasePage {
 	 * @return boolean.
 	 */
 	public boolean isMailTitleDisplayed() {
-		return isElementPresent(By.xpath("(//input[@type='checkbox'])[11]/following::div[2]/h5//span/strong"));
+		return isElementPresent(mail);
 	}
 
 	/**
-	 * Method to verify whether mark as read displayed.
+	 * Method to verify whether mark as read button enabled.
 	 *
 	 * @return boolean.
 	 */
-	public boolean isMarkAsReadDisplayed() {
+	public boolean isMarkAsReadEnabled() {
 		return isEnabled(By.xpath("//button[text()='Mark as read']"));
-	}
-
-	/**
-	 * Method to verify whether Message displayed.
-	 *
-	 * @param userName.
-	 * @param userNameTextbana.
-	 * @return boolean.
-	 */
-	public boolean isMessageDisplayed(String userName, String userNameTextbana) {
-		return isElementPresent(
-				By.xpath("(//strong[text()='Message between " + userName + " and " + userNameTextbana + "'])[2]"));
-	}
-
-	/**
-	 * Method to verify whether Replay mail displayed.
-	 *
-	 * @return boolean.
-	 */
-	public boolean isReplayMailDiplayed() {
-		return isElementPresent(By.xpath("(//input[@type='checkbox'])[11]/following::div[2]/h5//span/strong"));
 	}
 
 	/**
@@ -184,15 +188,7 @@ public class MessagePage extends BasePage {
 	 * @return boolean.
 	 */
 	public boolean isUndoDisplayed() {
-		sleep(3);
 		return isElementPresent(undo);
-	}
-
-	/**
-	 * Method to navigate to Message page.
-	 */
-	public void navigateToMessagePage() {
-		driver.navigate().to("https://healthunlocked.com/messages");
 	}
 
 	/**
@@ -201,7 +197,6 @@ public class MessagePage extends BasePage {
 	 * @param value.
 	 */
 	public void setMessageTextBox(String value) {
-		messageTextBox.sendKeys(value);
-		sleep(1);
+		clearAndType(messageTextBox, value);
 	}
 }

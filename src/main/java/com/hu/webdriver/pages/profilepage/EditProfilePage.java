@@ -86,7 +86,6 @@ public class EditProfilePage extends BasePage {
 		final List<WebElement> list = findVisibleElements(By.xpath("//button[text()='×']"));
 		for(final WebElement element : list){
 			element.click();
-			sleep(2);
 		}
 	}
 

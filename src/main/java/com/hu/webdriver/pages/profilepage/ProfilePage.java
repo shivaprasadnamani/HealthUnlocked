@@ -34,11 +34,6 @@ public class ProfilePage extends BasePage {
 	WebElement editProfile;
 
 	/**
-	 * By element for message.
-	 */
-	By message = By.xpath("(//a[text()='Message'])[1]");
-
-	/**
 	 * Web element for Methotrexate.
 	 */
 	@FindBy(xpath = "//a[text()='Methotrexate']")

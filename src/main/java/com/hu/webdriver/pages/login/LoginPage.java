@@ -79,7 +79,6 @@ public class LoginPage extends BasePage {
 	 * Method to click on Login.
 	 */
 	public void clickOnLogin() {
-		sleep(3);
 		findClickableElement(login).click();
 	}
 

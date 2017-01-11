@@ -3,10 +3,14 @@ package com.hu.webdriver.tests.messagetest;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.hu.webdriver.pages.home.HomePage;
+import com.hu.webdriver.pages.join.JoinPage;
 import com.hu.webdriver.pages.login.LoginPage;
 import com.hu.webdriver.pages.message.Compose;
 import com.hu.webdriver.pages.message.MessagePage;
@@ -30,6 +34,10 @@ public class MessageTest extends BaseTest {
 	 */
 	HomePage homePage;
 	/**
+	 * Instance variable for Join page.
+	 */
+	JoinPage joinPage;
+	/**
 	 * Instance variable for Test logger.
 	 */
 	TestLogger logger = TestLogger.getLogger("ProfilePageTest.class");
@@ -51,14 +59,30 @@ public class MessageTest extends BaseTest {
 	ProfilePage profilePage;
 
 	@BeforeMethod
-	public void setup() {
+	private void followCommunities() {
+		logger.logTestStep("Click on User profile.");
+		newsFeedPage.clickOnUserProfile();
+		logger.logTestStep("Click on Messages.");
+		messagePage.clickOnMessages();
+	}
 
+	@AfterMethod
+	public void navigateToMessagePage() {
+		logger.logTestStep("Click on User profile.");
+		newsFeedPage.clickOnUserProfile();
+		logger.logTestStep("Click on Messages.");
+		messagePage.clickOnMessages();
+	}
+
+	@BeforeClass
+	public void setUpLogin() {
 		loginPage = new LoginPage(driver);
 		newsFeedPage = new NewsFeedPage(driver);
 		messagePage = new MessagePage(driver);
 		compose = new Compose(driver);
 		profilePage = new ProfilePage(driver);
 		homePage = new HomePage(driver);
+		joinPage = new JoinPage(driver);
 
 		logger.logTestStep("Click on Login.");
 		loginPage.clickOnLogin();
@@ -72,10 +96,45 @@ public class MessageTest extends BaseTest {
 		loginPage.setPassWord(password);
 		logger.logTestStep("Click on Submit.");
 		loginPage.clickOnSubmit();
+
 		logger.logTestStep("Click on User profile.");
 		newsFeedPage.clickOnUserProfile();
 		logger.logTestStep("Click on Messages.");
 		messagePage.clickOnMessages();
+
+		messagePage.clickOnSelectAll();
+		messagePage.clickOnDeleteMessage();
+
+		messagePage.clickOnMyCommunities();
+		logger.logTestStep("Click on Browse community.");
+		joinPage.clickOnBrowseCommunity();
+		logger.logTestStep("Click on Follow community.");
+		joinPage.clickOnFollowCommunity();
+
+
+
+	}
+
+	@AfterClass
+	private void unfollowCommunities() {
+		logger.logTestStep("Click on User profile.");
+		newsFeedPage.clickOnUserProfile();
+		logger.logTestStep("Click on Messages.");
+		messagePage.clickOnMessages();
+		logger.logTestStep("Click on My community.");
+		messagePage.clickOnMyCommunities();
+		logger.logTestStep("Click on Browse community.");
+		joinPage.clickOnBrowseCommunity();
+		logger.logTestStep("Un follow Communities.");
+		joinPage.unfollowCommunities();
+		logger.logTestStep("Click on User profile.");
+		newsFeedPage.clickOnUserProfile();
+		logger.logTestStep("Click on Messages.");
+		messagePage.clickOnMessages();
+		logger.logTestStep("Click on select all.");
+		//messagePage.clickOnSelectAll();
+		logger.logTestStep("Click on Delete message.");
+		//messagePage.clickOnDeleteMessage();
 	}
 
 	/**
@@ -94,28 +153,23 @@ public class MessageTest extends BaseTest {
 		logger.logTestStep("Check is Tes Displayed.");
 		final boolean isTesDisplayed = compose.isTesDisplayed();
 		logger.logTestVerificationStep("Verify wheher Tes displayed." + isTesDisplayed);
-		Assert.assertTrue(isTesDisplayed);
-		logger.logTestStep("Driver wait.");
-		messagePage.sleep(2);
+		Assert.assertTrue(isTesDisplayed, "Tes is not displayed.");
+		logger.logTestStep("Clear text area.");
+		compose.clearTextArea();
 		logger.logTestStep("Store User name text Ban.");
 		final String userNametextBan = propertyUtil.getProperty("userNameTextban");
 		logger.logTestStep("Set name text Ban." + userNametextBan);
 		compose.setUserNameText(userNametextBan);
 		logger.logTestStep("Set name text Ban and Enter.");
 		compose.setUserNameText("" + Keys.ENTER);
+		logger.logTestStep("Check whether Ban user displayed.");
 		final boolean isBanDisplayed = compose.isBanDisplayed();
 		logger.logTestVerificationStep("Verify whether Ban is displayed." + isBanDisplayed);
-		Assert.assertTrue(isBanDisplayed);
-		logger.logTestStep("Click on User profile.");
-		newsFeedPage.clickOnUserProfile();
-		logger.logTestStep("Click on Logout.");
-		newsFeedPage.clickOnLogout();
+		Assert.assertTrue(isBanDisplayed, "Ban is not displayed.");
 	}
 
 	/**
 	 * MessageTest:@T3305-At least one recipient is required.
-	 *
-	 * @throws InterruptedException
 	 */
 	@Test(description = "MessageTest:@T3305-At least one recipient is required.")
 	public void verifyAtLeastOneRecipientIsRequired() {
@@ -130,11 +184,14 @@ public class MessageTest extends BaseTest {
 		logger.logTestStep("Check is Message validation displayed.");
 		final boolean isMessageValidationDisplayed = compose.isMessageValidationDisplayed();
 		logger.logTestVerificationStep("Verify whether Message validation displayed." + isMessageValidationDisplayed);
-		Assert.assertTrue(isMessageValidationDisplayed);
+		Assert.assertTrue(isMessageValidationDisplayed, "Message validation is not displayed.");
 		logger.logTestStep("Click on User profile.");
 		newsFeedPage.clickOnUserProfile();
-		logger.logTestStep("Click on Logout.");
-		newsFeedPage.clickOnLogout();
+		logger.logTestStep("Click on Messages.");
+		messagePage.clickOnMessages();
+
+		logger.logTestStep("Wait until alert present.");
+		compose.waitUntilAlertPresent();
 		logger.logTestStep("Driver switch to Alert.");
 		final Alert confirmationAlert = driver.switchTo().alert();
 		logger.logTestStep("Driver accept alert.");
@@ -160,7 +217,7 @@ public class MessageTest extends BaseTest {
 		logger.logTestStep("Check whether Ban displayed.");
 		final boolean isBanDisplayed = compose.isBanDisplayed();
 		logger.logTestVerificationStep("Verify whether Ban displayed." + isBanDisplayed);
-		Assert.assertTrue(isBanDisplayed);
+		Assert.assertTrue(isBanDisplayed, "Ban is not Displayed.");
 
 		logger.logTestStep("Store Message body.");
 		final String messageBody = propertyUtil.getProperty("messageBody");
@@ -178,14 +235,9 @@ public class MessageTest extends BaseTest {
 		messagePage.clickOnMessages();
 
 		logger.logTestStep("Check whether Mark as read displayed.");
-		final boolean isMarkAsReadDisplayed = messagePage.isMarkAsReadDisplayed();
-		logger.logTestVerificationStep("Verify whether Mark as read displayed." + isMarkAsReadDisplayed);
-		Assert.assertFalse(isMarkAsReadDisplayed);
-
-		logger.logTestStep("Click on User profile.");
-		newsFeedPage.clickOnUserProfile();
-		logger.logTestStep("Click on Logout.");
-		newsFeedPage.clickOnLogout();
+		final boolean isMarkAsReadDisplayed = messagePage.isMarkAsReadEnabled();
+		logger.logTestVerificationStep("Verify whether Mark as read button displayed." + isMarkAsReadDisplayed);
+		Assert.assertFalse(isMarkAsReadDisplayed, "Mark as read button not displayed.");
 	}
 
 	/**
@@ -205,26 +257,21 @@ public class MessageTest extends BaseTest {
 		logger.logTestStep("Check whether Tes displayed.");
 		final boolean isTesDisplayed = compose.isTesDisplayed();
 		logger.logTestVerificationStep("Verify whether Tes displayed." + isTesDisplayed);
-		Assert.assertTrue(isTesDisplayed);
+		Assert.assertTrue(isTesDisplayed, "Tes is not displayed.");
 		logger.logTestStep("Click on Send.");
 		compose.clickOnSend();
 
 		logger.logTestStep("Check whether body validation displayed.");
 		final boolean isBodyValidationDisplayed = compose.isBodyValidationDisplayed();
 		logger.logTestVerificationStep("Verify whetehr body validation displayed." + isBodyValidationDisplayed);
-		Assert.assertTrue(isBodyValidationDisplayed);
-
-		logger.logTestStep("Click on User profile.");
-		newsFeedPage.clickOnUserProfile();
-		logger.logTestStep("Click on Logout.");
-		newsFeedPage.clickOnLogout();
+		Assert.assertTrue(isBodyValidationDisplayed, "Body validation not displayed.");
 	}
 
 	/**
 	 * MessageTest:@T3210-Replaying to a message.
 	 */
 	@Test(description = "MessageTest:@T3210-Replaying to a message.")
-	public void verifyReplayingToAMessage() {
+	public void verifyReplayingToTheMessage() {
 		logger.logTestStep("Click on Mail.");
 		messagePage.clickOnMail();
 		logger.logTestStep("Store Message text.");
@@ -232,21 +279,22 @@ public class MessageTest extends BaseTest {
 		logger.logTestStep("Set message text box." + messageText);
 		messagePage.setMessageTextBox(messageText);
 		logger.logTestStep("Click on send message.");
-		messagePage.clickOnSendMessage();
+		compose.clickOnSendMessage();
 		logger.logTestStep("Click on user profile.");
 		newsFeedPage.clickOnUserProfile();
 		logger.logTestStep("Click on Messages.");
 		messagePage.clickOnMessages();
+		logger.logTestStep("Wait until alert present.");
+		final boolean isAlertPresent = compose.waitUntilAlertPresent();
+		if(isAlertPresent){
+			logger.logTestStep("Driver accept alert.");
+			messagePage.handleAlert(true);
+		}
 
 		logger.logTestStep("Check whether Replay mail displayed.");
-		final boolean isReplayMailDiplayed = messagePage.isReplayMailDiplayed();
-		logger.logTestVerificationStep("Verify whether Replay mail displayed." + isReplayMailDiplayed);
-		Assert.assertTrue(isReplayMailDiplayed);
-
-		logger.logTestStep("Click on User profile.");
-		newsFeedPage.clickOnUserProfile();
-		logger.logTestStep("Click on Logout.");
-		newsFeedPage.clickOnLogout();
+		final boolean isMailTitleDisplayed = messagePage.isMailTitleDisplayed();
+		logger.logTestVerificationStep("Verify whether Replay mail displayed." + isMailTitleDisplayed);
+		Assert.assertTrue(isMailTitleDisplayed, "Replay mail not displayed.");
 	}
 
 	/**
@@ -262,11 +310,11 @@ public class MessageTest extends BaseTest {
 		compose.setUserNameText(userNameText);
 		logger.logTestStep("Set User name text and eenter.");
 		compose.setUserNameText("" + Keys.ENTER);
-		logger.logTestStep("Check whether Tes displayed.");
 
+		logger.logTestStep("Check whether Tes displayed.");
 		final boolean isTesDisplayed = compose.isTesDisplayed();
 		logger.logTestStep("Verify whether Tes displayed." + isTesDisplayed);
-		Assert.assertTrue(isTesDisplayed);
+		Assert.assertTrue(isTesDisplayed, "Tes not displayed.");
 		logger.logTestStep("store Message body.");
 		final String messageBody = propertyUtil.getProperty("messageBody");
 		logger.logTestStep("Set Message body." + messageBody);
@@ -277,12 +325,7 @@ public class MessageTest extends BaseTest {
 		logger.logTestStep("Check whether Send banner displayed.");
 		final boolean isSendBannerDisplayed = compose.isSentBannerDisplayed();
 		logger.logTestVerificationStep("Verify whether Send banner displayed." + isSendBannerDisplayed);
-		Assert.assertTrue(isSendBannerDisplayed);
-
-		logger.logTestStep("Click on User profile.");
-		newsFeedPage.clickOnUserProfile();
-		logger.logTestStep("Click on Logout.");
-		newsFeedPage.clickOnLogout();
+		Assert.assertTrue(isSendBannerDisplayed, "Send banner not displayed.");
 	}
 
 	/**
@@ -302,13 +345,33 @@ public class MessageTest extends BaseTest {
 		logger.logTestStep("Store Actual url.");
 		final String actualUrl = driver.getCurrentUrl();
 		logger.logTestVerificationStep("Verify whether url's are Equal." + actualUrl + "" + expectedUrl);
-		Assert.assertEquals(actualUrl, expectedUrl);
-
+		Assert.assertEquals(actualUrl, expectedUrl, "We are not in expected page.");
 		logger.logTestStep("Click on User profile.");
 		newsFeedPage.clickOnUserProfile();
-		logger.logTestStep("Click on Logout.");
-		newsFeedPage.clickOnLogout();
+		logger.logTestStep("Click on Messages.");
+		messagePage.clickOnMessages();
+	}
 
+	/**
+	 * MessageTest:@T326-Undo.
+	 */
+	@Test(description = "MessageTest:@T326-Undo.")
+	public void verifyTheUndo() {
+		logger.logTestStep("Click on Select message.");
+		messagePage.clickOnSelectMessage();
+		logger.logTestStep("Store mail text.");
+		final String mailText = messagePage.getMailText();
+
+		logger.logTestStep("Click on Delete message.");
+		messagePage.clickOnDeleteMessage();
+		logger.logTestStep("Click on Undo.");
+		messagePage.clickOnUndo();
+
+		logger.logTestStep("Check whether Mail text displayed.");
+		final boolean isMailTextDisplayed = messagePage.isMailTextDisplayed(mailText);
+		logger.logTestVerificationStep("Verify whether Mail text displayed." + isMailTextDisplayed);
+		Assert.assertTrue(isMailTextDisplayed, "Mail text is not displayed.");
+		driver.navigate().refresh();
 	}
 
 	/**
@@ -324,46 +387,14 @@ public class MessageTest extends BaseTest {
 		logger.logTestStep("Check whether Undo displayed.");
 		final boolean isUndoDisplayed = messagePage.isUndoDisplayed();
 		logger.logTestVerificationStep("Verify whether Undo displayed." + isUndoDisplayed);
-		Assert.assertTrue(isUndoDisplayed);
+		Assert.assertTrue(isUndoDisplayed, "Undo is not displayed.");
 
 		logger.logTestStep("Store Expected url.");
 		final String expectedUrl = "https://healthunlocked.com/messages";
 		logger.logTestStep("Store Actual url.");
-		final String actualUrl = messagePage.currentUrl();
+		final String actualUrl = messagePage.currentPageUrl();
 		logger.logTestStep("Verify whether url's are Equal." + actualUrl + "" + expectedUrl);
-		Assert.assertEquals(actualUrl, expectedUrl);
-
-		logger.logTestStep("Click on User profile.");
-		newsFeedPage.clickOnUserProfile();
-		logger.logTestStep("Click on Logout.");
-		newsFeedPage.clickOnLogout();
-	}
-
-	/**
-	 * MessageTest:@T326-Undo.
-	 */
-	@Test(description = "MessageTest:@T326-Undo.")
-	public void verifyUndo() {
-		logger.logTestStep("Check whether Mail title displayed.");
-		final boolean isMailTitleDisplayed = messagePage.isMailTitleDisplayed();
-		logger.logTestVerificationStep("Verify whether Mail title displayed." + isMailTitleDisplayed);
-		Assert.assertTrue(isMailTitleDisplayed);
-		logger.logTestStep("Click on Select message.");
-		messagePage.clickOnSelectMessage();
-		logger.logTestStep("Click on Delete message.");
-		messagePage.clickOnDeleteMessage();
-		logger.logTestStep("Click on Undo.");
-		messagePage.clickOnUndo();
-
-		logger.logTestStep("Check whether Mail tilte displayed.");
-		final boolean isMailTitleDisplay = messagePage.isMailTitleDisplayed();
-		logger.logTestVerificationStep("Verify whether Mail title displayed." + isMailTitleDisplay);
-		Assert.assertTrue(isMailTitleDisplay);
-
-		logger.logTestStep("Click on User profile.");
-		newsFeedPage.clickOnUserProfile();
-		logger.logTestStep("Click on Logout.");
-		newsFeedPage.clickOnLogout();
+		Assert.assertEquals(actualUrl, expectedUrl, "We are not in expected page.");
 	}
 
 	/**
@@ -382,19 +413,15 @@ public class MessageTest extends BaseTest {
 
 		logger.logTestStep("Check whether Tes displayed.");
 		boolean isTesDisplayed = compose.isTesDisplayed();
-		logger.logTestVerificationStep("Verify whether Tes displayed." + isTesDisplayed);
-		Assert.assertTrue(isTesDisplayed);
+		logger.logTestVerificationStep("Verify whether Tes user displayed." + isTesDisplayed);
+		Assert.assertTrue(isTesDisplayed, "Tes not displayed.");
 
 		logger.logTestStep("Click on Recipient close.");
 		compose.clickOnRecipientClose();
+
 		logger.logTestStep("Check whether Tes displayed.");
 		isTesDisplayed = compose.isTesDisplayed();
-		logger.logTestVerificationStep("Verify whether Tes displayed." + isTesDisplayed);
-		Assert.assertFalse(isTesDisplayed);
-
-		logger.logTestStep("Click on User profile.");
-		newsFeedPage.clickOnUserProfile();
-		logger.logTestStep("Click on Logout.");
-		newsFeedPage.clickOnLogout();
+		logger.logTestVerificationStep("Verify whether Tes user displayed." + isTesDisplayed);
+		Assert.assertFalse(isTesDisplayed, "Tes not displayed.");
 	}
 }

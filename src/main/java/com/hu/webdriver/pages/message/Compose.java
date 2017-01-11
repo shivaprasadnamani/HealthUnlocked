@@ -15,14 +15,14 @@ import com.hu.webdriver.pages.BasePage;
  */
 public class Compose extends BasePage {
 	/**
-	 * Web element for Ban.
+	 * Web element for Ban user.
 	 */
 	@FindBy(xpath = "//div[text()='bana24']")
 	WebElement ban;
 	/**
 	 * Web element for Body validation.
 	 */
-	@FindBy(xpath = "//li[contains(text(),'Body')]")
+	@FindBy(xpath = "//li[text()='Body is required.']")
 	WebElement bodyValidation;
 	/**
 	 * Web element for Message body.
@@ -32,23 +32,28 @@ public class Compose extends BasePage {
 	/**
 	 * Web element for Message validation.
 	 */
-	@FindBy(xpath = "//li[contains(text(),'At')]")
+	@FindBy(xpath = "//li[text()='At least one recipient is required']")
 	WebElement messageValidation;
 	/**
-	 * By element for Recipient close.
+	 * Web element for Recipient close button.
 	 */
-	By recipientClose = By.xpath("//button[@type='button']");
+	@FindBy(xpath = "//button[@type='button']")
+	WebElement recipientClose;
 	/**
-	 * By element for Send.
+	 * By element for Send button.
 	 */
 	By send = By.cssSelector(".btn-primary");
+	/**
+	 * By element for Send message.
+	 */
+	By sendMessage = By.cssSelector(".btn-primary");
 	/**
 	 * Web element for Sent banner.
 	 */
 	@FindBy(xpath = "//*[text()='Sent!']")
 	WebElement sentBanner;
 	/**
-	 * Web element for Tes.
+	 * Web element for Tes user.
 	 */
 	@FindBy(xpath = "//div[text()='Tes1970']")
 	WebElement tes;
@@ -57,7 +62,6 @@ public class Compose extends BasePage {
 	 */
 	@FindBy(xpath = "//input[@placeholder='Start typing username...']")
 	WebElement userNameText;
-
 	/**
 	 * Constructor for Compose page.
 	 *
@@ -69,30 +73,45 @@ public class Compose extends BasePage {
 	}
 
 	/**
+	 *Method to Clear text area.
+	 */
+	public void clearTextArea(){
+		userNameText.clear();
+	}
+
+	/**
 	 * Method to click on Recipient close.
 	 */
 	public void clickOnRecipientClose() {
-		findClickableElement(By.xpath("//button[@type='button']")).click();
+		recipientClose.click();
 	}
 
 	/**
-	 * Method to click on Send.
+	 * Method to click on Send button.
 	 */
 	public void clickOnSend() {
-		findClickableElement(By.cssSelector(".btn-primary")).click();
+		findClickableElement(send).click();
 	}
 
 	/**
-	 * Method to verify whether Ban displayed.
+	 * Method to click on Send message.
+	 */
+	public void clickOnSendMessage() {
+		findClickableElement(sendMessage).click();
+	}
+
+	/**
+	 * Method to verify whether Ban user displayed.
 	 *
 	 * @return boolean.
 	 */
 	public boolean isBanDisplayed() {
+		sleep(3);
 		return isElementPresent(ban);
 	}
 
 	/**
-	 * Method to verify whether Body validation displayed.
+	 * Method to verify whether Body validation error message displayed.
 	 *
 	 * @return boolean.
 	 */
@@ -101,7 +120,7 @@ public class Compose extends BasePage {
 	}
 
 	/**
-	 * Method to verify whether Message validation displayed.
+	 * Method to verify whether Message validation error message displayed.
 	 *
 	 * @return boolean.
 	 */
@@ -115,18 +134,17 @@ public class Compose extends BasePage {
 	 * @return boolean.
 	 */
 	public boolean isSentBannerDisplayed() {
-		findVisibleElement(By.xpath("//*[text()='Sent!']"));
-		return isElementPresent(sentBanner);
+		return isElementPresent(By.xpath("//*[text()='Sent!']"));
 	}
 
 	/**
-	 * Method to verify whether Tes displayed.
+	 * Method to verify whether Tes user displayed.
 	 *
 	 * @return boolean.
 	 */
 	public boolean isTesDisplayed() {
-		sleep(2);
-		return isElementPresent(tes);
+		sleep(1);
+		return isElementPresent(By.xpath("//div[text()='Tes1970']"));
 	}
 
 	/**
@@ -135,7 +153,7 @@ public class Compose extends BasePage {
 	 * @param value
 	 */
 	public void setMessageBody(String value) {
-		messageBody.sendKeys(value);
+		clearAndType(messageBody, value);
 	}
 
 	/**
@@ -144,7 +162,16 @@ public class Compose extends BasePage {
 	 * @param value
 	 */
 	public void setUserNameText(String value) {
-		userNameText.sendKeys(value);
-		sleep(3);
+		type(userNameText, value);
 	}
+
+	/**
+	 * Method to wait until Alert present.
+	 */
+	public boolean waitUntilAlertPresent(){
+		//final WebDriverWait wait = new WebDriverWait(driver, 10);
+		//wait.until(ExpectedConditions.alertIsPresent());
+		return isAlertPresent();
+	}
+
 }
