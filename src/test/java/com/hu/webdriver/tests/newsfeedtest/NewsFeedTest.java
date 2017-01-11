@@ -42,7 +42,7 @@ public class NewsFeedTest extends BaseTest {
 	/**
 	 * News feed Page-T1135:Delete user
 	 */
-	@Test(description = "Newsfeed Page-T1135:Delete user.")
+	@Test(description = "Newsfeed Page-T1135:Delete user.",enabled = false)
 	public void verifyDeleteUser() {
 		logger.logTestStep("Click on Login.");
 		loginPage.clickOnLogin();

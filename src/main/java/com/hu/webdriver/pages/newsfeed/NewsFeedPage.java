@@ -108,7 +108,8 @@ public class NewsFeedPage extends BasePage {
 	 */
 	public void clickOnLogout() {
 		findClickableElement(logout).click();
-		findVisibleElement(By.xpath("//img[@class='logo']"), MAX_WEBELMENT_TIMEOUT);
+		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Sent!']"));
+		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Undo?']"));
 	}
 
 	/**
@@ -129,6 +130,7 @@ public class NewsFeedPage extends BasePage {
 	 * Method to click on user profile.
 	 */
 	public void clickOnUserProfile() {
+		//waitUntilInvisibleOfBanner(By.xpath("//*[contains(text(),'in!')]"));
 		findClickableElement(userProfile).click();
 	}
 
@@ -174,5 +176,13 @@ public class NewsFeedPage extends BasePage {
 	public void navigateToNewsfeedPage() {
 		driver.navigate().to("https://healthunlocked.com");
 		findVisibleElement(By.xpath("//a[text()='News Feed']"),DEFAULT_WEBELMENT_TIMEOUT);
+	}
+
+	/**
+	 * Method to navigate to User profile.
+	 */
+	public void navigateToUserProfile(){
+		driver.navigate().to("https://healthunlocked.com/user/pesho");
+		findVisibleElement(By.xpath("//h1[text()='pesho']"));
 	}
 }

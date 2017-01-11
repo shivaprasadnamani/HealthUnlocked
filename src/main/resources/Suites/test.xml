@@ -20,5 +20,10 @@
 			<class name="com.hu.webdriver.tests.join.JoinTest" />
 		</classes>
 	</test>
+	<test name="MessageTest">
+		<classes>
+			<class name="com.hu.webdriver.tests.messagetest.MessageTest" />
+		</classes>
+	</test>
 
 </suite> 

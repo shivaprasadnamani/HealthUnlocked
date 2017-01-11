@@ -1,5 +1,7 @@
 package com.hu.webdriver.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -38,6 +40,27 @@ public class BasePage {
 	 */
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
+	}
+
+	/**
+	 * Method to Clear and Type.
+	 * @param element
+	 * @param value
+	 */
+	public void clearAndType(WebElement element,String value){
+		final WebDriverWait wait = new WebDriverWait(driver, 3);
+		wait.until(ExpectedConditions.visibilityOf(element));
+		element.clear();
+		element.sendKeys(value);
+	}
+
+	/**
+	 * Method to Current page url.
+	 *
+	 * @return String.
+	 */
+	public String currentPageUrl() {
+		return driver.getCurrentUrl();
 	}
 
 	/**
@@ -133,6 +156,24 @@ public class BasePage {
 	}
 
 	/**
+	 * Method to find list of visible web elements.
+	 *
+	 * @param by.
+	 * @return web element.
+	 */
+	public List<WebElement> findVisibleElements(By by) {
+		List<WebElement> element = null;
+		try {
+			element = (new WebDriverWait(driver, DEFAULT_WEBELMENT_TIMEOUT)
+					.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by)));
+		} catch (final Exception e) {
+			final String message = "Could not find visible element: " + by.toString();
+			throw new RuntimeException(message);
+		}
+		return element;
+	}
+
+	/**
 	 * Method to get the element text.
 	 *
 	 * @param by.
@@ -163,6 +204,32 @@ public class BasePage {
 			e.printStackTrace();
 		}
 		return text;
+	}
+
+
+	public void handleAlert(boolean isAlertExist){
+		if(isAlertExist){
+			if(isAlertPresent()){
+				driver.switchTo().alert().accept();
+			}}
+		else{
+			if(isAlertPresent()){
+				driver.switchTo().alert().dismiss();
+			}}
+	}
+
+	/**
+	 * Method to verify Alert present.
+	 * @return boolean.
+	 */
+	public boolean isAlertPresent() {
+		try {
+			driver.switchTo().alert();
+			return true;
+		} // try
+		catch (final Exception e) {
+			return false;
+		} // catch
 	}
 
 	/**
@@ -343,6 +410,18 @@ public class BasePage {
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Method to type.
+	 * @param element
+	 * @param value
+	 */
+	public void type(WebElement element,String value){
+		final WebDriverWait wait = new WebDriverWait(driver, 2);
+		wait.until(ExpectedConditions.visibilityOf(element));
+		element.sendKeys(value);
+		sleep(2);
 	}
 
 	/**

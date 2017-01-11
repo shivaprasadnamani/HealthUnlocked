@@ -1,8 +1,11 @@
 package com.hu.webdriver.pages.join;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -12,6 +15,11 @@ import com.hu.webdriver.pages.BasePage;
  * @author SHIVA
  */
 public class JoinPage extends BasePage {
+	/**
+	 * By element for Browse communities.
+	 */
+	By browseCommunities = By.xpath("//a[text()='Browse Communities']");
+
 	/**
 	 * By Element for close button.
 	 */
@@ -40,9 +48,21 @@ public class JoinPage extends BasePage {
 	By finishButton = By.xpath("//button[text()='Finish']");
 
 	/**
+	 * Web element for Follow.
+	 */
+	@FindBy(xpath = "(//button[text()='Follow'])[1]")
+	WebElement follow;
+
+	/**
 	 * By element for follow button.
 	 */
 	By followButton = By.xpath("(//button[text()='Follow'])[1]");
+
+	/**
+	 * Web element for Following.
+	 */
+	@FindBy(xpath = "//button[text()='Following']")
+	WebElement following;
 
 	/**
 	 * WebElement for Popular communities.
@@ -58,6 +78,13 @@ public class JoinPage extends BasePage {
 	public JoinPage(WebDriver driver) {
 		super(driver);
 		PageFactory.initElements(driver, this);
+	}
+
+	/**
+	 * Method to click on Browse community.
+	 */
+	public void clickOnBrowseCommunity() {
+		findClickableElement(browseCommunities).click();
 	}
 
 	/**
@@ -79,6 +106,16 @@ public class JoinPage extends BasePage {
 	 */
 	public void clickOnFollowButton() {
 		findClickableElement(followButton).click();
+	}
+
+	/**
+	 * Method to click on Follow community.
+	 *
+	 * @return String.
+	 */
+	public String clickOnFollowCommunity() {
+		findClickableElement(By.xpath("(//button[text()='Follow'])[1]")).click();
+		return getText(follow);
 	}
 
 	/**
@@ -135,5 +172,17 @@ public class JoinPage extends BasePage {
 		communitySearch.click();
 		communitySearch.sendKeys("Running");
 		findVisibleElement(By.xpath("(//button[text()='Follow'])[1]"), MAX_WEBELMENT_TIMEOUT);
+	}
+
+	/**
+	 * Method to unfollow Communities.
+	 */
+	public void unfollowCommunities() {
+		final List<WebElement> list = findVisibleElements(By.xpath("//button[text()='Following']"));
+		for (final WebElement element : list) {
+			final Actions action = new Actions(driver);
+			action.moveToElement(following);
+			element.click();
+		}
 	}
 }

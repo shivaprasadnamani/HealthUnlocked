@@ -1,5 +1,7 @@
 package com.hu.webdriver.pages.profilepage;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -81,18 +83,18 @@ public class EditProfilePage extends BasePage {
 	 * Method to click on close Health Interest.
 	 */
 	public void clickOnCloseHealthInterest() {
-		findVisibleElement(By.xpath("//button[text()='×']"), MAX_WEBELMENT_TIMEOUT).click();
-		sleep(1);
+		final List<WebElement> list = findVisibleElements(By.xpath("//button[text()='×']"));
+		for(final WebElement element : list){
+			element.click();
+		}
 	}
 
 	/**
 	 * Method to click on Save changes.
 	 */
 	public void clickOnSaveChanges() {
-		sleep(2);
 		findVisibleElement(By.xpath("//input[@value='Save changes']")).click();
 		waitUntilInvisibleOfBanner(By.xpath("//*[text()='Saved!']"));
-		sleep(1);
 	}
 
 	/**
