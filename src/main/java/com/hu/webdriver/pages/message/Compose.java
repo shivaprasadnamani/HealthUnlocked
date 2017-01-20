@@ -169,8 +169,6 @@ public class Compose extends BasePage {
 	 * Method to wait until Alert present.
 	 */
 	public boolean waitUntilAlertPresent(){
-		//final WebDriverWait wait = new WebDriverWait(driver, 10);
-		//wait.until(ExpectedConditions.alertIsPresent());
 		return isAlertPresent();
 	}
 

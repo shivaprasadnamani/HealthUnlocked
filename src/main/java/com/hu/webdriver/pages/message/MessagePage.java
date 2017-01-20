@@ -46,7 +46,7 @@ public class MessagePage extends BasePage {
 	/**
 	 * By Element for My communities.
 	 */
-	By myCommunities = By.xpath("//span[text()='My Communities']");
+	By myCommunities = By.xpath("//a[contains(text(),'My Communities')]");
 	/**
 	 * By element for Deselect all.
 	 */

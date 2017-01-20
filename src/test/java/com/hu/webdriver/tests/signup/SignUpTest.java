@@ -10,12 +10,18 @@ import com.hu.webdriver.pages.join.JoinPage;
 import com.hu.webdriver.pages.newsfeed.NewsFeedPage;
 import com.hu.webdriver.pages.signup.SignUpPage;
 import com.hu.webdriver.tests.BaseTest;
+import com.hu.webdriver.util.CSVDataReader;
+import com.hu.webdriver.util.ExcelDataReader;
+import com.hu.webdriver.util.HUDataProviders;
 import com.hu.webdriver.util.TestLogger;
 
 /**
  * @author SHIVA
  */
 public class SignUpTest extends BaseTest {
+	CSVDataReader csvDataReader = new CSVDataReader();
+
+	ExcelDataReader excelDataReader = new ExcelDataReader();
 	/**
 	 * Instance variables for Forgot password page.
 	 */
@@ -36,6 +42,7 @@ public class SignUpTest extends BaseTest {
 	 * Instance variables for News feed page.
 	 */
 	NewsFeedPage newsFeedPage;
+
 	/**
 	 * Instance variables for Sign up page.
 	 */
@@ -65,6 +72,52 @@ public class SignUpTest extends BaseTest {
 		signUpPage.switchToMainWindow();
 		logger.logTestStep("Click on Sign up close Model.");
 		signUpPage.clickOnSignUpCloseModel();
+	}
+
+	@Test(dataProvider="csvdata",dataProviderClass=HUDataProviders.class)
+	public void verifyCsvData(String userName, String mailId){
+		logger.logTestStep("Click on sign up.");
+		signUpPage.clickOnSignUp();
+		logger.logTestStep("Set user name." + userName);
+		signUpPage.setUserName(userName);
+		logger.logTestStep("Set email id." + mailId);
+		signUpPage.setEmailId(mailId);
+		logger.logTestStep("Click on Sign up.");
+		signUpPage.clickOnSignUpWithEmail();
+
+		logger.logTestStep("Check is invalid Email errror message displayed.");
+		final boolean isInvaildEmailErrorMessageDisplayed = signUpPage.isInvaildEmailErrorMessageDisplayed();
+		logger.logTestVerificationStep(
+				"verify whether email id message is displaying or not." + isInvaildEmailErrorMessageDisplayed);
+		Assert.assertTrue(isInvaildEmailErrorMessageDisplayed, "Message not displying.");
+
+		logger.logTestStep("Click on Sign up close model.");
+		signUpPage.clickOnSignUpCloseModel();
+
+
+	}
+
+	@Test(dataProvider="exceldata")
+	public void verifyExcelData(String userName, String mailId){
+		logger.logTestStep("Click on sign up.");
+		signUpPage.clickOnSignUp();
+		logger.logTestStep("Set user name." + userName);
+		signUpPage.setUserName(userName);
+		logger.logTestStep("Set email id." + mailId);
+		signUpPage.setEmailId(mailId);
+		logger.logTestStep("Click on Sign up.");
+		signUpPage.clickOnSignUpWithEmail();
+
+		logger.logTestStep("Check is invalid Email errror message displayed.");
+		final boolean isInvaildEmailErrorMessageDisplayed = signUpPage.isInvaildEmailErrorMessageDisplayed();
+		logger.logTestVerificationStep(
+				"verify whether email id message is displaying or not." + isInvaildEmailErrorMessageDisplayed);
+		Assert.assertTrue(isInvaildEmailErrorMessageDisplayed, "Message not displying.");
+
+		logger.logTestStep("Click on Sign up close model.");
+		signUpPage.clickOnSignUpCloseModel();
+
+
 	}
 
 	@BeforeMethod

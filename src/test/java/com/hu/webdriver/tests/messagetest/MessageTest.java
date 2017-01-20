@@ -102,17 +102,16 @@ public class MessageTest extends BaseTest {
 		logger.logTestStep("Click on Messages.");
 		messagePage.clickOnMessages();
 
+		logger.logTestStep("Click on Select all.");
 		messagePage.clickOnSelectAll();
+		logger.logTestStep("Click on Delete message.");
 		messagePage.clickOnDeleteMessage();
-
+		logger.logTestStep("Click on My communities.");
 		messagePage.clickOnMyCommunities();
 		logger.logTestStep("Click on Browse community.");
 		joinPage.clickOnBrowseCommunity();
 		logger.logTestStep("Click on Follow community.");
 		joinPage.clickOnFollowCommunity();
-
-
-
 	}
 
 	@AfterClass
@@ -131,10 +130,6 @@ public class MessageTest extends BaseTest {
 		newsFeedPage.clickOnUserProfile();
 		logger.logTestStep("Click on Messages.");
 		messagePage.clickOnMessages();
-		logger.logTestStep("Click on select all.");
-		//messagePage.clickOnSelectAll();
-		logger.logTestStep("Click on Delete message.");
-		//messagePage.clickOnDeleteMessage();
 	}
 
 	/**
@@ -313,7 +308,7 @@ public class MessageTest extends BaseTest {
 
 		logger.logTestStep("Check whether Tes displayed.");
 		final boolean isTesDisplayed = compose.isTesDisplayed();
-		logger.logTestStep("Verify whether Tes displayed." + isTesDisplayed);
+		logger.logTestVerificationStep("Verify whether Tes displayed." + isTesDisplayed);
 		Assert.assertTrue(isTesDisplayed, "Tes not displayed.");
 		logger.logTestStep("store Message body.");
 		final String messageBody = propertyUtil.getProperty("messageBody");
@@ -393,7 +388,7 @@ public class MessageTest extends BaseTest {
 		final String expectedUrl = "https://healthunlocked.com/messages";
 		logger.logTestStep("Store Actual url.");
 		final String actualUrl = messagePage.currentPageUrl();
-		logger.logTestStep("Verify whether url's are Equal." + actualUrl + "" + expectedUrl);
+		logger.logTestVerificationStep("Verify whether url's are Equal." + actualUrl + "" + expectedUrl);
 		Assert.assertEquals(actualUrl, expectedUrl, "We are not in expected page.");
 	}
 

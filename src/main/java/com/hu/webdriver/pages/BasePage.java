@@ -48,7 +48,7 @@ public class BasePage {
 	 * @param value
 	 */
 	public void clearAndType(WebElement element,String value){
-		final WebDriverWait wait = new WebDriverWait(driver, 3);
+		final WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.visibilityOf(element));
 		element.clear();
 		element.sendKeys(value);
